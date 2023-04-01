@@ -18,12 +18,14 @@ jobs:
       - name: setup java
         uses: actions/setup-java@v2
         with:
+          distribution: 'zulu'
           java-version: '12.x'
 
       - name: install flutter
         uses: subosito/flutter-action@v2
 
         with:
+          flutter-version: '3.7.6'
           channel: "stable"
 
       # 依存関係読み込み
