@@ -1,5 +1,6 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'repo_data_model.freezed.dart';
 part 'repo_data_model.g.dart';
@@ -13,7 +14,6 @@ class RepoDataModel with _$RepoDataModel {
 
   factory RepoDataModel.fromJson(Map<String, dynamic> json) =>
       _$RepoDataModelFromJson(json);
-
 }
 
 @freezed
