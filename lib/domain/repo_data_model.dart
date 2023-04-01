@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/foundation.dart';
 
-// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'repo_data_model.freezed.dart';

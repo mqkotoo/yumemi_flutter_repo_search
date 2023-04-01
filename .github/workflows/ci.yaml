@@ -19,7 +19,6 @@ jobs:
         uses: subosito/flutter-action@v2
 
         with:
-          flutter-version: '3.7.6'
           channel: "stable"
 
       # 依存関係読み込み
@@ -32,7 +31,7 @@ jobs:
 
       # インポートが整列されているかチェック
       - name: check import sort
-        run: flutter pub run import_sorter:main --exit-if-changed .
+        run: flutter pub run import_sorter:main --no-comments --exit-if-changed
 
       # コードのフォーマットチェック
       - name: check code format
