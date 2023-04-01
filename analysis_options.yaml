@@ -5,3 +5,12 @@ linter:
 
   rules:
      prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+  
+  errors:
+    invalid_annotation_target: ignore
