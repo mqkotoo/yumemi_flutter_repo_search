@@ -32,7 +32,7 @@ jobs:
 
       # インポートが整列されているかチェック
       - name: check import sort
-        run: flutter pub run import_sorter:main --exit-if-changed
+        run: flutter pub run import_sorter:main --exit-if-changed .
 
       # コードのフォーマットチェック
       - name: check code format
