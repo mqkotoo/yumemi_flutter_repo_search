@@ -1,4 +1,4 @@
-class MockData {
+class RepositoryMockData {
   static const String jsonData = '''
   {
   "total_count": 483790,
