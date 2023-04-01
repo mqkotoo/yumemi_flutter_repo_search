@@ -1,3 +1,5 @@
+# ref: https://zuma-lab.com/posts/flutter-search-github-json-serializable-build-yaml
+
 targets:
   $default:
     builders:
