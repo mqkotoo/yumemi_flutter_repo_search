@@ -7,7 +7,7 @@ on:
       - develop
 
 jobs:
-  analyze&test:
+  analyze_test:
     name: Run flutter test and analyze
     runs-on: ubuntu-latest
     steps:
