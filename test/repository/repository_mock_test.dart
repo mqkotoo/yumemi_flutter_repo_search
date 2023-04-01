@@ -35,7 +35,6 @@ void main() {
         });
 
     test('getメソッドのテスト', () async {
-
       //mockのhttpクライアントでDIする
       container = ProviderContainer(
         overrides: [httpClientProvider.overrideWithValue(mockClient)],
