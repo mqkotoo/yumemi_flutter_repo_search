@@ -25,10 +25,6 @@ jobs:
       - name: get dependencies
         run: flutter pub get
 
-      # freezed等のファイル生成
-      - name: generate codes with build_runner
-        run: flutter pub run build_runner build -d
-
       # インポートが整列されているかチェック
       - name: check import sort
         run: flutter pub run import_sorter:main --no-comments --exit-if-changed
@@ -36,6 +32,10 @@ jobs:
       # コードのフォーマットチェック
       - name: check code format
         run: dart format --set-exit-if-changed .
+
+      # freezed等のファイル生成
+      - name: generate codes with build_runner
+        run: flutter pub run build_runner build -d
 
       # analyzeに引っ掛かるかチェック
       - name: check analyze

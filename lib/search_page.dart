@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
-class SearchPage extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:yumemi_flutter_repo_search/main.dart';
+
+class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dataRepository = ref.read(dataRepositoryProvider);
+    return Scaffold(
       body: Center(
-        child: Text('search page'),
+        child: ElevatedButton(
+          onPressed: () async {
+            await dataRepository.getData('flutter');
+          },
+          child: const Text('test'),
+        ),
       ),
     );
   }
