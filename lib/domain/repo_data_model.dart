@@ -14,6 +14,9 @@ class RepoDataModel with _$RepoDataModel {
 
   factory RepoDataModel.fromJson(Map<String, dynamic> json) =>
       _$RepoDataModelFromJson(json);
+
+  ///入力がない場合はtotalCountを-1で返す
+  static const empty = RepoDataModel(totalCount: -1, items: []);
 }
 
 @freezed
