@@ -21,6 +21,8 @@ ThemeData lightTheme = ThemeData.light().copyWith(
 
   //textField theme
   inputDecorationTheme: InputDecorationTheme(
+    prefixIconColor: const Color(0xff9e9e9e),
+    suffixIconColor: const Color(0xff9e9e9e),
     fillColor: const Color(0xffe1eedf),
     filled: true,
     enabledBorder: OutlineInputBorder(
@@ -38,6 +40,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     isDense: true,
   ),
+
   // divider
   dividerColor: const Color(0x47000000),
 );

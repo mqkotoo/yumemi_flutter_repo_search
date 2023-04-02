@@ -13,7 +13,7 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //検索結果データ
     final repoData =
-        ref.watch(apiFamilyProvider(ref.watch(inputRepoNameProvider)));
+        ref.watch(repoDataProvider(ref.watch(inputRepoNameProvider)));
     //テキストのコントローラ
     final textController = ref.watch(textEditingControllerProvider);
 
@@ -30,16 +30,37 @@ class SearchPage extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               //search field
               child: TextFormField(
-                  controller: textController,
-                  //入力キーボードのdone→searchに変更
-                  textInputAction: TextInputAction.search,
-                  //search押したらデータ取得 データ渡す
-                  onFieldSubmitted: (text) {
-                    //無駄な余白をカットしてプロバイダーに渡す
-                    ref
-                        .read(inputRepoNameProvider.notifier)
-                        .update((state) => text.trim());
-                  }),
+                controller: textController,
+                onChanged: (text) {
+                  ref
+                      .read(isClearButtonVisibleProvider.notifier)
+                      .update((state) => text.isNotEmpty);
+                },
+                //入力キーボードのdone→searchに変更
+                textInputAction: TextInputAction.search,
+                //search押したらデータ取得 データ渡す
+                onFieldSubmitted: (text) {
+                  //無駄な余白をカットしてプロバイダーに渡す
+                  ref
+                      .read(inputRepoNameProvider.notifier)
+                      .update((state) => text.trim());
+                },
+                //decoration
+                decoration: InputDecoration(
+                  hintText: 'search repository',
+                  prefixIcon: const Icon(Icons.search, size: 27),
+                  suffixIcon: ref.watch(isClearButtonVisibleProvider)
+                      ? IconButton(
+                          icon: const Icon(Icons.clear, size: 27),
+                          onPressed: () {
+                            textController.clear();
+                            ref
+                                .watch(isClearButtonVisibleProvider.notifier)
+                                .update((state) => false);
+                          })
+                      : const SizedBox.shrink(),
+                ),
+              ),
             ),
             const Divider(color: Colors.black12),
             Expanded(
