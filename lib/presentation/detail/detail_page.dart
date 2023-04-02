@@ -47,10 +47,10 @@ class DetailPage extends StatelessWidget {
                   repoData.description ?? 'No Description',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
-                Divider(),
               ],
             ),
           ),
+          Divider(),
           Container(
             padding: EdgeInsets.symmetric(
                 vertical: 16, horizontal: widthSize * 0.05),
