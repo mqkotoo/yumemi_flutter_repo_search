@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -110,10 +111,12 @@ class SearchPage extends ConsumerWidget {
         children: [
           const SizedBox(width: 16),
           ClipOval(
-            child: Image.network(
+            child: CachedNetworkImage(
+              imageUrl: imageSource,
               width: 60,
               height: 60,
-              imageSource,
+              placeholder: (_, __) => const CircularProgressIndicator(),
+              errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
             ),
           ),
           Expanded(

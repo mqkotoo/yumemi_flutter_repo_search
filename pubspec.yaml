@@ -16,6 +16,7 @@ dependencies:
   http: ^0.13.5
   flutter_riverpod: ^2.3.2
   intl: ^0.18.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

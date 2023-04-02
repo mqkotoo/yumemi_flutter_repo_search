@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -32,10 +33,13 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   ClipOval(
-                    child: Image.network(
-                      repoData.owner.avatarUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: repoData.owner.avatarUrl,
                       width: 120,
                       height: 120,
+                      placeholder: (_, __) => const CircularProgressIndicator(),
+                      errorWidget: (_, __, ___) =>
+                          const Icon(Icons.error, size: 50),
                     ),
                   ),
                   Padding(
