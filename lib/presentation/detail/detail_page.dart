@@ -19,82 +19,86 @@ class DetailPage extends StatelessWidget {
     //画面サイズ取得
     final widthSize = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('詳細ページ'),
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-                vertical: 16, horizontal: widthSize * 0.05),
-            child: Column(
-              children: <Widget>[
-                ClipOval(
-                  child: Image.network(
-                    repoData.owner.avatarUrl,
-                    width: 120,
-                    height: 120,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: 16, horizontal: widthSize * 0.05),
+              child: Column(
+                children: <Widget>[
+                  ClipOval(
+                    child: Image.network(
+                      repoData.owner.avatarUrl,
+                      width: 120,
+                      height: 120,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    repoData.fullName,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      repoData.fullName,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
-                ),
-                Text(
-                  repoData.description ?? 'No Description',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ],
+                  Text(
+                    repoData.description ?? 'No Description',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Divider(),
-          Container(
-            padding: EdgeInsets.symmetric(
-                vertical: 16, horizontal: widthSize * 0.05),
-            child: Column(
-              children: [
-                detailElement(
-                  icon: Icons.language,
-                  elementLabel: 'language',
-                  elementData: repoData.language ?? 'No Language',
-                  iconBackgroundColor: Colors.blueAccent,
-                  iconColor: Colors.white,
-                ),
-                detailElement(
-                  icon: Icons.star_outline,
-                  elementLabel: 'star',
-                  elementData: starsCount,
-                  iconBackgroundColor: Colors.yellowAccent,
-                  iconColor: Colors.black87,
-                ),
-                detailElement(
-                  icon: Icons.remove_red_eye_outlined,
-                  elementLabel: 'watch',
-                  elementData: watchersCount,
-                  iconBackgroundColor: Colors.brown,
-                  iconColor: Colors.white,
-                ),
-                detailElement(
-                  icon: Icons.fork_right_sharp,
-                  elementLabel: 'fork',
-                  elementData: forksCount,
-                  iconBackgroundColor: Colors.purpleAccent,
-                  iconColor: Colors.white,
-                ),
-                detailElement(
-                  icon: Icons.info_outline,
-                  elementLabel: 'issue',
-                  elementData: issuesCount,
-                  iconBackgroundColor: Colors.green,
-                  iconColor: Colors.white,
-                ),
-              ],
+            Divider(),
+            Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: 16, horizontal: widthSize * 0.05),
+              child: Column(
+                children: [
+                  detailElement(
+                    icon: Icons.language,
+                    elementLabel: 'language',
+                    elementData: repoData.language ?? 'No Language',
+                    iconBackgroundColor: Colors.blueAccent,
+                    iconColor: Colors.white,
+                  ),
+                  detailElement(
+                    icon: Icons.star_outline,
+                    elementLabel: 'star',
+                    elementData: starsCount,
+                    iconBackgroundColor: Colors.yellowAccent,
+                    iconColor: Colors.black87,
+                  ),
+                  detailElement(
+                    icon: Icons.remove_red_eye_outlined,
+                    elementLabel: 'watch',
+                    elementData: watchersCount,
+                    iconBackgroundColor: Colors.brown,
+                    iconColor: Colors.white,
+                  ),
+                  detailElement(
+                    icon: Icons.fork_right_sharp,
+                    elementLabel: 'fork',
+                    elementData: forksCount,
+                    iconBackgroundColor: Colors.purpleAccent,
+                    iconColor: Colors.white,
+                  ),
+                  detailElement(
+                    icon: Icons.info_outline,
+                    elementLabel: 'issue',
+                    elementData: issuesCount,
+                    iconBackgroundColor: Colors.green,
+                    iconColor: Colors.white,
+                  ),
+                  SizedBox(height: 60)
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
