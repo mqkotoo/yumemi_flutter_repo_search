@@ -12,12 +12,6 @@ final textEditingControllerProvider =
 
 final apiFamilyProvider = FutureProvider.autoDispose
     .family<RepoDataModel, String>((ref, repoName) async {
-
-//ユーザーの入力がない場合はtotal countを-1で返してview側で処理する
-  if (repoName.isEmpty) {
-    return RepoDataModel.empty;
-  }
-
   final dataRepository = ref.watch(dataRepositoryProvider);
   return await dataRepository.getData(repoName);
 });
