@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
 
+import '../detail/detail_page.dart';
+
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -49,14 +51,14 @@ class SearchPage extends ConsumerWidget {
                             fullName: data.items[index].fullName,
                             description: data.items[index].description,
                             imageSource: data.items[index].owner.avatarUrl,
-                            // onTap: () {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             DetailPage(repoData: data.items[index])),
-                            //   );
-                            // },
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                        repoData: data.items[index])),
+                              );
+                            },
                           ),
                       separatorBuilder: (context, index) => const Divider(
                             color: Color(0xffBBBBBB),
@@ -75,34 +77,38 @@ class SearchPage extends ConsumerWidget {
   Widget _listItem(
       {required String fullName,
       String? description,
-      required String imageSource}) {
-    return Row(
-      children: [
-        const SizedBox(width: 16),
-        ClipOval(
-          child: Image.network(
-            width: 60,
-            height: 60,
-            imageSource,
+      required String imageSource,
+      required void Function() onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          const SizedBox(width: 16),
+          ClipOval(
+            child: Image.network(
+              width: 60,
+              height: 60,
+              imageSource,
+            ),
           ),
-        ),
-        Expanded(
-          child: ListTile(
-            title: Text(
-              fullName,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+          Expanded(
+            child: ListTile(
+              title: Text(
+                fullName,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                description ?? 'No Description',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
               ),
             ),
-            subtitle: Text(
-              description ?? 'No Description',
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

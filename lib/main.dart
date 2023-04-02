@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/repository/data_repository.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search_page.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/search_page.dart';
 
 final dataRepositoryProvider = Provider<DataRepository>((ref) {
   return DataRepository(client: ref.watch(httpClientProvider));

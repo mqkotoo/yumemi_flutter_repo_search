@@ -24,9 +24,6 @@ class DataRepository {
     }
 
     final jsonData = json.decode(response.body);
-    if (kDebugMode) {
-      print(RepoDataModel.fromJson(jsonData));
-    }
 
     return RepoDataModel.fromJson(jsonData);
   }
