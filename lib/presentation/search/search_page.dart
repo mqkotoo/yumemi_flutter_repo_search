@@ -96,18 +96,13 @@ class SearchPage extends ConsumerWidget {
                     error: (e, _) {
                       switch (e) {
                         case 'No Keywords':
-                          return EnterTextView();
-                          break;
+                          return const EnterTextView();
                         case 'Network Error':
-                          print('B判定');
-                          break;
+                          return const NetworkErrorView();
                         case 'Error Occurred':
-                          print('C判定');
-                          break;
+                          return const ErrorView();
                         default:
-                          if (kDebugMode) {
-                            print(e);
-                          }
+                          throw Exception(e);
                       }
                     },
                     loading: () => const ListItemShimmer(),
