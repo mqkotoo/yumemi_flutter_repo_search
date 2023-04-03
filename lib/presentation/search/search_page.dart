@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
@@ -91,8 +92,9 @@ class SearchPage extends ConsumerWidget {
                         color: Color(0xffBBBBBB),
                       ),
                     ),
-                    error: (error, stack) =>
-                        Center(child: Text(error.toString())),
+                    error: (error, stack) => error == 'No Keywords'
+                        ? EnterTextView()
+                        : SizedBox.shrink(),
                     loading: () => const ListItemShimmer(),
                   ),
 
