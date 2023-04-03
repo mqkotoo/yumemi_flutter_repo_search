@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class SearchPage extends ConsumerWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('GitHubサーチ'),
         ),
@@ -65,24 +67,37 @@ class SearchPage extends ConsumerWidget {
             const Divider(color: Colors.black12),
             Expanded(
               flex: 8,
-              child: repoData.when(
-                data: (data) => ListView.separated(
-                  //スクロールでキーボードを閉じるようにした
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
-                  itemCount: data.items.length,
-                  itemBuilder: (context, index) => ListItem(
-                    repoData: data.items[index],
-                    userIconUrl: data.items[index].owner.avatarUrl,
-                    fullName: data.items[index].fullName,
-                    description: data.items[index].description,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  // result list item
+                  repoData.when(
+                    data: (data) => ListView.separated(
+                      //スクロールでキーボードを閉じるようにした
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      itemCount: data.items.length,
+                      itemBuilder: (context, index) => ListItem(
+                        repoData: data.items[index],
+                        userIconUrl: data.items[index].owner.avatarUrl,
+                        fullName: data.items[index].fullName,
+                        description: data.items[index].description,
+                      ),
+                      separatorBuilder: (context, index) => const Divider(
+                        color: Color(0xffBBBBBB),
+                      ),
+                    ),
+                    error: (error, stack) =>
+                        Center(child: Text(error.toString())),
+                    loading: () => const ListItemShimmer(),
                   ),
-                  separatorBuilder: (context, index) => const Divider(
-                    color: Color(0xffBBBBBB),
-                  ),
-                ),
-                error: (error, stack) => Center(child: Text(error.toString())),
-                loading: () => const ListItemShimmer(),
+
+                  // // result count
+                  if (!repoData.hasError &&
+                      !repoData.isLoading &&
+                      repoData.value!.totalCount != 0)
+                    ResultCount(resultCount: repoData.value!.totalCount),
+                ],
               ),
             ),
           ],
