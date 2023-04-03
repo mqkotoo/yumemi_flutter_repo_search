@@ -43,3 +43,17 @@ class ErrorView extends StatelessWidget {
     );
   }
 }
+
+class NoResultView extends StatelessWidget {
+  const NoResultView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const ErrorComponent(
+      lottieFile: 'assets/lottie_animation/106964-shake-a-empty-box.json',
+      errorTitle: '結果は見つかりませんでした。',
+      errorDetail: '検索ワードを変更してください。',
+      key: Key('noResultView'),
+    );
+  }
+}

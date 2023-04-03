@@ -78,21 +78,25 @@ class SearchPage extends ConsumerWidget {
                 children: [
                   // result list item
                   repoData.when(
-                    data: (data) => ListView.separated(
-                      //スクロールでキーボードを閉じるようにした
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
-                      itemCount: data.items.length,
-                      itemBuilder: (context, index) => ListItem(
-                        repoData: data.items[index],
-                        userIconUrl: data.items[index].owner.avatarUrl,
-                        fullName: data.items[index].fullName,
-                        description: data.items[index].description,
-                      ),
-                      separatorBuilder: (context, index) => const Divider(
-                        color: Color(0xffBBBBBB),
-                      ),
-                    ),
+                    data: (data) => data.totalCount == 0
+                        //検索結果がない場合
+                        ? const NoResultView()
+                        //検索結果がある場合
+                        : ListView.separated(
+                            //スクロールでキーボードを閉じるようにした
+                            keyboardDismissBehavior:
+                                ScrollViewKeyboardDismissBehavior.onDrag,
+                            itemCount: data.items.length,
+                            itemBuilder: (context, index) => ListItem(
+                              repoData: data.items[index],
+                              userIconUrl: data.items[index].owner.avatarUrl,
+                              fullName: data.items[index].fullName,
+                              description: data.items[index].description,
+                            ),
+                            separatorBuilder: (context, index) => const Divider(
+                              color: Color(0xffBBBBBB),
+                            ),
+                          ),
                     error: (e, _) {
                       switch (e) {
                         case 'No Keywords':

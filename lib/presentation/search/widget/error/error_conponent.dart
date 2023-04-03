@@ -9,27 +9,20 @@ class ErrorComponent extends StatelessWidget {
     required this.lottieFile,
     required this.errorTitle,
     this.errorDetail,
-    this.lottieWidth,
   }) : super(key: key);
 
   final String lottieFile;
   final String errorTitle;
   final String? errorDetail;
-  final double? lottieWidth;
 
   @override
   Widget build(BuildContext context) {
-    // //デバイスの高さ取得
-    // final deviceHeight = MediaQuery.of(context).size.height;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Lottie.asset(
             lottieFile,
-            // fit: BoxFit.fill,
-            // width: lottieWidth ?? deviceHeight * 0.3,
-            // height: deviceHeight * 0.3,
             width: 250,
             height: 250,
           ),
