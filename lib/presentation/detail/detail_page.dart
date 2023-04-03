@@ -57,6 +57,7 @@ class DetailPage extends StatelessWidget {
                   Text(
                     repoData.description ?? 'No Description',
                     style: Theme.of(context).textTheme.titleSmall,
+                    key: const Key('repoDetailOnDetailPage'),
                   ),
                 ],
               ),
@@ -73,6 +74,7 @@ class DetailPage extends StatelessWidget {
                     elementData: repoData.language ?? 'No Language',
                     iconBackgroundColor: Colors.blueAccent,
                     iconColor: Colors.white,
+                    key: const Key('language'),
                   ),
                   detailElement(
                     icon: Icons.star_outline,
@@ -80,6 +82,7 @@ class DetailPage extends StatelessWidget {
                     elementData: starsCount,
                     iconBackgroundColor: Colors.yellowAccent,
                     iconColor: Colors.black87,
+                    key: const Key('star'),
                   ),
                   detailElement(
                     icon: Icons.remove_red_eye_outlined,
@@ -87,20 +90,23 @@ class DetailPage extends StatelessWidget {
                     elementData: watchersCount,
                     iconBackgroundColor: Colors.brown,
                     iconColor: Colors.white,
+                    key: const Key('watch'),
                   ),
                   detailElement(
-                      icon: Icons.fork_right_sharp,
-                      elementLabel: 'fork',
-                      elementData: forksCount,
-                      iconBackgroundColor: Colors.purpleAccent,
-                      iconColor: Colors.white,
-                      key: const Key('fork')),
+                    icon: Icons.fork_right_sharp,
+                    elementLabel: 'fork',
+                    elementData: forksCount,
+                    iconBackgroundColor: Colors.purpleAccent,
+                    iconColor: Colors.white,
+                    key: const Key('fork'),
+                  ),
                   detailElement(
                     icon: Icons.info_outline,
                     elementLabel: 'issue',
                     elementData: issuesCount,
                     iconBackgroundColor: Colors.green,
                     iconColor: Colors.white,
+                    key: const Key('issue'),
                   ),
                   const SizedBox(height: 60)
                 ],
@@ -120,6 +126,7 @@ class DetailPage extends StatelessWidget {
       required String elementLabel,
       required String elementData}) {
     return Padding(
+      key: key,
       padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
