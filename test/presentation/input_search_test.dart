@@ -83,6 +83,8 @@ void main() {
       expect(tapTarget, findsOneWidget);
       //ユーザーアイコンが表示されるか
       expect(find.byKey(const Key('userImageOnListView')), findsOneWidget);
+      //検索結果数が表示されるか
+      expect(find.byKey(const Key('resultCount')), findsOneWidget);
     });
   });
 
