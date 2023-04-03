@@ -19,6 +19,10 @@ final isClearButtonVisibleProvider =
 //データ
 final repoDataProvider = FutureProvider.autoDispose
     .family<RepoDataModel, String>((ref, repoName) async {
+  if (repoName.isEmpty) {
+    throw 'No Keywords';
+  }
+
   final dataRepository = ref.watch(dataRepositoryProvider);
   return await dataRepository.getData(repoName);
 });
