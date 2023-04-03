@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
@@ -10,13 +11,22 @@ class DataRepository {
   final http.Client client;
 
   Future<RepoDataModel> getData(String repoName) async {
-    final apiUri =
-        Uri.parse('https://api.github.com/search/repositories?q=$repoName');
+    try {
+      // //エラーテスト用URL
+      // final apiUri = Uri.parse('https://httpstat.us/403');
 
-    http.Response response = await client.get(apiUri);
+      final apiUri =
+          Uri.parse('https://api.github.com/search/repositories?q=$repoName');
+      http.Response response = await client.get(apiUri);
 
-    final jsonData = json.decode(response.body);
-
-    return RepoDataModel.fromJson(jsonData);
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return RepoDataModel.fromJson(jsonData);
+      } else {
+        throw 'Error Occurred';
+      }
+    } on SocketException catch (_) {
+      throw 'Network Error';
+    }
   }
 }
