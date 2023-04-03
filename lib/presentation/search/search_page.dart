@@ -25,6 +25,7 @@ class SearchPage extends ConsumerWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('GitHubサーチ'),
+          key: const Key('searchPageAppBar'),
         ),
         body: Column(
           children: <Widget>[
@@ -59,9 +60,12 @@ class SearchPage extends ConsumerWidget {
                             ref
                                 .watch(isClearButtonVisibleProvider.notifier)
                                 .update((state) => false);
-                          })
+                          },
+                          key: const Key('clearButton'),
+                        )
                       : const SizedBox.shrink(),
                 ),
+                key: const Key('inputForm'),
               ),
             ),
             const Divider(color: Colors.black12),

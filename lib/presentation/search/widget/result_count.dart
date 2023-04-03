@@ -24,6 +24,7 @@ class ResultCount extends StatelessWidget {
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
+          key: const Key('resultCount'),
         ),
       ),
     );

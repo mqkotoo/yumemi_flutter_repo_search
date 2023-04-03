@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
 
 import '../../domain/repo_data_model.dart';
 
@@ -24,6 +25,7 @@ class DetailPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('詳細ページ'),
+        key: const Key('detailPageAppBar'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,11 +36,12 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   ClipOval(
+                    key: const Key('userImageOnDetailPage'),
                     child: CachedNetworkImage(
                       imageUrl: repoData.owner.avatarUrl,
                       width: 120,
                       height: 120,
-                      placeholder: (_, __) => const CircularProgressIndicator(),
+                      placeholder: (_, __) => const UserIconShimmer(),
                       errorWidget: (_, __, ___) =>
                           const Icon(Icons.error, size: 50),
                     ),
@@ -48,6 +51,7 @@ class DetailPage extends StatelessWidget {
                     child: Text(
                       repoData.fullName,
                       style: Theme.of(context).textTheme.titleLarge,
+                      key: const Key('repoNameOnDetailPage'),
                     ),
                   ),
                   Text(
@@ -85,12 +89,12 @@ class DetailPage extends StatelessWidget {
                     iconColor: Colors.white,
                   ),
                   detailElement(
-                    icon: Icons.fork_right_sharp,
-                    elementLabel: 'fork',
-                    elementData: forksCount,
-                    iconBackgroundColor: Colors.purpleAccent,
-                    iconColor: Colors.white,
-                  ),
+                      icon: Icons.fork_right_sharp,
+                      elementLabel: 'fork',
+                      elementData: forksCount,
+                      iconBackgroundColor: Colors.purpleAccent,
+                      iconColor: Colors.white,
+                      key: const Key('fork')),
                   detailElement(
                     icon: Icons.info_outline,
                     elementLabel: 'issue',
@@ -109,7 +113,8 @@ class DetailPage extends StatelessWidget {
   }
 
   Widget detailElement(
-      {required Color iconBackgroundColor,
+      {Key? key,
+      required Color iconBackgroundColor,
       required IconData icon,
       required Color iconColor,
       required String elementLabel,

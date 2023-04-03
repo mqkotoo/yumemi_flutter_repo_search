@@ -36,6 +36,7 @@ class ListItem extends StatelessWidget {
           const SizedBox(width: 16), //ListTileの横paddingと一緒の値
           //ListTileのleadingで画像を表示すると縦が真ん中にならなかったので、Rowで並べて表示するようにする
           ClipOval(
+            key: const Key('userImageOnListView'),
             child: CachedNetworkImage(
               imageUrl: userIconUrl,
               width: 60,
