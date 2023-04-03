@@ -10,8 +10,8 @@ class ListItemShimmer extends StatelessWidget {
     return SingleChildScrollView(
       child: Shimmer.fromColors(
         period: const Duration(milliseconds: 750),
-        baseColor: Color(0xffe0e0e0),
-        highlightColor: Color(0xffeeeeee),
+        baseColor: const Color(0xffe0e0e0),
+        highlightColor: const Color(0xffeeeeee),
         child: ListView.separated(
           shrinkWrap: true,
           itemCount: 20,

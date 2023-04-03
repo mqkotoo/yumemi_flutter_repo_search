@@ -1,5 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 
 import '../../domain/repo_data_model.dart';
@@ -43,7 +44,7 @@ class DetailPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       repoData.fullName,
                       style: Theme.of(context).textTheme.titleLarge,
@@ -56,7 +57,7 @@ class DetailPage extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(),
+            const Divider(),
             Container(
               padding: EdgeInsets.symmetric(
                   vertical: 16, horizontal: widthSize * 0.05),
@@ -97,7 +98,7 @@ class DetailPage extends StatelessWidget {
                     iconBackgroundColor: Colors.green,
                     iconColor: Colors.white,
                   ),
-                  SizedBox(height: 60)
+                  const SizedBox(height: 60)
                 ],
               ),
             ),

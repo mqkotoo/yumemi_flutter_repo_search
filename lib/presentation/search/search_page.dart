@@ -1,12 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
-
-import '../detail/detail_page.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -69,72 +67,26 @@ class SearchPage extends ConsumerWidget {
               flex: 8,
               child: repoData.when(
                 data: (data) => ListView.separated(
-                    //スクロールでキーボードを閉じるようにした
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    itemCount: data.items.length,
-                    itemBuilder: (context, index) => _listItem(
-                          fullName: data.items[index].fullName,
-                          description: data.items[index].description,
-                          imageSource: data.items[index].owner.avatarUrl,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DetailPage(repoData: data.items[index])),
-                            );
-                          },
-                        ),
-                    separatorBuilder: (context, index) => const Divider(
-                          color: Color(0xffBBBBBB),
-                        )),
+                  //スクロールでキーボードを閉じるようにした
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: data.items.length,
+                  itemBuilder: (context, index) => ListItem(
+                    repoData: data.items[index],
+                    userIconUrl: data.items[index].owner.avatarUrl,
+                    fullName: data.items[index].fullName,
+                    description: data.items[index].description,
+                  ),
+                  separatorBuilder: (context, index) => const Divider(
+                    color: Color(0xffBBBBBB),
+                  ),
+                ),
                 error: (error, stack) => Center(child: Text(error.toString())),
                 loading: () => const ListItemShimmer(),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _listItem(
-      {required String fullName,
-      String? description,
-      required String imageSource,
-      required void Function() onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          const SizedBox(width: 16),
-          ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: imageSource,
-              width: 60,
-              height: 60,
-              placeholder: (_, __) => const CircularProgressIndicator(),
-              errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
-            ),
-          ),
-          Expanded(
-            child: ListTile(
-              title: Text(
-                fullName,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                description ?? 'No Description',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
