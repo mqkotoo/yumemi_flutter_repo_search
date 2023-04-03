@@ -28,3 +28,18 @@ class NetworkErrorView extends StatelessWidget {
     );
   }
 }
+
+//ネットワークエラー以外のエラーの表示
+class ErrorView extends StatelessWidget {
+  const ErrorView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const ErrorComponent(
+      lottieFile: 'assets/lottie_animation/99345-error.json',
+      errorTitle: 'エラーが発生しました。',
+      errorDetail: '時間をおいて再度お試しください。',
+      key: Key('errorView'),
+    );
+  }
+}
