@@ -15,8 +15,8 @@ void main() {
       const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       //空文字を送信するとリクエストはせず、エラーメッセージを表示する仕様
-      when(mockClient.get(any)).thenAnswer((_) async =>
-          http.Response(data, 200));
+      when(mockClient.get(any))
+          .thenAnswer((_) async => http.Response(data, 200));
 
       await tester.pumpWidget(
         ProviderScope(overrides: [
@@ -24,9 +24,8 @@ void main() {
         ], child: const MyApp()),
       );
 
-      final formField = find.byKey(const Key('inputForm'));
-
       //""と入力して検索する
+      final formField = find.byKey(const Key('inputForm'));
       await tester.enterText(formField, '');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
@@ -35,6 +34,33 @@ void main() {
 
       //エラーが返ってくる("テキストを入力してください")
       expect(find.byKey(const Key('enterTextView')), findsOneWidget);
+    });
+
+    testWidgets('結果が0だった時に、想定の表示がされるか', (WidgetTester tester) async {
+      const emptyData = RepositoryMockData.emptyJsonData;
+      final mockClient = MockClient();
+      //結果が0のデータを返す
+      when(mockClient.get(any))
+          .thenAnswer((_) async => http.Response(emptyData, 200));
+
+      await tester.pumpWidget(
+        ProviderScope(overrides: [
+          httpClientProvider.overrideWithValue(mockClient),
+        ], child: const MyApp()),
+      );
+
+      //入力して検索する
+      final formField = find.byKey(const Key('inputForm'));
+      await tester.enterText(formField, 'kjsdf；ヵjdf；kぁjsdfj');
+      await tester.tap(formField);
+      await tester.testTextInput.receiveAction(TextInputAction.search);
+
+      //結果表示されるまで待つ
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
+
+      //エラーが返ってくる("検索結果が見つからない")
+      expect(find.byKey(const Key('noResultView')), findsOneWidget);
     });
   });
 }
