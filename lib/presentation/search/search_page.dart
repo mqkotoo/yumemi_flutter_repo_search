@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,9 +93,23 @@ class SearchPage extends ConsumerWidget {
                         color: Color(0xffBBBBBB),
                       ),
                     ),
-                    error: (error, stack) => error == 'No Keywords'
-                        ? EnterTextView()
-                        : SizedBox.shrink(),
+                    error: (e, _) {
+                      switch (e) {
+                        case 'No Keywords':
+                          return EnterTextView();
+                          break;
+                        case 'Network Error':
+                          print('B判定');
+                          break;
+                        case 'Error Occurred':
+                          print('C判定');
+                          break;
+                        default:
+                          if (kDebugMode) {
+                            print(e);
+                          }
+                      }
+                    },
                     loading: () => const ListItemShimmer(),
                   ),
 
