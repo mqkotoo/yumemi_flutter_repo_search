@@ -89,5 +89,38 @@ void main() {
       //エラーが返ってくる
       expect(find.byKey(const Key('errorView')), findsOneWidget);
     });
+
+    testWidgets('通信状態じゃない時の検索でネットワークエラーが返るか', (WidgetTester tester) async {
+      // const data = RepositoryMockData.jsonData;
+      //リクエストを投げると、ネットワークエラーの例外をスローする
+      final mockClient = MockClient();
+      when(mockClient.get(any)).thenAnswer((_) async => throw 'Network Error');
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            httpClientProvider.overrideWithValue(mockClient),
+          ],
+          child: const MyApp(),
+        ),
+      );
+
+      //"flutter"と入力して検索する
+      final formField = find.byKey(const Key('inputForm'));
+      await tester.enterText(formField, 'flutter');
+      //検索ボタンを押す
+      await tester.tap(formField);
+      await tester.testTextInput.receiveAction(TextInputAction.search);
+
+      //エラーが表示されるまで待つ
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
+
+      //トップの結果は表示されない
+      expect(find.textContaining('flutter/flutter'), findsNothing);
+
+      //想定エラー文
+      expect(find.byKey(const Key('networkErrorView')), findsOneWidget);
+    });
   });
 }
