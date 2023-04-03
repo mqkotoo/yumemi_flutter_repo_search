@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
 
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
 import '../../domain/repo_data_model.dart';
 
 class DetailPage extends StatelessWidget {
