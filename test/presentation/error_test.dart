@@ -62,5 +62,32 @@ void main() {
       //エラーが返ってくる("検索結果が見つからない")
       expect(find.byKey(const Key('noResultView')), findsOneWidget);
     });
+
+    testWidgets('リクエストが200以外の場合エラーが返るか', (WidgetTester tester) async {
+      const data = RepositoryMockData.jsonData;
+      final mockClient = MockClient();
+      //リクエストが200以外（失敗）する想定
+      when(mockClient.get(any))
+          .thenAnswer((_) async => http.Response(data, 403));
+
+      await tester.pumpWidget(
+        ProviderScope(overrides: [
+          httpClientProvider.overrideWithValue(mockClient),
+        ], child: const MyApp()),
+      );
+
+      //"flutter"と入力して検索する
+      final formField = find.byKey(const Key('inputForm'));
+      await tester.enterText(formField, 'flutter');
+      await tester.tap(formField);
+      await tester.testTextInput.receiveAction(TextInputAction.search);
+
+      //エラー表示されるまで待つ
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
+
+      //エラーが返ってくる
+      expect(find.byKey(const Key('errorView')), findsOneWidget);
+    });
   });
 }
