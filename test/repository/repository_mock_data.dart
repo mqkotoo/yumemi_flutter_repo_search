@@ -26,5 +26,4 @@ class RepositoryMockData {
   "items": []
 }
   ''';
-
 }
