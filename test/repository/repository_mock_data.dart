@@ -18,4 +18,12 @@ class RepositoryMockData {
   ]
 }
   ''';
+
+  //total_count 0のからの結果が返ってきた時用のデータ
+  static const String emptyJsonData = '''
+  {
+  "total_count": 0,
+  "items": []
+}
+  ''';
 }
