@@ -126,23 +126,27 @@ class DetailPage extends StatelessWidget {
       required Color iconColor,
       required String elementLabel,
       required String elementData}) {
-    return Padding(
-      key: key,
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: iconBackgroundColor,
-            child: Icon(icon, size: 20, color: iconColor),
-          ),
-          const SizedBox(width: 12),
-          Text(elementLabel, style: const TextStyle(fontSize: 16)),
-          const Spacer(),
-          Text(
-            elementData,
-            style: const TextStyle(fontSize: 16),
-          )
-        ],
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: Padding(
+        key: key,
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: iconBackgroundColor,
+              child: Icon(icon, size: 20, color: iconColor),
+            ),
+            const SizedBox(width: 12),
+            Text(elementLabel, style: const TextStyle(fontSize: 16)),
+            const Spacer(),
+            Text(
+              elementData,
+              style: const TextStyle(fontSize: 16),
+            )
+          ],
+        ),
       ),
     );
   }
