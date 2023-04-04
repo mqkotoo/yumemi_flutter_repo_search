@@ -59,42 +59,46 @@ class SearchPage extends ConsumerWidget {
         body: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               //search field
-              child: TextFormField(
-                controller: textController,
-                onChanged: (text) {
-                  ref
-                      .read(isClearButtonVisibleProvider.notifier)
-                      .update((state) => text.isNotEmpty);
-                },
-                //入力キーボードのdone→searchに変更
-                textInputAction: TextInputAction.search,
-                //search押したらデータ取得 データ渡す
-                onFieldSubmitted: (text) {
-                  //無駄な余白をカットしてプロバイダーに渡す
-                  ref
-                      .read(inputRepoNameProvider.notifier)
-                      .update((state) => text.trim());
-                },
-                //decoration
-                decoration: InputDecoration(
-                  hintText: S.of(context).formHintText,
-                  prefixIcon: const Icon(Icons.search, size: 27),
-                  suffixIcon: ref.watch(isClearButtonVisibleProvider)
-                      ? IconButton(
-                          icon: const Icon(Icons.clear, size: 27),
-                          onPressed: () {
-                            textController.clear();
-                            ref
-                                .watch(isClearButtonVisibleProvider.notifier)
-                                .update((state) => false);
-                          },
-                          key: const Key('clearButton'),
-                        )
-                      : const SizedBox.shrink(),
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: TextFormField(
+                  controller: textController,
+                  onChanged: (text) {
+                    ref
+                        .read(isClearButtonVisibleProvider.notifier)
+                        .update((state) => text.isNotEmpty);
+                  },
+                  //入力キーボードのdone→searchに変更
+                  textInputAction: TextInputAction.search,
+                  //search押したらデータ取得 データ渡す
+                  onFieldSubmitted: (text) {
+                    //無駄な余白をカットしてプロバイダーに渡す
+                    ref
+                        .read(inputRepoNameProvider.notifier)
+                        .update((state) => text.trim());
+                  },
+                  //decoration
+                  decoration: InputDecoration(
+                    hintText: S.of(context).formHintText,
+                    prefixIcon: const Icon(Icons.search, size: 27),
+                    suffixIcon: ref.watch(isClearButtonVisibleProvider)
+                        ? IconButton(
+                            icon: const Icon(Icons.clear, size: 27),
+                            onPressed: () {
+                              textController.clear();
+                              ref
+                                  .watch(isClearButtonVisibleProvider.notifier)
+                                  .update((state) => false);
+                            },
+                            key: const Key('clearButton'),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  key: const Key('inputForm'),
                 ),
-                key: const Key('inputForm'),
               ),
             ),
             const Divider(),
@@ -131,11 +135,16 @@ class SearchPage extends ConsumerWidget {
                               keyboardDismissBehavior:
                                   ScrollViewKeyboardDismissBehavior.onDrag,
                               itemCount: data.items.length,
-                              itemBuilder: (context, index) => ListItem(
-                                repoData: data.items[index],
-                                userIconUrl: data.items[index].owner.avatarUrl,
-                                fullName: data.items[index].fullName,
-                                description: data.items[index].description,
+                              itemBuilder: (context, index) => SafeArea(
+                                top: false,
+                                bottom: false,
+                                child: ListItem(
+                                  repoData: data.items[index],
+                                  userIconUrl:
+                                      data.items[index].owner.avatarUrl,
+                                  fullName: data.items[index].fullName,
+                                  description: data.items[index].description,
+                                ),
                               ),
                               separatorBuilder: (context, index) =>
                                   const Divider(

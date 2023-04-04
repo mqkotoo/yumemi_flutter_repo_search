@@ -21,7 +21,11 @@ class ListItemShimmer extends StatelessWidget {
         child: ListView.separated(
           shrinkWrap: true,
           itemCount: 20,
-          itemBuilder: (context, index) => _listItem(),
+          itemBuilder: (context, index) => SafeArea(
+            top: false,
+            bottom: false,
+            child: _listItem(),
+          ),
           separatorBuilder: (context, index) => const Divider(),
         ),
       ),
