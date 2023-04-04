@@ -20,101 +20,213 @@ class DetailPage extends StatelessWidget {
     final forksCount = NumberFormat('#,##0').format(repoData.forksCount);
     final issuesCount = NumberFormat('#,##0').format(repoData.openIssuesCount);
 
-    //画面サイズ取得
-    final widthSize = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(S.of(context).detailPageTitle),
         key: const Key('detailPageAppBar'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: 16, horizontal: widthSize * 0.05),
-              child: Column(
-                children: <Widget>[
-                  ClipOval(
-                    key: const Key('userImageOnDetailPage'),
-                    child: CachedNetworkImage(
-                      imageUrl: repoData.owner.avatarUrl,
-                      width: 120,
-                      height: 120,
-                      placeholder: (_, __) => const UserIconShimmer(),
-                      errorWidget: (_, __, ___) =>
-                          const Icon(Icons.error, size: 50),
-                    ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return constraints.maxWidth < constraints.maxHeight
+              ? verBody(
+                  context, starsCount, watchersCount, forksCount, issuesCount)
+              : horiBody(
+                  context, starsCount, watchersCount, forksCount, issuesCount);
+        },
+      ),
+    );
+  }
+
+  Widget verBody(BuildContext context, String starsCount, String watchersCount,
+      String forksCount, String issuesCount) {
+    //画面サイズ取得
+    final widthSize = MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+                vertical: 16, horizontal: widthSize * 0.05),
+            child: Column(
+              children: <Widget>[
+                ClipOval(
+                  key: const Key('userImageOnDetailPage'),
+                  child: CachedNetworkImage(
+                    imageUrl: repoData.owner.avatarUrl,
+                    width: 120,
+                    height: 120,
+                    placeholder: (_, __) => const UserIconShimmer(),
+                    errorWidget: (_, __, ___) =>
+                        const Icon(Icons.error, size: 50),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      repoData.fullName,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      key: const Key('repoNameOnDetailPage'),
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    repoData.fullName,
+                    style: Theme.of(context).textTheme.titleLarge,
+                    key: const Key('repoNameOnDetailPage'),
                   ),
-                  Text(
-                    repoData.description ?? 'No Description',
-                    style: Theme.of(context).textTheme.titleSmall,
-                    key: const Key('repoDetailOnDetailPage'),
-                  ),
-                ],
-              ),
+                ),
+                Text(
+                  repoData.description ?? 'No Description',
+                  style: Theme.of(context).textTheme.titleSmall,
+                  key: const Key('repoDetailOnDetailPage'),
+                ),
+              ],
             ),
-            const Divider(),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: 16, horizontal: widthSize * 0.05),
-              child: Column(
-                children: [
-                  detailElement(
-                    icon: Icons.language,
-                    elementLabel: S.of(context).language,
-                    elementData: repoData.language ?? 'No Language',
-                    iconBackgroundColor: Colors.blueAccent,
-                    iconColor: Colors.white,
-                    key: const Key('language'),
-                  ),
-                  detailElement(
-                    icon: Icons.star_outline,
-                    elementLabel: S.of(context).star,
-                    elementData: starsCount,
-                    iconBackgroundColor: Colors.yellowAccent,
-                    iconColor: Colors.black87,
-                    key: const Key('star'),
-                  ),
-                  detailElement(
-                    icon: Icons.remove_red_eye_outlined,
-                    elementLabel: S.of(context).watch,
-                    elementData: watchersCount,
-                    iconBackgroundColor: Colors.brown,
-                    iconColor: Colors.white,
-                    key: const Key('watch'),
-                  ),
-                  detailElement(
-                    icon: Icons.fork_right_sharp,
-                    elementLabel: S.of(context).fork,
-                    elementData: forksCount,
-                    iconBackgroundColor: Colors.purpleAccent,
-                    iconColor: Colors.white,
-                    key: const Key('fork'),
-                  ),
-                  detailElement(
-                    icon: Icons.info_outline,
-                    elementLabel: S.of(context).issue,
-                    elementData: issuesCount,
-                    iconBackgroundColor: Colors.green,
-                    iconColor: Colors.white,
-                    key: const Key('issue'),
-                  ),
-                  const SizedBox(height: 60)
-                ],
-              ),
+          ),
+          const Divider(),
+          Container(
+            padding: EdgeInsets.symmetric(
+                vertical: 16, horizontal: widthSize * 0.05),
+            child: Column(
+              children: [
+                detailElement(
+                  icon: Icons.language,
+                  elementLabel: S.of(context).language,
+                  elementData: repoData.language ?? 'No Language',
+                  iconBackgroundColor: Colors.blueAccent,
+                  iconColor: Colors.white,
+                  key: const Key('language'),
+                ),
+                detailElement(
+                  icon: Icons.star_outline,
+                  elementLabel: S.of(context).star,
+                  elementData: starsCount,
+                  iconBackgroundColor: Colors.yellowAccent,
+                  iconColor: Colors.black87,
+                  key: const Key('star'),
+                ),
+                detailElement(
+                  icon: Icons.remove_red_eye_outlined,
+                  elementLabel: S.of(context).watch,
+                  elementData: watchersCount,
+                  iconBackgroundColor: Colors.brown,
+                  iconColor: Colors.white,
+                  key: const Key('watch'),
+                ),
+                detailElement(
+                  icon: Icons.fork_right_sharp,
+                  elementLabel: S.of(context).fork,
+                  elementData: forksCount,
+                  iconBackgroundColor: Colors.purpleAccent,
+                  iconColor: Colors.white,
+                  key: const Key('fork'),
+                ),
+                detailElement(
+                  icon: Icons.info_outline,
+                  elementLabel: S.of(context).issue,
+                  elementData: issuesCount,
+                  iconBackgroundColor: Colors.green,
+                  iconColor: Colors.white,
+                  key: const Key('issue'),
+                ),
+                const SizedBox(height: 60)
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget horiBody(BuildContext context, String starsCount, String watchersCount,
+      String forksCount, String issuesCount) {
+    //画面サイズ取得
+    final widthSize = MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+                vertical: 16, horizontal: widthSize * 0.05),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: repoData.owner.avatarUrl,
+                    width: 120,
+                    height: 120,
+                    placeholder: (_, __) => const UserIconShimmer(),
+                    errorWidget: (_, __, ___) =>
+                        const Icon(Icons.error, size: 50),
+                    key: const Key('userImage'),
+                  ),
+                ),
+                SizedBox(
+                  width: widthSize * 0.5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        repoData.fullName,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        repoData.description ?? 'No Description',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(),
+          Container(
+            padding: EdgeInsets.symmetric(
+                vertical: 16, horizontal: widthSize * 0.05),
+            child: Column(
+              children: [
+                detailElement(
+                  icon: Icons.language,
+                  elementLabel: S.of(context).language,
+                  elementData: repoData.language ?? 'No Language',
+                  iconBackgroundColor: Colors.blueAccent,
+                  iconColor: Colors.white,
+                  key: const Key('language'),
+                ),
+                detailElement(
+                  icon: Icons.star_outline,
+                  elementLabel: S.of(context).star,
+                  elementData: starsCount,
+                  iconBackgroundColor: Colors.yellowAccent,
+                  iconColor: Colors.black87,
+                  key: const Key('star'),
+                ),
+                detailElement(
+                  icon: Icons.remove_red_eye_outlined,
+                  elementLabel: S.of(context).watch,
+                  elementData: watchersCount,
+                  iconBackgroundColor: Colors.brown,
+                  iconColor: Colors.white,
+                  key: const Key('watch'),
+                ),
+                detailElement(
+                  icon: Icons.fork_right_sharp,
+                  elementLabel: S.of(context).fork,
+                  elementData: forksCount,
+                  iconBackgroundColor: Colors.purpleAccent,
+                  iconColor: Colors.white,
+                  key: const Key('fork'),
+                ),
+                detailElement(
+                  icon: Icons.info_outline,
+                  elementLabel: S.of(context).issue,
+                  elementData: issuesCount,
+                  iconBackgroundColor: Colors.green,
+                  iconColor: Colors.white,
+                  key: const Key('issue'),
+                ),
+                const SizedBox(height: 60)
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
