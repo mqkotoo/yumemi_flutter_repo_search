@@ -4,15 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:yumemi_flutter_repo_search/main.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
+import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import '../repository/repository_mock_data.dart';
 import '../repository/repository_mock_test.mocks.dart';
 
 void main() {
   group('入力フォームのテスト', () {
     testWidgets('検索フォームのテスト', (WidgetTester tester) async {
+      //モックのデータをshared_preferencesにセットしておかないといけない
+      SharedPreferences.setMockInitialValues({});
       const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       when(mockClient.get(any))
@@ -22,6 +26,9 @@ void main() {
         ProviderScope(overrides: [
           //mock clientでDI
           httpClientProvider.overrideWithValue(mockClient),
+          sharedPreferencesProvider.overrideWithValue(
+            await SharedPreferences.getInstance(),
+          ),
         ], child: const MyApp()),
       );
       //検索フォーム
@@ -55,6 +62,7 @@ void main() {
 
   group('リポジトリの検索に関するテスト', () {
     testWidgets('検索結果が表示されるか', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
       const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       when(mockClient.get(any))
@@ -64,6 +72,9 @@ void main() {
         ProviderScope(overrides: [
           //mock clientでDI
           httpClientProvider.overrideWithValue(mockClient),
+          sharedPreferencesProvider.overrideWithValue(
+            await SharedPreferences.getInstance(),
+          ),
         ], child: const MyApp()),
       );
 
@@ -91,6 +102,7 @@ void main() {
 
   group('詳細ページのテスト', () {
     testWidgets('遷移先の詳細ページの表示ができているか', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
       const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       when(mockClient.get(any))
@@ -100,6 +112,9 @@ void main() {
         ProviderScope(overrides: [
           //mock clientでDI
           httpClientProvider.overrideWithValue(mockClient),
+          sharedPreferencesProvider.overrideWithValue(
+            await SharedPreferences.getInstance(),
+          ),
         ], child: const MyApp()),
       );
 

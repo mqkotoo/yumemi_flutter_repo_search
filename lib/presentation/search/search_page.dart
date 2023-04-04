@@ -7,6 +7,8 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/erro
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
+import '../../theme/theme_mode_provider.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -19,13 +21,38 @@ class SearchPage extends ConsumerWidget {
     //テキストのコントローラ
     final textController = ref.watch(textEditingControllerProvider);
 
+    //スイッチの初期値判定のためのシステムテーマモード取得
+    final systemThemeMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light;
+    //現在のテーマモード取得
+    final themeMode = ref.watch(themeModeProvider);
+    //theme切り替えのプロバイダ
+    final themeSelector = ref.read(themeModeProvider.notifier);
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('GitHubサーチ'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('GitHubサーチ'),
+              //actionsで実装すると、端っこすぎる
+              ToggleThemeSwitch(
+                //themeModeが初期（SYSTEM）状態だったらその情報を使って表示を処理する
+                value: themeMode == ThemeMode.system
+                    ? systemThemeMode == ThemeMode.dark
+                    : themeMode == ThemeMode.dark,
+                onToggle: (value) {
+                  themeSelector.toggleThemeAndSave(value);
+                },
+              ),
+            ],
+          ),
           key: const Key('searchPageAppBar'),
         ),
         body: Column(
@@ -69,7 +96,7 @@ class SearchPage extends ConsumerWidget {
                 key: const Key('inputForm'),
               ),
             ),
-            const Divider(color: Colors.black12),
+            const Divider(),
             Expanded(
               flex: 8,
               child: Stack(
@@ -81,19 +108,38 @@ class SearchPage extends ConsumerWidget {
                         //検索結果がない場合
                         ? const NoResultView()
                         //検索結果がある場合
-                        : ListView.separated(
-                            //スクロールでキーボードを閉じるようにした
-                            keyboardDismissBehavior:
-                                ScrollViewKeyboardDismissBehavior.onDrag,
-                            itemCount: data.items.length,
-                            itemBuilder: (context, index) => ListItem(
-                              repoData: data.items[index],
-                              userIconUrl: data.items[index].owner.avatarUrl,
-                              fullName: data.items[index].fullName,
-                              description: data.items[index].description,
-                            ),
-                            separatorBuilder: (context, index) => const Divider(
-                              color: Color(0xffBBBBBB),
+                        //スクロールを検知して、スクロール中は検索結果数を表示しないようにする
+                        : NotificationListener<ScrollNotification>(
+                            onNotification: (notification) {
+                              if (notification is ScrollStartNotification) {
+                                // スクロールが開始された場合の処理(非表示)
+                                ref
+                                    .read(isResultCountVisibleProvider.notifier)
+                                    .update((state) => false);
+                              } else if (notification
+                                  is ScrollEndNotification) {
+                                // スクロールが終了した場合の処理(表示)
+                                ref
+                                    .read(isResultCountVisibleProvider.notifier)
+                                    .update((state) => true);
+                              }
+                              return true;
+                            },
+                            child: ListView.separated(
+                              //スクロールでキーボードを閉じるようにした
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
+                              itemCount: data.items.length,
+                              itemBuilder: (context, index) => ListItem(
+                                repoData: data.items[index],
+                                userIconUrl: data.items[index].owner.avatarUrl,
+                                fullName: data.items[index].fullName,
+                                description: data.items[index].description,
+                              ),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
+                                color: Color(0xffBBBBBB),
+                              ),
                             ),
                           ),
                     error: (e, _) {
@@ -112,10 +158,11 @@ class SearchPage extends ConsumerWidget {
                   ),
 
                   // // result count
-                  if (!repoData.hasError &&
-                      !repoData.isLoading &&
-                      repoData.value!.totalCount != 0)
-                    ResultCount(resultCount: repoData.value!.totalCount),
+                  if (ref.watch(isResultCountVisibleProvider))
+                    if (!repoData.hasError &&
+                        !repoData.isLoading &&
+                        repoData.value!.totalCount != 0)
+                      ResultCount(resultCount: repoData.value!.totalCount),
                 ],
               ),
             ),
