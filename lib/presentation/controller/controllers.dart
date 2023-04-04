@@ -16,6 +16,10 @@ final textEditingControllerProvider =
 final isClearButtonVisibleProvider =
     StateProvider.autoDispose<bool>((ref) => false);
 
+//検索結果数を表示するかのフラグ（スクロール中は非表示なので基本TRUE）
+final isResultCountVisibleProvider =
+    StateProvider.autoDispose<bool>((ref) => true);
+
 //データ
 final repoDataProvider = FutureProvider.autoDispose
     .family<RepoDataModel, String>((ref, repoName) async {

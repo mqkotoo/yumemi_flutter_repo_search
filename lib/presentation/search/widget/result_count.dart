@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
 
+import '../../../constants/app_color.dart';
+
 class ResultCount extends StatelessWidget {
   const ResultCount({required this.resultCount, Key? key}) : super(key: key);
 
@@ -14,16 +16,18 @@ class ResultCount extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(
-          // color: const Color(0xff1A1C19).withOpacity(0.6),
-          color: const Color(0xffFCFDF6).withOpacity(0.6),
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColor.lightBgColor
+              : AppColor.darkBgColor,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
           '${NumberFormat('#,##0').format(resultCount)}件',
-          style: const TextStyle(
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? AppColor.lightCountColor
+                : AppColor.darkCountColor,
             fontSize: 16,
-            // color: Colors.white,
-            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
           key: const Key('resultCount'),

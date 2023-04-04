@@ -81,19 +81,38 @@ class SearchPage extends ConsumerWidget {
                         //検索結果がない場合
                         ? const NoResultView()
                         //検索結果がある場合
-                        : ListView.separated(
-                            //スクロールでキーボードを閉じるようにした
-                            keyboardDismissBehavior:
-                                ScrollViewKeyboardDismissBehavior.onDrag,
-                            itemCount: data.items.length,
-                            itemBuilder: (context, index) => ListItem(
-                              repoData: data.items[index],
-                              userIconUrl: data.items[index].owner.avatarUrl,
-                              fullName: data.items[index].fullName,
-                              description: data.items[index].description,
-                            ),
-                            separatorBuilder: (context, index) => const Divider(
-                              color: Color(0xffBBBBBB),
+                        //スクロールを検知して、スクロール中は検索結果数を表示しないようにする
+                        : NotificationListener<ScrollNotification>(
+                            onNotification: (notification) {
+                              if (notification is ScrollStartNotification) {
+                                // スクロールが開始された場合の処理(非表示)
+                                ref
+                                    .read(isResultCountVisibleProvider.notifier)
+                                    .update((state) => false);
+                              } else if (notification
+                                  is ScrollEndNotification) {
+                                // スクロールが終了した場合の処理(表示)
+                                ref
+                                    .read(isResultCountVisibleProvider.notifier)
+                                    .update((state) => true);
+                              }
+                              return true;
+                            },
+                            child: ListView.separated(
+                              //スクロールでキーボードを閉じるようにした
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
+                              itemCount: data.items.length,
+                              itemBuilder: (context, index) => ListItem(
+                                repoData: data.items[index],
+                                userIconUrl: data.items[index].owner.avatarUrl,
+                                fullName: data.items[index].fullName,
+                                description: data.items[index].description,
+                              ),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
+                                color: Color(0xffBBBBBB),
+                              ),
                             ),
                           ),
                     error: (e, _) {
@@ -112,10 +131,11 @@ class SearchPage extends ConsumerWidget {
                   ),
 
                   // // result count
-                  if (!repoData.hasError &&
-                      !repoData.isLoading &&
-                      repoData.value!.totalCount != 0)
-                    ResultCount(resultCount: repoData.value!.totalCount),
+                  if (ref.watch(isResultCountVisibleProvider))
+                    if (!repoData.hasError &&
+                        !repoData.isLoading &&
+                        repoData.value!.totalCount != 0)
+                      ResultCount(resultCount: repoData.value!.totalCount),
                 ],
               ),
             ),
