@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
-import 'error_conponent.dart';
+import 'error_component.dart';
 
 class EnterTextView extends StatelessWidget {
   const EnterTextView({Key? key}) : super(key: key);
