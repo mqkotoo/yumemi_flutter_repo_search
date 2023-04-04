@@ -11,11 +11,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   freezed_annotation: ^2.2.0
   http: ^0.13.5
   flutter_riverpod: ^2.3.2
-  intl: ^0.18.0
+  #flutter_localizationsとの互換性でintlのバージョンは下げた
+  intl: ^0.17.0
   cached_network_image: ^3.2.3
   shimmer: ^2.0.0
   lottie: ^2.3.1
@@ -43,3 +46,5 @@ flutter:
 
   assets:
     - assets/lottie_animation/
+flutter_intl:
+  enabled: true
