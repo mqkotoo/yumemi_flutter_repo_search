@@ -8,6 +8,7 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
+import '../../generated/l10n.dart';
 import '../../theme/theme_mode_provider.dart';
 
 class SearchPage extends ConsumerWidget {
@@ -40,7 +41,7 @@ class SearchPage extends ConsumerWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('GitHubサーチ'),
+              Text(S.of(context).searchPageTitle),
               //actionsで実装すると、端っこすぎる
               ToggleThemeSwitch(
                 //themeModeが初期（SYSTEM）状態だったらその情報を使って表示を処理する
@@ -78,7 +79,7 @@ class SearchPage extends ConsumerWidget {
                 },
                 //decoration
                 decoration: InputDecoration(
-                  hintText: 'search repository',
+                  hintText: S.of(context).formHintText,
                   prefixIcon: const Icon(Icons.search, size: 27),
                   suffixIcon: ref.watch(isClearButtonVisibleProvider)
                       ? IconButton(

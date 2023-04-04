@@ -1,1 +1,18 @@
-{}
+{
+  "searchPageTitle": "GitHub Search",
+  "result": "results",
+  "detailPageTitle": "Repo Detail",
+  "formHintText": "Search Repository",
+  "language": "Language",
+  "star": "Star",
+  "watch": "Watch",
+  "fork": "Fork",
+  "issue": "Issue",
+  "errorOccurred": "Error Occurred.",
+  "errorOccurredDetail": "Please retry later.",
+  "networkError": "Network Error.",
+  "networkErrorDetail": "Please check the connection and try again.",
+  "enterText": "Please Enter Text.",
+  "noResult": "Not Found Search Result.",
+  "noResultDetail": "Please change your search words."
+}

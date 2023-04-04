@@ -21,5 +21,29 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "detailPageTitle": MessageLookupByLibrary.simpleMessage("Repo Detail"),
+        "enterText": MessageLookupByLibrary.simpleMessage("Please Enter Text."),
+        "errorOccurred":
+            MessageLookupByLibrary.simpleMessage("Error Occurred."),
+        "errorOccurredDetail":
+            MessageLookupByLibrary.simpleMessage("Please retry later."),
+        "fork": MessageLookupByLibrary.simpleMessage("Fork"),
+        "formHintText":
+            MessageLookupByLibrary.simpleMessage("Search Repository"),
+        "issue": MessageLookupByLibrary.simpleMessage("Issue"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "networkError": MessageLookupByLibrary.simpleMessage("Network Error."),
+        "networkErrorDetail": MessageLookupByLibrary.simpleMessage(
+            "Please check the connection and try again."),
+        "noResult":
+            MessageLookupByLibrary.simpleMessage("Not Found Search Result."),
+        "noResultDetail": MessageLookupByLibrary.simpleMessage(
+            "Please change your search words."),
+        "result": MessageLookupByLibrary.simpleMessage("results"),
+        "searchPageTitle":
+            MessageLookupByLibrary.simpleMessage("GitHub Search"),
+        "star": MessageLookupByLibrary.simpleMessage("Star"),
+        "watch": MessageLookupByLibrary.simpleMessage("Watch")
+      };
 }

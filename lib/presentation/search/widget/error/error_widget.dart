@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import 'error_conponent.dart';
 
 class EnterTextView extends StatelessWidget {
@@ -7,10 +8,10 @@ class EnterTextView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ErrorComponent(
+    return ErrorComponent(
       lottieFile: 'assets/lottie_animation/20180-guy-typing.json',
-      errorTitle: 'テキストを入力してください。',
-      key: Key('enterTextView'),
+      errorTitle: S.of(context).enterText,
+      key: const Key('enterTextView'),
     );
   }
 }
@@ -20,11 +21,11 @@ class NetworkErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ErrorComponent(
+    return ErrorComponent(
       lottieFile: 'assets/lottie_animation/118789-no-internet.json',
-      errorTitle: 'ネットワークエラーです。',
-      errorDetail: '接続を確認して再度お試しください。',
-      key: Key('networkErrorView'),
+      errorTitle: S.of(context).networkError,
+      errorDetail: S.of(context).networkErrorDetail,
+      key: const Key('networkErrorView'),
     );
   }
 }
@@ -35,11 +36,11 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ErrorComponent(
+    return ErrorComponent(
       lottieFile: 'assets/lottie_animation/99345-error.json',
-      errorTitle: 'エラーが発生しました。',
-      errorDetail: '時間をおいて再度お試しください。',
-      key: Key('errorView'),
+      errorTitle: S.of(context).errorOccurred,
+      errorDetail: S.of(context).errorOccurredDetail,
+      key: const Key('errorView'),
     );
   }
 }
@@ -49,11 +50,11 @@ class NoResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ErrorComponent(
+    return ErrorComponent(
       lottieFile: 'assets/lottie_animation/106964-shake-a-empty-box.json',
-      errorTitle: '結果は見つかりませんでした。',
-      errorDetail: '検索ワードを変更してください。',
-      key: Key('noResultView'),
+      errorTitle: S.of(context).noResult,
+      errorDetail: S.of(context).noResultDetail,
+      key: const Key('noResultView'),
     );
   }
 }

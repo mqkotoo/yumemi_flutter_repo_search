@@ -49,6 +49,166 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `GitHub Search`
+  String get searchPageTitle {
+    return Intl.message(
+      'GitHub Search',
+      name: 'searchPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `results`
+  String get result {
+    return Intl.message(
+      'results',
+      name: 'result',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repo Detail`
+  String get detailPageTitle {
+    return Intl.message(
+      'Repo Detail',
+      name: 'detailPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search Repository`
+  String get formHintText {
+    return Intl.message(
+      'Search Repository',
+      name: 'formHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Star`
+  String get star {
+    return Intl.message(
+      'Star',
+      name: 'star',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Watch`
+  String get watch {
+    return Intl.message(
+      'Watch',
+      name: 'watch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fork`
+  String get fork {
+    return Intl.message(
+      'Fork',
+      name: 'fork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Issue`
+  String get issue {
+    return Intl.message(
+      'Issue',
+      name: 'issue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Occurred.`
+  String get errorOccurred {
+    return Intl.message(
+      'Error Occurred.',
+      name: 'errorOccurred',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please retry later.`
+  String get errorOccurredDetail {
+    return Intl.message(
+      'Please retry later.',
+      name: 'errorOccurredDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network Error.`
+  String get networkError {
+    return Intl.message(
+      'Network Error.',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check the connection and try again.`
+  String get networkErrorDetail {
+    return Intl.message(
+      'Please check the connection and try again.',
+      name: 'networkErrorDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Text.`
+  String get enterText {
+    return Intl.message(
+      'Please Enter Text.',
+      name: 'enterText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Found Search Result.`
+  String get noResult {
+    return Intl.message(
+      'Not Found Search Result.',
+      name: 'noResult',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please change your search words.`
+  String get noResultDetail {
+    return Intl.message(
+      'Please change your search words.',
+      name: 'noResultDetail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

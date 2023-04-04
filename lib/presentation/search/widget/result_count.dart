@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/app_color.dart';
+import '../../../generated/l10n.dart';
 
 class ResultCount extends StatelessWidget {
   const ResultCount({required this.resultCount, Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class ResultCount extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
-          '${NumberFormat('#,##0').format(resultCount)}件',
+          '${NumberFormat('#,##0').format(resultCount)} ${S.of(context).result}',
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.light
                 ? AppColor.lightCountColor

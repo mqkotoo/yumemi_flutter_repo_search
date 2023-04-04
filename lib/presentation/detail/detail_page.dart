@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
 import '../../domain/repo_data_model.dart';
+import '../../generated/l10n.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({required this.repoData, Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('詳細ページ'),
+        title: Text(S.of(context).detailPageTitle),
         key: const Key('detailPageAppBar'),
       ),
       body: SingleChildScrollView(
@@ -70,7 +71,7 @@ class DetailPage extends StatelessWidget {
                 children: [
                   detailElement(
                     icon: Icons.language,
-                    elementLabel: 'language',
+                    elementLabel: S.of(context).language,
                     elementData: repoData.language ?? 'No Language',
                     iconBackgroundColor: Colors.blueAccent,
                     iconColor: Colors.white,
@@ -78,7 +79,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   detailElement(
                     icon: Icons.star_outline,
-                    elementLabel: 'star',
+                    elementLabel: S.of(context).star,
                     elementData: starsCount,
                     iconBackgroundColor: Colors.yellowAccent,
                     iconColor: Colors.black87,
@@ -86,7 +87,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   detailElement(
                     icon: Icons.remove_red_eye_outlined,
-                    elementLabel: 'watch',
+                    elementLabel: S.of(context).watch,
                     elementData: watchersCount,
                     iconBackgroundColor: Colors.brown,
                     iconColor: Colors.white,
@@ -94,7 +95,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   detailElement(
                     icon: Icons.fork_right_sharp,
-                    elementLabel: 'fork',
+                    elementLabel: S.of(context).fork,
                     elementData: forksCount,
                     iconBackgroundColor: Colors.purpleAccent,
                     iconColor: Colors.white,
@@ -102,7 +103,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   detailElement(
                     icon: Icons.info_outline,
-                    elementLabel: 'issue',
+                    elementLabel: S.of(context).issue,
                     elementData: issuesCount,
                     iconBackgroundColor: Colors.green,
                     iconColor: Colors.white,

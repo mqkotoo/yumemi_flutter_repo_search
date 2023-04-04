@@ -1,1 +1,18 @@
-{}
+{
+  "searchPageTitle": "GitHubサーチ",
+  "result": "件",
+  "detailPageTitle": "リポジトリ詳細",
+  "formHintText": "リポジトリを検索",
+  "language": "言語",
+  "star": "スター",
+  "watch": "ウォッチ",
+  "fork": "フォーク",
+  "issue": "イシュー",
+  "errorOccurred": "エラーが発生しました。",
+  "errorOccurredDetail": "時間をおいて再度お試しください。",
+  "networkError": "ネットワークエラーです。",
+  "networkErrorDetail": "接続を確認して再度お試しください。",
+  "enterText": "テキストを入力してください。",
+  "noResult": "結果は見つかりませんでした。",
+  "noResultDetail": "検索ワードを変更してください。"
+}

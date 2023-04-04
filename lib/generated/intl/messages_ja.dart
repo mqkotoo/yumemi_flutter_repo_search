@@ -21,5 +21,25 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ja';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "detailPageTitle": MessageLookupByLibrary.simpleMessage("リポジトリ詳細"),
+        "enterText": MessageLookupByLibrary.simpleMessage("テキストを入力してください。"),
+        "errorOccurred": MessageLookupByLibrary.simpleMessage("エラーが発生しました。"),
+        "errorOccurredDetail":
+            MessageLookupByLibrary.simpleMessage("時間をおいて再度お試しください。"),
+        "fork": MessageLookupByLibrary.simpleMessage("フォーク"),
+        "formHintText": MessageLookupByLibrary.simpleMessage("リポジトリを検索"),
+        "issue": MessageLookupByLibrary.simpleMessage("イシュー"),
+        "language": MessageLookupByLibrary.simpleMessage("言語"),
+        "networkError": MessageLookupByLibrary.simpleMessage("ネットワークエラーです。"),
+        "networkErrorDetail":
+            MessageLookupByLibrary.simpleMessage("接続を確認して再度お試しください。"),
+        "noResult": MessageLookupByLibrary.simpleMessage("結果は見つかりませんでした。"),
+        "noResultDetail":
+            MessageLookupByLibrary.simpleMessage("検索ワードを変更してください。"),
+        "result": MessageLookupByLibrary.simpleMessage("件"),
+        "searchPageTitle": MessageLookupByLibrary.simpleMessage("GitHubサーチ"),
+        "star": MessageLookupByLibrary.simpleMessage("スター"),
+        "watch": MessageLookupByLibrary.simpleMessage("ウォッチ")
+      };
 }
