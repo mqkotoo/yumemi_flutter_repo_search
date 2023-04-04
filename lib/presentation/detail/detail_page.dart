@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 
+import 'package:yumemi_flutter_repo_search/presentation/detail/widget/detail_element.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/widget/hori_repo_header.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/widget/ver_repo_header.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
 import '../../domain/repo_data_model.dart';
 import '../../generated/l10n.dart';
@@ -45,37 +48,10 @@ class DetailPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-                vertical: 16, horizontal: widthSize * 0.05),
-            child: Column(
-              children: <Widget>[
-                ClipOval(
-                  key: const Key('userImageOnDetailPage'),
-                  child: CachedNetworkImage(
-                    imageUrl: repoData.owner.avatarUrl,
-                    width: 120,
-                    height: 120,
-                    placeholder: (_, __) => const UserIconShimmer(),
-                    errorWidget: (_, __, ___) =>
-                        const Icon(Icons.error, size: 50),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    repoData.fullName,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    key: const Key('repoNameOnDetailPage'),
-                  ),
-                ),
-                Text(
-                  repoData.description ?? 'No Description',
-                  style: Theme.of(context).textTheme.titleSmall,
-                  key: const Key('repoDetailOnDetailPage'),
-                ),
-              ],
-            ),
+          VerRepoHeader(
+            avatarUrl: repoData.owner.avatarUrl,
+            fullName: repoData.fullName,
+            description: repoData.description,
           ),
           const Divider(),
           Container(
@@ -83,7 +59,7 @@ class DetailPage extends StatelessWidget {
                 vertical: 16, horizontal: widthSize * 0.05),
             child: Column(
               children: [
-                detailElement(
+                DetailElement(
                   icon: Icons.language,
                   elementLabel: S.of(context).language,
                   elementData: repoData.language ?? 'No Language',
@@ -91,7 +67,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.white,
                   key: const Key('language'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.star_outline,
                   elementLabel: S.of(context).star,
                   elementData: starsCount,
@@ -99,7 +75,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.black87,
                   key: const Key('star'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.remove_red_eye_outlined,
                   elementLabel: S.of(context).watch,
                   elementData: watchersCount,
@@ -107,7 +83,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.white,
                   key: const Key('watch'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.fork_right_sharp,
                   elementLabel: S.of(context).fork,
                   elementData: forksCount,
@@ -115,7 +91,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.white,
                   key: const Key('fork'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.info_outline,
                   elementLabel: S.of(context).issue,
                   elementData: issuesCount,
@@ -139,42 +115,10 @@ class DetailPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-                vertical: 16, horizontal: widthSize * 0.05),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: repoData.owner.avatarUrl,
-                    width: 120,
-                    height: 120,
-                    placeholder: (_, __) => const UserIconShimmer(),
-                    errorWidget: (_, __, ___) =>
-                        const Icon(Icons.error, size: 50),
-                    key: const Key('userImage'),
-                  ),
-                ),
-                SizedBox(
-                  width: widthSize * 0.5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        repoData.fullName,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        repoData.description ?? 'No Description',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          HoriRepoHeader(
+            avatarUrl: repoData.owner.avatarUrl,
+            fullName: repoData.fullName,
+            description: repoData.description,
           ),
           const Divider(),
           Container(
@@ -182,7 +126,7 @@ class DetailPage extends StatelessWidget {
                 vertical: 16, horizontal: widthSize * 0.05),
             child: Column(
               children: [
-                detailElement(
+                DetailElement(
                   icon: Icons.language,
                   elementLabel: S.of(context).language,
                   elementData: repoData.language ?? 'No Language',
@@ -190,7 +134,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.white,
                   key: const Key('language'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.star_outline,
                   elementLabel: S.of(context).star,
                   elementData: starsCount,
@@ -198,7 +142,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.black87,
                   key: const Key('star'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.remove_red_eye_outlined,
                   elementLabel: S.of(context).watch,
                   elementData: watchersCount,
@@ -206,7 +150,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.white,
                   key: const Key('watch'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.fork_right_sharp,
                   elementLabel: S.of(context).fork,
                   elementData: forksCount,
@@ -214,7 +158,7 @@ class DetailPage extends StatelessWidget {
                   iconColor: Colors.white,
                   key: const Key('fork'),
                 ),
-                detailElement(
+                DetailElement(
                   icon: Icons.info_outline,
                   elementLabel: S.of(context).issue,
                   elementData: issuesCount,
@@ -227,38 +171,6 @@ class DetailPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget detailElement(
-      {Key? key,
-      required Color iconBackgroundColor,
-      required IconData icon,
-      required Color iconColor,
-      required String elementLabel,
-      required String elementData}) {
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Padding(
-        key: key,
-        padding: const EdgeInsets.only(bottom: 16),
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: iconBackgroundColor,
-              child: Icon(icon, size: 20, color: iconColor),
-            ),
-            const SizedBox(width: 12),
-            Text(elementLabel, style: const TextStyle(fontSize: 16)),
-            const Spacer(),
-            Text(
-              elementData,
-              style: const TextStyle(fontSize: 16),
-            )
-          ],
-        ),
       ),
     );
   }
