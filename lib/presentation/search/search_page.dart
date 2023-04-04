@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -25,7 +27,17 @@ class SearchPage extends ConsumerWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('GitHubサーチ'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('GitHubサーチ'),
+              //actionsで実装すると、端っこすぎる
+              ToggleThemeSwitch(
+                value: false,
+                onToggle: (value) => print(value),
+              ),
+            ],
+          ),
           key: const Key('searchPageAppBar'),
         ),
         body: Column(
