@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
