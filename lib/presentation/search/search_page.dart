@@ -8,7 +8,6 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
-
 import '../../theme/theme_mode_provider.dart';
 
 class SearchPage extends ConsumerWidget {
