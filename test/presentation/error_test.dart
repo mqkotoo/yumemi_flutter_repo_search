@@ -4,15 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:yumemi_flutter_repo_search/main.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
+import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import '../repository/repository_mock_data.dart';
 import '../repository/repository_mock_test.mocks.dart';
 
 void main() {
   group('エラー等の表示ができているか', () {
     testWidgets('空文字を入力して”入力してください”が表示されるか', (WidgetTester tester) async {
+      //モックのデータをshared_preferencesにセットしておかないといけない
+      SharedPreferences.setMockInitialValues({});
       const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       //空文字を送信するとリクエストはせず、エラーメッセージを表示する仕様
@@ -22,6 +26,9 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(overrides: [
           httpClientProvider.overrideWithValue(mockClient),
+          sharedPreferencesProvider.overrideWithValue(
+            await SharedPreferences.getInstance(),
+          ),
         ], child: const MyApp()),
       );
 
@@ -38,6 +45,7 @@ void main() {
     });
 
     testWidgets('結果が0だった時に、想定の表示がされるか', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
       const emptyData = RepositoryMockData.emptyJsonData;
       final mockClient = MockClient();
       //結果が0のデータを返す
@@ -47,6 +55,9 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(overrides: [
           httpClientProvider.overrideWithValue(mockClient),
+          sharedPreferencesProvider.overrideWithValue(
+            await SharedPreferences.getInstance(),
+          ),
         ], child: const MyApp()),
       );
 
@@ -65,6 +76,7 @@ void main() {
     });
 
     testWidgets('リクエストが200以外の場合エラーが返るか', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
       const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       //リクエストが200以外（失敗）する想定
@@ -74,6 +86,9 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(overrides: [
           httpClientProvider.overrideWithValue(mockClient),
+          sharedPreferencesProvider.overrideWithValue(
+            await SharedPreferences.getInstance(),
+          ),
         ], child: const MyApp()),
       );
 
@@ -92,7 +107,7 @@ void main() {
     });
 
     testWidgets('通信状態じゃない時の検索でネットワークエラーが返るか', (WidgetTester tester) async {
-      // const data = RepositoryMockData.jsonData;
+      SharedPreferences.setMockInitialValues({});
       //リクエストを投げると、ネットワークエラーの例外をスローする
       final mockClient = MockClient();
       when(mockClient.get(any)).thenAnswer((_) async => throw 'Network Error');
@@ -101,6 +116,9 @@ void main() {
         ProviderScope(
           overrides: [
             httpClientProvider.overrideWithValue(mockClient),
+            sharedPreferencesProvider.overrideWithValue(
+              await SharedPreferences.getInstance(),
+            ),
           ],
           child: const MyApp(),
         ),
