@@ -40,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Not Found Search Result."),
         "noResultDetail": MessageLookupByLibrary.simpleMessage(
             "Please change your search words."),
-        "result": MessageLookupByLibrary.simpleMessage("results"),
+        "result": MessageLookupByLibrary.simpleMessage(" results"),
         "searchPageTitle":
             MessageLookupByLibrary.simpleMessage("GitHub Search"),
         "star": MessageLookupByLibrary.simpleMessage("Star"),

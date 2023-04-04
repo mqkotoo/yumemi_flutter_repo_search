@@ -23,7 +23,7 @@ class ResultCount extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
-          '${NumberFormat('#,##0').format(resultCount)} ${S.of(context).result}',
+          '${NumberFormat('#,##0').format(resultCount)}${S.of(context).result}',
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.light
                 ? AppColor.lightCountColor

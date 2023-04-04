@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `results`
+  /// ` results`
   String get result {
     return Intl.message(
-      'results',
+      ' results',
       name: 'result',
       desc: '',
       args: [],
