@@ -14,14 +14,16 @@ class ResultCount extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1C19).withOpacity(0.6),
+          // color: const Color(0xff1A1C19).withOpacity(0.6),
+          color: const Color(0xffFCFDF6).withOpacity(0.6),
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
           '${NumberFormat('#,##0').format(resultCount)}件',
           style: const TextStyle(
             fontSize: 16,
-            color: Colors.white,
+            // color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
           key: const Key('resultCount'),

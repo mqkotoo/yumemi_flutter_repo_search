@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:shimmer/shimmer.dart';
 
+import '../../../constants/app_color.dart';
+
 class ListItemShimmer extends StatelessWidget {
   const ListItemShimmer({super.key});
 
@@ -10,8 +12,12 @@ class ListItemShimmer extends StatelessWidget {
     return SingleChildScrollView(
       child: Shimmer.fromColors(
         period: const Duration(milliseconds: 750),
-        baseColor: const Color(0xffe0e0e0),
-        highlightColor: const Color(0xffeeeeee),
+        baseColor: Theme.of(context).brightness == Brightness.light
+            ? AppColor.lightBaseColor
+            : AppColor.darkBaseColor,
+        highlightColor: Theme.of(context).brightness == Brightness.light
+            ? AppColor.lightHighlightColor
+            : AppColor.darkHighlightColor,
         child: ListView.separated(
           shrinkWrap: true,
           itemCount: 20,

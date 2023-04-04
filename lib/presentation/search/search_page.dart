@@ -69,7 +69,7 @@ class SearchPage extends ConsumerWidget {
                 key: const Key('inputForm'),
               ),
             ),
-            const Divider(color: Colors.black12),
+            const Divider(),
             Expanded(
               flex: 8,
               child: Stack(
