@@ -8,6 +8,7 @@ import 'package:yumemi_flutter_repo_search/repository/data_repository.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import 'package:yumemi_flutter_repo_search/theme/theme.dart';
+import 'package:yumemi_flutter_repo_search/theme/theme_mode_provider.dart';
 
 final dataRepositoryProvider = Provider<DataRepository>((ref) {
   return DataRepository(client: ref.watch(httpClientProvider));
@@ -28,15 +29,15 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: ref.watch(themeModeProvider),
       home: const SearchPage(),
     );
   }

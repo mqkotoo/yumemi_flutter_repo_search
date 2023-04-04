@@ -9,6 +9,8 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
 
+import '../../theme/theme_mode_provider.dart';
+
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -19,6 +21,16 @@ class SearchPage extends ConsumerWidget {
         ref.watch(repoDataProvider(ref.watch(inputRepoNameProvider)));
     //テキストのコントローラ
     final textController = ref.watch(textEditingControllerProvider);
+
+    //スイッチの初期値判定のためのシステムテーマモード取得
+    final systemThemeMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light;
+    //現在のテーマモード取得
+    final themeMode = ref.watch(themeModeProvider);
+    //theme切り替えのプロバイダ
+    final themeSelector = ref.read(themeModeProvider.notifier);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -32,8 +44,13 @@ class SearchPage extends ConsumerWidget {
               const Text('GitHubサーチ'),
               //actionsで実装すると、端っこすぎる
               ToggleThemeSwitch(
-                value: false,
-                onToggle: (value) => print(value),
+                //themeModeが初期（SYSTEM）状態だったらその情報を使って表示を処理する
+                value: themeMode == ThemeMode.system
+                    ? systemThemeMode == ThemeMode.dark
+                    : themeMode == ThemeMode.dark,
+                onToggle: (value) {
+                  themeSelector.toggleThemeAndSave(value);
+                },
               ),
             ],
           ),
