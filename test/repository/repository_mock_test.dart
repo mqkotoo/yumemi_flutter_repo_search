@@ -41,8 +41,9 @@ void main() {
       );
 
       //上でオーバーライドされたmockのHTTPクライアントのインスタンスをみれてる
-      final result =
-          await container.read(dataRepositoryProvider).getData('flutter');
+      final result = await container
+          .read(dataRepositoryProvider)
+          .getData(repoName: 'flutter', sort: 'bestmatch');
 
       expect(result,
           RepoDataModel.fromJson(jsonDecode(data) as Map<String, dynamic>));

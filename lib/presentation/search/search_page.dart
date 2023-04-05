@@ -6,7 +6,7 @@ import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.d
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_list_view.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_app_bar.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_field.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class SearchPage extends ConsumerWidget {
         body: Column(
           children: <Widget>[
             //検索フォーム
-            const SearchField(),
+            const SearchBar(),
             const Divider(),
             //結果のリストビュー
             Expanded(

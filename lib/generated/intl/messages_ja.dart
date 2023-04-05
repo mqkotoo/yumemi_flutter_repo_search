@@ -22,13 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "bestMatch": MessageLookupByLibrary.simpleMessage("ベストマッチ"),
         "detailPageTitle": MessageLookupByLibrary.simpleMessage("リポジトリ詳細"),
         "enterText": MessageLookupByLibrary.simpleMessage("テキストを入力してください。"),
         "errorOccurred": MessageLookupByLibrary.simpleMessage("エラーが発生しました。"),
         "errorOccurredDetail":
             MessageLookupByLibrary.simpleMessage("時間をおいて再度お試しください。"),
         "fork": MessageLookupByLibrary.simpleMessage("フォーク"),
+        "forks": MessageLookupByLibrary.simpleMessage("フォーク順"),
         "formHintText": MessageLookupByLibrary.simpleMessage("リポジトリを検索"),
+        "helpWantedIssue": MessageLookupByLibrary.simpleMessage("助けてイシュー順"),
         "issue": MessageLookupByLibrary.simpleMessage("イシュー"),
         "language": MessageLookupByLibrary.simpleMessage("言語"),
         "networkError": MessageLookupByLibrary.simpleMessage("ネットワークエラーです。"),
@@ -40,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "result": MessageLookupByLibrary.simpleMessage("件"),
         "searchPageTitle": MessageLookupByLibrary.simpleMessage("GitHubサーチ"),
         "star": MessageLookupByLibrary.simpleMessage("スター"),
+        "stars": MessageLookupByLibrary.simpleMessage("スター順"),
+        "updated": MessageLookupByLibrary.simpleMessage("更新日順"),
         "viewOnGitHub": MessageLookupByLibrary.simpleMessage("ギットハブ上で見る"),
         "watch": MessageLookupByLibrary.simpleMessage("ウォッチ")
       };

@@ -222,6 +222,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Best Match`
+  String get bestMatch {
+    return Intl.message(
+      'Best Match',
+      name: 'bestMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updated`
+  String get updated {
+    return Intl.message(
+      'Updated',
+      name: 'updated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stars`
+  String get stars {
+    return Intl.message(
+      'Stars',
+      name: 'stars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forks`
+  String get forks {
+    return Intl.message(
+      'Forks',
+      name: 'forks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help Wanted Issues`
+  String get helpWantedIssue {
+    return Intl.message(
+      'Help Wanted Issues',
+      name: 'helpWantedIssue',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

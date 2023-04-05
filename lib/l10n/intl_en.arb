@@ -15,5 +15,10 @@
   "networkErrorDetail": "Please check the connection and try again.",
   "enterText": "Please Enter Text.",
   "noResult": "Not Found Search Result.",
-  "noResultDetail": "Please change your search words."
+  "noResultDetail": "Please change your search words.",
+  "bestMatch": "Best Match",
+  "updated": "Updated",
+  "stars": "Stars",
+  "forks": "Forks",
+  "helpWantedIssue": "Help Wanted Issues"
 }

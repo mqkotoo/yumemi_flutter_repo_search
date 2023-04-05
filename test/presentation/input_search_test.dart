@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/search_page.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import '../repository/repository_mock_data.dart';
@@ -17,22 +14,6 @@ import '../repository/repository_mock_test.mocks.dart';
 
 void main() {
   group('入力フォームのテスト', () {
-    //hintテキストのテストをするので言語を指定
-    Widget myTestWidget() {
-      return MaterialApp(
-        //多言語対応
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        locale: const Locale('en'),
-        home: const SearchPage(),
-      );
-    }
-
     testWidgets('検索フォームのテスト', (WidgetTester tester) async {
       //モックのデータをshared_preferencesにセットしておかないといけない
       SharedPreferences.setMockInitialValues({});
@@ -48,13 +29,13 @@ void main() {
           sharedPreferencesProvider.overrideWithValue(
             await SharedPreferences.getInstance(),
           ),
-        ], child: myTestWidget()),
+        ], child: const MyApp()),
       );
       //検索フォーム
       final formField = find.byKey(const Key('inputForm'));
       //検索フォームがあるか
       expect(formField, findsOneWidget);
-      //初期状態でヒントテキストが表示されているか
+      //初期状態でヒントテキストが表示されているか(英語でテストできてるみたい)
       expect(find.text('Search Repository'), findsOneWidget);
       //検索アイコンが表示されているか
       expect(find.byIcon(Icons.search), findsOneWidget);

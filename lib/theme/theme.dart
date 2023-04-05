@@ -43,48 +43,59 @@ ThemeData lightTheme = ThemeData.light().copyWith(
 
   // divider
   dividerColor: const Color(0x47000000),
+
+  //RADIOボタンのアクティブ時の色
+  radioTheme: RadioThemeData(
+    fillColor:
+        MaterialStateColor.resolveWith((states) => const Color(0xFFFF9800)),
+  ),
 );
 
 //dark theme ----------------------------------
 ThemeData darkTheme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor: const Color(0xff1A1C19),
-  //appbar theme
-  appBarTheme: const AppBarTheme(
-    centerTitle: false,
-    backgroundColor: Color(0xff1A1C19),
-    elevation: 0,
-    titleTextStyle: TextStyle(
-      color: Color(0xffffffff),
-      fontWeight: FontWeight.bold,
-      fontSize: 20,
-    ),
-    iconTheme: IconThemeData(
-      color: Color(0xffffffff),
-    ),
-  ),
-
-  //textField theme
-  inputDecorationTheme: InputDecorationTheme(
-    prefixIconColor: const Color(0xff9e9e9e),
-    suffixIconColor: const Color(0xff9e9e9e),
-    fillColor: const Color(0xff454f45),
-    filled: true,
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30),
-      borderSide: const BorderSide(
-        color: Colors.transparent,
+    scaffoldBackgroundColor: const Color(0xff1A1C19),
+    //appbar theme
+    appBarTheme: const AppBarTheme(
+      centerTitle: false,
+      backgroundColor: Color(0xff1A1C19),
+      elevation: 0,
+      titleTextStyle: TextStyle(
+        color: Color(0xffffffff),
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+      ),
+      iconTheme: IconThemeData(
+        color: Color(0xffffffff),
       ),
     ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30),
-      borderSide: const BorderSide(
-        color: Color(0xff9e9e9e),
-      ),
-    ),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-    isDense: true,
-  ),
 
-  // divider
-  dividerColor: const Color(0xff777777),
-);
+    //textField theme
+    inputDecorationTheme: InputDecorationTheme(
+      prefixIconColor: const Color(0xff9e9e9e),
+      suffixIconColor: const Color(0xff9e9e9e),
+      fillColor: const Color(0xff454f45),
+      filled: true,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.transparent,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Color(0xff9e9e9e),
+        ),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      isDense: true,
+    ),
+
+    // divider
+    dividerColor: const Color(0xff777777),
+
+    //RADIOボタンのアクティブ時の色
+    radioTheme: RadioThemeData(
+      fillColor:
+          MaterialStateColor.resolveWith((states) => const Color(0xFF536DFE)),
+    ));
