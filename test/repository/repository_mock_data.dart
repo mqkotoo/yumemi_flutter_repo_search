@@ -11,6 +11,7 @@ class RepositoryMockData {
       "watchers_count": 150088,
       "forks_count": 24628,
       "open_issues_count": 11582,
+      "html_url": "https://github.com/flutter/flutter",
       "owner": {
         "avatar_url": "https://avatars.githubusercontent.com/u/14101776?v=4"
       }

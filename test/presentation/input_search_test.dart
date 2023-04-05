@@ -172,6 +172,7 @@ void main() {
       expect(find.byKey(const Key('watch')), findsOneWidget);
       expect(find.byKey(const Key('fork')), findsOneWidget);
       expect(find.byKey(const Key('issue')), findsOneWidget);
+      expect(find.byKey(const Key('viewOnGithub')), findsOneWidget);
     });
   });
 }

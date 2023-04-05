@@ -8,6 +8,7 @@
   "watch": "ウォッチ",
   "fork": "フォーク",
   "issue": "イシュー",
+  "viewOnGitHub": "ギットハブ上で見る",
   "errorOccurred": "エラーが発生しました。",
   "errorOccurredDetail": "時間をおいて再度お試しください。",
   "networkError": "ネットワークエラーです。",

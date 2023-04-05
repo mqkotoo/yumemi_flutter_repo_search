@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "result": MessageLookupByLibrary.simpleMessage("件"),
         "searchPageTitle": MessageLookupByLibrary.simpleMessage("GitHubサーチ"),
         "star": MessageLookupByLibrary.simpleMessage("スター"),
+        "viewOnGitHub": MessageLookupByLibrary.simpleMessage("ギットハブ上で見る"),
         "watch": MessageLookupByLibrary.simpleMessage("ウォッチ")
       };
 }

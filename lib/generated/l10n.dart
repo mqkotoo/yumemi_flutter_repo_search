@@ -143,6 +143,16 @@ class S {
     );
   }
 
+  /// `View On GitHub`
+  String get viewOnGitHub {
+    return Intl.message(
+      'View On GitHub',
+      name: 'viewOnGitHub',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Error Occurred.`
   String get errorOccurred {
     return Intl.message(

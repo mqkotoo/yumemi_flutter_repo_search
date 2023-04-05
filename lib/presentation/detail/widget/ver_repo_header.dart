@@ -41,7 +41,7 @@ class VerRepoHeader extends StatelessWidget {
           Text(
             repoData.description ?? 'No Description',
             style: Theme.of(context).textTheme.titleSmall,
-            key: const Key('repoNameOnDetailPage'),
+            key: const Key('repoDetailOnDetailPage'),
           ),
         ],
       ),

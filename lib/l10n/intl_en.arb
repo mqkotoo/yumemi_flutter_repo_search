@@ -8,6 +8,7 @@
   "watch": "Watch",
   "fork": "Fork",
   "issue": "Issue",
+  "viewOnGitHub": "View On GitHub",
   "errorOccurred": "Error Occurred.",
   "errorOccurredDetail": "Please retry later.",
   "networkError": "Network Error.",
