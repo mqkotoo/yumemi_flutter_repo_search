@@ -17,14 +17,16 @@ class ErrorComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //デバイスの高さ取得
+    final deviceHeight = MediaQuery.of(context).size.height;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Lottie.asset(
             lottieFile,
-            width: 250,
-            height: 250,
+            width: deviceHeight * 0.3,
+            height: deviceHeight * 0.3,
           ),
           const SizedBox(height: 8),
           Text(
