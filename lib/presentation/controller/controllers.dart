@@ -20,13 +20,17 @@ final isClearButtonVisibleProvider =
 final isResultCountVisibleProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 
+//sortの文字列を格納
+final sortStringProvider = StateProvider<String>((ref) => 'bestmatch');
+
 //データ
 final repoDataProvider = FutureProvider.autoDispose
     .family<RepoDataModel, String>((ref, repoName) async {
+  final sortString = ref.watch(sortStringProvider);
   if (repoName.isEmpty) {
     throw 'No Keywords';
   }
 
   final dataRepository = ref.watch(dataRepositoryProvider);
-  return await dataRepository.getData(repoName);
+  return await dataRepository.getData(repoName: repoName, sort: sortString);
 });
