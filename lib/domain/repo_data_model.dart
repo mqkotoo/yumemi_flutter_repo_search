@@ -27,6 +27,7 @@ class RepoDataItems with _$RepoDataItems {
     required int watchersCount,
     required int forksCount,
     required int openIssuesCount,
+    required String htmlUrl,
     required RepoDataOwner owner,
   }) = _RepoDataItems;
 
