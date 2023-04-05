@@ -82,7 +82,7 @@ Widget detailElement(
       children: [
         CircleAvatar(
           backgroundColor: iconBackgroundColor,
-          child: Icon(icon, size: 20, color: iconColor),
+          child: Icon(icon, size: 25, color: iconColor),
         ),
         const SizedBox(width: 12),
         Text(elementLabel, style: const TextStyle(fontSize: 16)),
