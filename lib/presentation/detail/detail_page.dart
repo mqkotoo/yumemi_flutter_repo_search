@@ -46,12 +46,10 @@ class DetailPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          VerRepoHeader(
-            avatarUrl: repoData.owner.avatarUrl,
-            fullName: repoData.fullName,
-            description: repoData.description,
-          ),
+          //リポジトリのヘッダー
+          VerRepoHeader(repoData: repoData),
           const Divider(),
+          //リポジトリのスター数などの要素
           Container(
             padding: EdgeInsets.symmetric(
                 vertical: 16, horizontal: widthSize * 0.05),
@@ -80,12 +78,10 @@ class DetailPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          HoriRepoHeader(
-            avatarUrl: repoData.owner.avatarUrl,
-            fullName: repoData.fullName,
-            description: repoData.description,
-          ),
+          //リポジトリのヘッダー
+          HoriRepoHeader(repoData: repoData),
           const Divider(),
+          //リポジトリのスター数などの要素
           Container(
             padding:
                 EdgeInsets.symmetric(vertical: 16, horizontal: widthSize * 0.1),
