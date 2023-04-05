@@ -31,7 +31,7 @@ class HoriRepoHeader extends StatelessWidget {
               height: 120,
               placeholder: (_, __) => const UserIconShimmer(),
               errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
-              key: const Key('userImage'),
+              key: const Key('userImageOnDetailPage'),
             ),
           ),
           SizedBox(
@@ -42,11 +42,13 @@ class HoriRepoHeader extends StatelessWidget {
                 Text(
                   fullName,
                   style: Theme.of(context).textTheme.titleLarge,
+                  key: const Key('repoNameOnDetailPage'),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   description ?? 'No Description',
                   style: Theme.of(context).textTheme.titleSmall,
+                  key: const Key('repoDetailOnDetailPage'),
                 ),
               ],
             ),

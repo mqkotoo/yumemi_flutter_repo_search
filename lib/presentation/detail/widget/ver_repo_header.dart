@@ -30,7 +30,7 @@ class VerRepoHeader extends StatelessWidget {
               height: 120,
               placeholder: (_, __) => const UserIconShimmer(),
               errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
-              key: const Key('userImage'),
+              key: const Key('userImageOnDetailPage'),
             ),
           ),
           Padding(
@@ -38,11 +38,13 @@ class VerRepoHeader extends StatelessWidget {
             child: Text(
               fullName,
               style: Theme.of(context).textTheme.titleLarge,
+              key: const Key('repoNameOnDetailPage'),
             ),
           ),
           Text(
             description ?? 'No Description',
             style: Theme.of(context).textTheme.titleSmall,
+            key: const Key('repoNameOnDetailPage'),
           ),
         ],
       ),

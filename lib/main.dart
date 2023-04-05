@@ -28,7 +28,7 @@ void main() async {
         ),
       ],
       child: DevicePreview(
-        enabled: true,
+        enabled: false,
         builder: (context) => const MyApp(),
       ),
     ),
@@ -45,7 +45,7 @@ class MyApp extends ConsumerWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      
+
       // theme setting
       theme: lightTheme,
       darkTheme: darkTheme,
