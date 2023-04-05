@@ -7,6 +7,7 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/erro
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_field.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
 import '../../generated/l10n.dart';
 import '../../theme/theme_mode_provider.dart';
@@ -19,8 +20,6 @@ class SearchPage extends ConsumerWidget {
     //検索結果データ
     final repoData =
         ref.watch(repoDataProvider(ref.watch(inputRepoNameProvider)));
-    //テキストのコントローラ
-    final textController = ref.watch(textEditingControllerProvider);
 
     //スイッチの初期値判定のためのシステムテーマモード取得
     final systemThemeMode =
@@ -58,50 +57,10 @@ class SearchPage extends ConsumerWidget {
         ),
         body: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              //search field
-              child: SafeArea(
-                top: false,
-                bottom: false,
-                child: TextFormField(
-                  controller: textController,
-                  onChanged: (text) {
-                    ref
-                        .read(isClearButtonVisibleProvider.notifier)
-                        .update((state) => text.isNotEmpty);
-                  },
-                  //入力キーボードのdone→searchに変更
-                  textInputAction: TextInputAction.search,
-                  //search押したらデータ取得 データ渡す
-                  onFieldSubmitted: (text) {
-                    //無駄な余白をカットしてプロバイダーに渡す
-                    ref
-                        .read(inputRepoNameProvider.notifier)
-                        .update((state) => text.trim());
-                  },
-                  //decoration
-                  decoration: InputDecoration(
-                    hintText: S.of(context).formHintText,
-                    prefixIcon: const Icon(Icons.search, size: 27),
-                    suffixIcon: ref.watch(isClearButtonVisibleProvider)
-                        ? IconButton(
-                            icon: const Icon(Icons.clear, size: 27),
-                            onPressed: () {
-                              textController.clear();
-                              ref
-                                  .watch(isClearButtonVisibleProvider.notifier)
-                                  .update((state) => false);
-                            },
-                            key: const Key('clearButton'),
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  key: const Key('inputForm'),
-                ),
-              ),
-            ),
+            //検索フォーム
+            const SearchField(),
             const Divider(),
+            //結果のリストビュー
             Expanded(
               flex: 8,
               child: Stack(
