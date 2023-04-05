@@ -69,7 +69,7 @@ class SearchBar extends ConsumerWidget {
                   onChanged: (value) => ref
                       .read(sortStringProvider.notifier)
                       .update((state) => value!),
-                  child: Text('ベストマッチ'),
+                  child: Text(S.of(context).bestMatch),
                 ),
                 RadioMenuButton(
                   value: 'updated',
@@ -77,7 +77,7 @@ class SearchBar extends ConsumerWidget {
                   onChanged: (value) => ref
                       .read(sortStringProvider.notifier)
                       .update((state) => value!),
-                  child: Text('更新日順'),
+                  child: Text(S.of(context).updated),
                 ),
                 RadioMenuButton(
                   value: 'stars',
@@ -85,7 +85,7 @@ class SearchBar extends ConsumerWidget {
                   onChanged: (value) => ref
                       .read(sortStringProvider.notifier)
                       .update((state) => value!),
-                  child: Text('スター順'),
+                  child: Text(S.of(context).star),
                 ),
                 RadioMenuButton(
                   value: 'forks',
@@ -93,7 +93,7 @@ class SearchBar extends ConsumerWidget {
                   onChanged: (value) => ref
                       .read(sortStringProvider.notifier)
                       .update((state) => value!),
-                  child: Text('フォーク順'),
+                  child: Text(S.of(context).forks),
                 ),
                 RadioMenuButton(
                   value: 'help-wanted-issues',
@@ -101,7 +101,7 @@ class SearchBar extends ConsumerWidget {
                   onChanged: (value) => ref
                       .read(sortStringProvider.notifier)
                       .update((state) => value!),
-                  child: Text('助けてイシュー順'),
+                  child: Text(S.of(context).helpWantedIssue),
                 ),
               ],
               builder: (BuildContext context, MenuController controller,

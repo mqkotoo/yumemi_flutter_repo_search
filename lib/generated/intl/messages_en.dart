@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "bestMatch": MessageLookupByLibrary.simpleMessage("Best Match"),
         "detailPageTitle": MessageLookupByLibrary.simpleMessage("Repo Detail"),
         "enterText": MessageLookupByLibrary.simpleMessage("Please Enter Text."),
         "errorOccurred":
@@ -29,8 +30,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorOccurredDetail":
             MessageLookupByLibrary.simpleMessage("Please retry later."),
         "fork": MessageLookupByLibrary.simpleMessage("Fork"),
+        "forks": MessageLookupByLibrary.simpleMessage("Forks"),
         "formHintText":
             MessageLookupByLibrary.simpleMessage("Search Repository"),
+        "helpWantedIssue":
+            MessageLookupByLibrary.simpleMessage("Help Wanted Issues"),
         "issue": MessageLookupByLibrary.simpleMessage("Issue"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "networkError": MessageLookupByLibrary.simpleMessage("Network Error."),
@@ -44,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchPageTitle":
             MessageLookupByLibrary.simpleMessage("GitHub Search"),
         "star": MessageLookupByLibrary.simpleMessage("Star"),
+        "stars": MessageLookupByLibrary.simpleMessage("Stars"),
+        "updated": MessageLookupByLibrary.simpleMessage("Updated"),
         "viewOnGitHub": MessageLookupByLibrary.simpleMessage("View On GitHub"),
         "watch": MessageLookupByLibrary.simpleMessage("Watch")
       };

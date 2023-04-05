@@ -15,5 +15,10 @@
   "networkErrorDetail": "接続を確認して再度お試しください。",
   "enterText": "テキストを入力してください。",
   "noResult": "結果は見つかりませんでした。",
-  "noResultDetail": "検索ワードを変更してください。"
+  "noResultDetail": "検索ワードを変更してください。",
+  "bestMatch": "ベストマッチ",
+  "updated": "更新日順",
+  "stars": "スター順",
+  "forks": "フォーク順",
+  "helpWantedIssue": "助けてイシュー順"
 }
