@@ -122,8 +122,8 @@ class DetailPage extends StatelessWidget {
           ),
           const Divider(),
           Container(
-            padding: EdgeInsets.symmetric(
-                vertical: 16, horizontal: widthSize * 0.05),
+            padding:
+                EdgeInsets.symmetric(vertical: 16, horizontal: widthSize * 0.1),
             child: Column(
               children: [
                 DetailElement(
