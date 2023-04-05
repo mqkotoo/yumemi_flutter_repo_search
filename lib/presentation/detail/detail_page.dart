@@ -50,6 +50,7 @@ class DetailPage extends StatelessWidget {
             avatarUrl: repoData.owner.avatarUrl,
             fullName: repoData.fullName,
             description: repoData.description,
+            repoData: repoData,
           ),
           const Divider(),
           Container(
@@ -84,6 +85,7 @@ class DetailPage extends StatelessWidget {
             avatarUrl: repoData.owner.avatarUrl,
             fullName: repoData.fullName,
             description: repoData.description,
+            repoData: repoData,
           ),
           const Divider(),
           Container(

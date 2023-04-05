@@ -35,14 +35,17 @@ class ListItem extends StatelessWidget {
         children: [
           const SizedBox(width: 16), //ListTileの横paddingと一緒の値
           //ListTileのleadingで画像を表示すると縦が真ん中にならなかったので、Rowで並べて表示するようにする
-          ClipOval(
-            key: const Key('userImageOnListView'),
-            child: CachedNetworkImage(
-              imageUrl: userIconUrl,
-              width: 60,
-              height: 60,
-              placeholder: (_, __) => const UserIconShimmer(),
-              errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
+          Hero(
+            tag: repoData,
+            child: ClipOval(
+              key: const Key('userImageOnListView'),
+              child: CachedNetworkImage(
+                imageUrl: userIconUrl,
+                width: 60,
+                height: 60,
+                placeholder: (_, __) => const UserIconShimmer(),
+                errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
+              ),
             ),
           ),
           Expanded(
