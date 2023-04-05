@@ -85,7 +85,7 @@ class SearchBar extends ConsumerWidget {
                   onChanged: (value) => ref
                       .read(sortStringProvider.notifier)
                       .update((state) => value!),
-                  child: Text(S.of(context).star),
+                  child: Text(S.of(context).stars),
                 ),
                 RadioMenuButton(
                   value: 'forks',
