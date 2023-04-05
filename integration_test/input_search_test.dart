@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
+import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 
 import '../test/repository/repository_mock_data.dart';
 import '../test/repository/repository_mock_test.mocks.dart';
@@ -15,6 +17,8 @@ void main() {
 
   testWidgets('入力→結果が表示される→タップで画面遷移→遷移後に情報が表示されているか',
       (WidgetTester tester) async {
+    //モックのデータをshared_preferencesにセットしておかないといけない
+    SharedPreferences.setMockInitialValues({});
     const data = RepositoryMockData.jsonData;
     final mockClient = MockClient();
     when(mockClient.get(any)).thenAnswer((_) async => http.Response(data, 200));
@@ -23,6 +27,10 @@ void main() {
       ProviderScope(overrides: [
         //mock clientでDI
         httpClientProvider.overrideWithValue(mockClient),
+        //sharedPreferencesを初回で上書き
+        sharedPreferencesProvider.overrideWithValue(
+          await SharedPreferences.getInstance(),
+        ),
       ], child: const MyApp()),
     );
 
@@ -71,5 +79,6 @@ void main() {
     expect(find.byKey(const Key('watch')), findsOneWidget);
     expect(find.byKey(const Key('fork')), findsOneWidget);
     expect(find.byKey(const Key('issue')), findsOneWidget);
+    expect(find.byKey(const Key('viewOnGithub')), findsOneWidget);
   });
 }

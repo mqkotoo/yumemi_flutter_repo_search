@@ -24,6 +24,7 @@ class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
     //theme切り替えのプロバイダ
     final themeSelector = ref.read(themeModeProvider.notifier);
     return AppBar(
+      key: const Key('searchPageAppBar'),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

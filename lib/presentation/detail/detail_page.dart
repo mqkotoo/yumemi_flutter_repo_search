@@ -109,7 +109,7 @@ class DetailPage extends StatelessWidget {
   }
 
   //githubページに飛ばすテキスト
-  Widget githubLinkText(context) {
+  Widget githubLinkText(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: GestureDetector(
@@ -123,6 +123,7 @@ class DetailPage extends StatelessWidget {
             decoration: TextDecoration.underline,
             decorationColor: Colors.blueAccent,
           ),
+          key: const Key('viewOnGithub'),
         ),
       ),
     );
