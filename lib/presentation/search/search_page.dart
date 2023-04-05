@@ -26,7 +26,7 @@ class SearchPage extends ConsumerWidget {
         body: Column(
           children: <Widget>[
             //検索フォーム
-            const SearchField(),
+            const SearchBar(),
             const Divider(),
             //結果のリストビュー
             Expanded(
