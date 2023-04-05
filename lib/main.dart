@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:device_preview/device_preview.dart';
@@ -28,7 +30,7 @@ void main() async {
         ),
       ],
       child: DevicePreview(
-        enabled: false,
+        enabled: true,
         builder: (context) => const MyApp(),
       ),
     ),
@@ -44,7 +46,30 @@ class MyApp extends ConsumerWidget {
       //device_preview setting
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
+
+      //デバイスで”文字を大きくする”の設定に関する記述
+      builder: (BuildContext context, Widget? child) {
+        final MediaQueryData data = MediaQuery.of(context);
+        //textScaleの上限を指定
+        double textScaleLimit() {
+          if (data.size.width <= 320) {
+            return 1.3;
+          } else if (data.size.width <= 375) {
+            return 1.4;
+          } else {
+            return 1.5;
+          }
+        }
+
+        return MediaQuery(
+          //min()どちらか小さい方を適用するようにして上限を設ける
+          data: data.copyWith(
+            textScaleFactor: min(textScaleLimit(), data.textScaleFactor),
+          ),
+          //device_preview setting
+          child: DevicePreview.appBuilder(context, child),
+        );
+      },
 
       // theme setting
       theme: lightTheme,
