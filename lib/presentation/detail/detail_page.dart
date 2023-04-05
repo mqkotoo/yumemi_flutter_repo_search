@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/detail_element.dart';
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/hori_repo_header.dart';
@@ -62,7 +63,9 @@ class DetailPage extends StatelessWidget {
                   fork: forksCount,
                   issue: issuesCount,
                 ),
-                const SizedBox(height: 60)
+                const SizedBox(height: 30),
+                githubLinkText(context),
+                const SizedBox(height: 50),
               ],
             ),
           ),
@@ -94,12 +97,46 @@ class DetailPage extends StatelessWidget {
                   fork: forksCount,
                   issue: issuesCount,
                 ),
-                const SizedBox(height: 60)
+                const SizedBox(height: 30),
+                githubLinkText(context),
+                const SizedBox(height: 50),
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  //githubページに飛ばすテキスト
+  Widget githubLinkText(context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: GestureDetector(
+        onTap: () => _openGitHubUrl(Uri.parse(repoData.htmlUrl)),
+        child: Text(
+          S.of(context).viewOnGitHub,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
+            decoration: TextDecoration.underline,
+            decorationColor: Colors.blueAccent,
+          ),
+        ),
+      ),
+    );
+  }
+
+  //GitHubのリンク先に飛ばす
+  Future<void> _openGitHubUrl(Uri url) async {
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.inAppWebView,
+      );
+    } else {
+      throw Exception('このURLにはアクセスできません');
+    }
   }
 }

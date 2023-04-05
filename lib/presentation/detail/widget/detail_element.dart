@@ -62,7 +62,6 @@ class DetailElement extends StatelessWidget {
           iconColor: Colors.white,
           key: const Key('issue'),
         ),
-        const SizedBox(height: 60)
       ],
     );
   }
