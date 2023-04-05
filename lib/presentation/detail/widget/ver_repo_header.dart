@@ -6,24 +6,13 @@ import '../../../domain/repo_data_model.dart';
 import '../../search/widget/user_icon_shimmer.dart';
 
 class VerRepoHeader extends StatelessWidget {
-  const VerRepoHeader({Key? key,
-    required this.repoData,
-    required this.avatarUrl,
-    required this.fullName,
-    required this.description})
-      : super(key: key);
+  const VerRepoHeader({Key? key, required this.repoData}) : super(key: key);
 
   final RepoDataItems repoData;
-  final String avatarUrl;
-  final String fullName;
-  final String? description;
 
   @override
   Widget build(BuildContext context) {
-    final widthSize = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final widthSize = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: widthSize * 0.05),
       child: Column(
@@ -32,7 +21,7 @@ class VerRepoHeader extends StatelessWidget {
             tag: repoData,
             child: ClipOval(
               child: CachedNetworkImage(
-                imageUrl: avatarUrl,
+                imageUrl: repoData.owner.avatarUrl,
                 width: 120,
                 height: 120,
                 placeholder: (_, __) => const UserIconShimmer(),
@@ -44,20 +33,14 @@ class VerRepoHeader extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              fullName,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleLarge,
+              repoData.fullName,
+              style: Theme.of(context).textTheme.titleLarge,
               key: const Key('repoNameOnDetailPage'),
             ),
           ),
           Text(
-            description ?? 'No Description',
-            style: Theme
-                .of(context)
-                .textTheme
-                .titleSmall,
+            repoData.description ?? 'No Description',
+            style: Theme.of(context).textTheme.titleSmall,
             key: const Key('repoNameOnDetailPage'),
           ),
         ],

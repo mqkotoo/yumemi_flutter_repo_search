@@ -6,18 +6,9 @@ import '../../../domain/repo_data_model.dart';
 import '../../search/widget/user_icon_shimmer.dart';
 
 class HoriRepoHeader extends StatelessWidget {
-  const HoriRepoHeader(
-      {Key? key,
-      required this.repoData,
-      required this.avatarUrl,
-      required this.fullName,
-      required this.description})
-      : super(key: key);
+  const HoriRepoHeader({Key? key, required this.repoData}) : super(key: key);
 
   final RepoDataItems repoData;
-  final String avatarUrl;
-  final String fullName;
-  final String? description;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +22,7 @@ class HoriRepoHeader extends StatelessWidget {
             tag: repoData,
             child: ClipOval(
               child: CachedNetworkImage(
-                imageUrl: avatarUrl,
+                imageUrl: repoData.owner.avatarUrl,
                 width: 120,
                 height: 120,
                 placeholder: (_, __) => const UserIconShimmer(),
@@ -46,13 +37,13 @@ class HoriRepoHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  fullName,
+                  repoData.fullName,
                   style: Theme.of(context).textTheme.titleLarge,
                   key: const Key('repoNameOnDetailPage'),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  description ?? 'No Description',
+                  repoData.description ?? 'No Description',
                   style: Theme.of(context).textTheme.titleSmall,
                   key: const Key('repoDetailOnDetailPage'),
                 ),
