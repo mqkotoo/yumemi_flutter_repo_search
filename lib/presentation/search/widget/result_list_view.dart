@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_count.dart';
+import '../../../constants/app_color.dart';
+import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
 import 'error/error_widget.dart';
 import 'list_item.dart';
@@ -73,13 +75,41 @@ class ResultListview extends ConsumerWidget {
             },
             loading: () => const ListItemShimmer(),
           ),
-          // // 検索結果がある場合は件数を表示する
-          // if (ref.watch(isResultCountVisibleProvider))
-          //   if (!resultCount.hasError &&
-          //       !resultCount.isLoading &&
-          //       resultCount.value != 0)
-          //     ResultCount(resultCount: resultCount),
+          // 検索結果がある場合は件数を表示する
+          if (ref.watch(isResultCountVisibleProvider))
+            if (!resultCount.hasError &&
+                !resultCount.isLoading &&
+                resultCount.value != 0)
+              _resultCount(context, resultCount),
         ],
+      ),
+    );
+  }
+
+  //結果のカウント表示
+  Widget _resultCount(BuildContext context, AsyncValue<int> resultCount) {
+    //横画面の場合ノッチに隠れないようにする
+    return Positioned(
+      bottom: 30,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        decoration: BoxDecoration(
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColor.lightBgColor
+              : AppColor.darkBgColor,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text(
+          '${NumberFormat('#,##0').format(resultCount.value)}${S.of(context).result}',
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? AppColor.lightCountColor
+                : AppColor.darkCountColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          key: const Key('resultCount'),
+        ),
       ),
     );
   }
