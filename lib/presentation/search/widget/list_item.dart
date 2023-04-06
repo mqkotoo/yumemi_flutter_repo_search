@@ -73,15 +73,12 @@ class ListItem extends ConsumerWidget {
         ),
         loading: () => const ListItemShimmer(),
         error: (e, _) {
-          switch (e) {
-            case 'No Keywords':
-              return const EnterTextView();
-            case 'Network Error':
-              return const NetworkErrorView();
-            case 'Error Occurred':
-              return const ErrorView();
-            default:
-              throw Exception(e);
+          if (e == 'No Keywords') {
+            return const EnterTextView();
+          } else if (e == 'Network Error') {
+            return const NetworkErrorView();
+          } else {
+            return const ErrorView();
           }
         },
       ),
