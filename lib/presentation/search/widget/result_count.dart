@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/app_color.dart';
@@ -8,7 +9,7 @@ import '../../../generated/l10n.dart';
 class ResultCount extends StatelessWidget {
   const ResultCount({required this.resultCount, Key? key}) : super(key: key);
 
-  final int resultCount;
+  final AsyncValue<int> resultCount;
 
   @override
   Widget build(BuildContext context) {
