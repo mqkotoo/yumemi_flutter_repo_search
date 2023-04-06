@@ -11,13 +11,13 @@ class DataRepository {
   final http.Client client;
 
   Future<RepoDataModel> getData(
-      {required String repoName, required String sort}) async {
+      {required String repoName, required String sort, int page = 1}) async {
     try {
       // //エラーテスト用URL
       // final apiUri = Uri.parse('https://httpstat.us/403');
 
       final apiUri = Uri.parse(
-          'https://api.github.com/search/repositories?q=$repoName&sort=$sort');
+          'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page');
       http.Response response = await client.get(apiUri);
 
       if (response.statusCode == 200) {
