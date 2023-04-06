@@ -1,6 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yumemi_flutter_repo_search">
 
+    <!--権限周り-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--    URL LAUNCHER使うための記述-->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
+
     <application
         android:label="レポサーチ！"
         android:name="${applicationName}"
