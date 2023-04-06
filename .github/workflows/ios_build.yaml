@@ -1,0 +1,32 @@
+name: iOS Build
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.9'
+          channel: 'stable'
+          cache: true
+      - run: flutter pub get
+      # iOS Build
+      - run: flutter build ios --release --no-codesign
+      # 成果物アップロード
+      - name: artifact upload
+        uses: actions/upload-artifact@v3
+        with:
+          # 保存ファイル名（name.zip）
+          name: ios
+          # 保存するファイル
+          path: ./build/ios/
+          # 保存期間（日）
+          retention-days: 1
