@@ -1,5 +1,5 @@
 name: yumemi_flutter_repo_search
-description: A new Flutter project.
+description: 株式会社ゆめみのflutterエンジニアコーディングテスト課題
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -11,16 +11,51 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
-
-  cupertino_icons: ^1.0.2
+  freezed_annotation: ^2.2.0
+  http: ^0.13.5
+  flutter_riverpod: ^2.3.2
+  #flutter_localizationsとの互換性でintlのバージョンは下げた
+  intl: ^0.17.0
+  cached_network_image: ^3.2.3
+  shimmer: ^2.0.0
+  lottie: ^2.3.1
+  flutter_switch: ^0.3.2
+  shared_preferences: ^2.1.0
+  device_preview: ^1.1.0
+  url_launcher: ^6.1.10
+  flutter_launcher_icons: ^0.12.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
+  import_sorter: ^4.6.0
+  json_annotation: ^4.8.0
+  build_runner: ^2.3.3
+  freezed: ^2.3.2
+  json_serializable: ^6.6.1
+  mockito: ^5.4.0
+
+# アプリアイコンの設定
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path_android: "assets/app_icon/android_icon.png"
+  image_path_ios: "assets/app_icon/ios_icon.png"
+  adaptive_icon_background: '#d9d9d9'
+  adaptive_icon_foreground: 'assets/app_icon/android_icon.png'
 
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - assets/lottie_animation/
+flutter_intl:
+  enabled: true

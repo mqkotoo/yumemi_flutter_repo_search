@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  analyze_test:
+    name: Run flutter test and analyze
+    runs-on: ubuntu-latest
+    steps:
+  # ref: https://github.com/marketplace/actions/flutter-action
+      - name: checkout source code
+        uses: actions/checkout@v3
+
+      - name: install flutter
+        uses: subosito/flutter-action@v2
+
+        with:
+          channel: "stable"
+
+      # 依存関係読み込み
+      - name: get dependencies
+        run: flutter pub get
+
+      # インポートが整列されているかチェック
+      - name: check import sort
+        run: flutter pub run import_sorter:main --no-comments --exit-if-changed
+
+      # コードのフォーマットチェック
+      - name: check code format
+        run: dart format --set-exit-if-changed .
+
+      # freezed等のファイル生成
+      - name: generate codes with build_runner
+        run: flutter pub run build_runner build -d
+
+      # analyzeに引っ掛かるかチェック
+      - name: check analyze
+        run: flutter analyze
+
+      # テストを通過するかチェック
+      - name: test
+        run: flutter test
