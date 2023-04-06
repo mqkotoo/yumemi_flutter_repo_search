@@ -59,9 +59,9 @@ final listIndexProvider = Provider<int>((_) {
 //上で取得したindexを使ってページ、要素の判定
 final repoAtIndexProvider = Provider.family<AsyncValue<RepoDataItems>, int>(
   (ref, index) {
-    //取得するデータのper_pageは30
-    final page = index ~/ 30;
-    final indexOnPage = index % 30;
+    //取得するデータのper_pageは20
+    final page = index ~/ 20;
+    final indexOnPage = index % 20;
 
     final res = ref.watch(paginatedResultProvider(page));
     return res.whenData((e) => e.items[indexOnPage]);
