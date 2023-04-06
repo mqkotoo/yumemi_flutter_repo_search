@@ -26,6 +26,7 @@ dependencies:
   shared_preferences: ^2.1.0
   device_preview: ^1.1.0
   url_launcher: ^6.1.10
+  flutter_launcher_icons: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +42,14 @@ dev_dependencies:
   json_serializable: ^6.6.1
   mockito: ^5.4.0
 
+# アプリアイコンの設定
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path_android: "assets/app_icon/android_icon.png"
+  image_path_ios: "assets/app_icon/ios_icon.png"
+  adaptive_icon_background: '#d9d9d9'
+  adaptive_icon_foreground: 'assets/app_icon/android_icon.png'
 
 flutter:
 
