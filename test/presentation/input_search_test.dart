@@ -94,7 +94,7 @@ void main() {
       final tapTarget = find.text('flutter/flutter');
       expect(tapTarget, findsOneWidget);
       //ユーザーアイコンが表示されるか
-      expect(find.byKey(const Key('userImageOnListView')), findsOneWidget);
+      expect(find.byKey(const Key('userImageOnListView')), findsWidgets);
       //検索結果数が表示されるか
       expect(find.byKey(const Key('resultCount')), findsOneWidget);
     });

@@ -23,14 +23,48 @@ final isResultCountVisibleProvider =
 //sortの文字列を格納
 final sortStringProvider = StateProvider<String>((ref) => 'bestmatch');
 
-//データ
-final repoDataProvider = FutureProvider.autoDispose
-    .family<RepoDataModel, String>((ref, repoName) async {
+//以下のページネーション参考
+//https://itnext.io/seamless-infinite-list-with-riverpod-in-flutter-15369f3c9cd2
+
+//ページごとのデータ取得
+final paginatedResultProvider =
+    FutureProvider.family<RepoDataModel, int>((ref, page) async {
+  //sort
   final sortString = ref.watch(sortStringProvider);
-  if (repoName.isEmpty) {
+  //inputText
+  final inputText = ref.watch(inputRepoNameProvider);
+
+  //未入力だったらリクエスト投げる前にエラーを投げる
+  if (inputText.isEmpty) {
     throw 'No Keywords';
   }
 
   final dataRepository = ref.watch(dataRepositoryProvider);
-  return await dataRepository.getData(repoName: repoName, sort: sortString);
+  return await dataRepository.getData(
+      repoName: inputText, sort: sortString, page: page + 1);
 });
+
+//全部の結果数を管理する
+final totalCountProvider = Provider<AsyncValue<int>>(
+  (ref) => ref.watch(paginatedResultProvider(0)).whenData((e) => e.totalCount),
+  dependencies: [paginatedResultProvider],
+);
+
+//インデックスを管理する
+//上書きするまで使わない
+final listIndexProvider = Provider<int>((_) {
+  throw UnimplementedError();
+});
+
+//上で取得したindexを使ってページ、要素の判定
+final repoAtIndexProvider = Provider.family<AsyncValue<RepoDataItems>, int>(
+  (ref, index) {
+    //取得するデータのper_pageは20
+    final page = index ~/ 20;
+    final indexOnPage = index % 20;
+
+    final res = ref.watch(paginatedResultProvider(page));
+    return res.whenData((e) => e.items[indexOnPage]);
+  },
+  dependencies: [paginatedResultProvider],
+);

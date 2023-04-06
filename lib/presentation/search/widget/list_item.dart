@@ -1,70 +1,86 @@
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
-import '../../../domain/repo_data_model.dart';
+import '../../controller/controllers.dart';
 import '../../detail/detail_page.dart';
+import 'error/error_widget.dart';
 
-class ListItem extends StatelessWidget {
-  const ListItem({
-    required this.repoData,
-    required this.userIconUrl,
-    required this.fullName,
-    required this.description,
-    Key? key,
-  }) : super(key: key);
-
-  final RepoDataItems repoData;
-  final String userIconUrl;
-  final String fullName;
-  final String? description;
+class ListItem extends ConsumerWidget {
+  const ListItem({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final index = ref.read(listIndexProvider);
+    final repoData = ref.watch(repoAtIndexProvider(index));
     //画像部分もタップできるように全体をGestureDetectorで囲む
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(repoData: repoData)),
-        );
-      },
-      child: Row(
-        children: [
-          const SizedBox(width: 16), //ListTileの横paddingと一緒の値
-          //ListTileのleadingで画像を表示すると縦が真ん中にならなかったので、Rowで並べて表示するようにする
-          Hero(
-            tag: repoData,
-            child: ClipOval(
-              key: const Key('userImageOnListView'),
-              child: CachedNetworkImage(
-                imageUrl: userIconUrl,
-                width: 60,
-                height: 60,
-                placeholder: (_, __) => const UserIconShimmer(),
-                errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: repoData.when(
+        data: (data) => GestureDetector(
+          //画像部分もタップできるように全体をGestureDetectorで囲む
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPage(repoData: data),
               ),
-            ),
-          ),
-          Expanded(
-            child: ListTile(
-              title: Text(
-                fullName,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+            );
+          },
+          child: Row(
+            children: [
+              const SizedBox(width: 16), //16はListTileの横paddingと一緒の値
+              //ListTileのleadingで画像を表示すると、縦が真ん中にならなかったのでこの方法で表示するようにする
+              Hero(
+                tag: data,
+                //user image icon
+                child: ClipOval(
+                  child: CachedNetworkImage(
+                    width: 60,
+                    height: 60,
+                    imageUrl: data.owner.avatarUrl,
+                    placeholder: (_, __) => const UserIconShimmer(),
+                    errorWidget: (_, __, ___) =>
+                        const Icon(Icons.error, size: 50),
+                    key: const Key('userImageOnListView'),
+                  ),
                 ),
               ),
-              subtitle: Text(
-                description ?? 'No Description',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
+              // list tile
+              Expanded(
+                child: ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Text(
+                      data.fullName,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  subtitle: Text(
+                    data.description ?? 'No Description',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
+        loading: () => const ListItemShimmer(),
+        error: (e, _) {
+          if (e == 'No Keywords') {
+            return const EnterTextView();
+          } else if (e == 'Network Error') {
+            return const NetworkErrorView();
+          } else {
+            return const ErrorView();
+          }
+        },
       ),
     );
   }
