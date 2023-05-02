@@ -10,8 +10,8 @@ class AppColor {
   static const darkHighlightColor = Color(0xff757575);
 
 //result count
-  static const lightBgColor = Color(0x991A1C19);
-  static const darkBgColor = Color(0x99FCFDF6);
+  static const lightBgColor = Color(0xBF1A1C19);
+  static const darkBgColor = Color(0xBFFCFDF6);
   static const lightCountColor = Color(0xffFCFDF6);
   static const darkCountColor = Color(0xff1A1C19);
 }
