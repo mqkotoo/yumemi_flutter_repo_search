@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:shimmer/shimmer.dart';
 
-import '../../../constants/app_color.dart';
 import '../../../constants/shimmer_color.dart';
 
 class ListItemShimmer extends StatelessWidget {
@@ -38,7 +37,7 @@ class ListItemShimmer extends StatelessWidget {
           child: Container(
             width: 60,
             height: 60,
-            color: Colors.grey[300],
+            color: const Color(0xFFE0E0E0),
           ),
         ),
         Expanded(
