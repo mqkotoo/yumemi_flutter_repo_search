@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../../constants/app_color.dart';
 import '../../../constants/result_count_color.dart';
 import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
