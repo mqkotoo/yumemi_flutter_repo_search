@@ -11,7 +11,7 @@ jobs:
     name: Run flutter test and analyze
     runs-on: ubuntu-latest
     steps:
-  # ref: https://github.com/marketplace/actions/flutter-action
+      # ref: https://github.com/marketplace/actions/flutter-action
       - name: checkout source code
         uses: actions/checkout@v3
 
@@ -19,7 +19,9 @@ jobs:
         uses: subosito/flutter-action@v2
 
         with:
+          flutter-version: '3.7.10'
           channel: "stable"
+          cache: true
 
       # 依存関係読み込み
       - name: get dependencies
