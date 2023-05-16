@@ -5,22 +5,36 @@ on:
     tags:
       - "*.*.*"
     branches: [ main ]
-  pull_request:
-    branches: [ develop ]
+
   workflow_dispatch:
 
 jobs:
   build-ios:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
+      # ref: https://github.com/marketplace/actions/flutter-action
+      - name: checkout source code
+        uses: actions/checkout@v3
+
+      # https://github.com/kuhnroyal/flutter-fvm-config-action
+      - name: Fetch flutter config
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      - name: install flutter
+        uses: subosito/flutter-action@v2
+
         with:
-          flutter-version: '3.7.10'
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
           cache: true
-      - run: flutter pub get
-      - run: flutter pub run build_runner build
+          cache-key: ${{ env.FLUTTER_VERSION }}-${{ env.FLUTTER_CHANNEL }}
+
+      - name: get dependencies
+        run: flutter pub get
+
+      - name: generate codes with build_runner
+        run: flutter pub run build_runner build
+
       # iOS Build
       - run: flutter build ios --release --no-codesign
       # 成果物アップロード
