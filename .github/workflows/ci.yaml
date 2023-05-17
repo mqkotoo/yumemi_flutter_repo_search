@@ -6,6 +6,10 @@ on:
       - main
       - develop
 
+    #README.mdだけを編集した時にはCIは回らなくていい
+    paths-ignore:
+      - '**/README.md'
+
 jobs:
   analyze_test:
     name: Run flutter test and analyze
