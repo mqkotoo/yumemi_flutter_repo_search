@@ -11,9 +11,32 @@ on:
       - '**/README.md'
 
 jobs:
+
+  jobs:
+    # README.md 以外のファイルが変更された場合にのみ CI をスキップする
+    skip_ci_if_readme_changed:
+      name: Skip CI if only README.md changed
+      runs-on: ubuntu-latest
+      steps:
+        - name: ソースコードをチェックアウト
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+
+        - name: check changed files
+          id: check_files
+          run: |
+            if git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -qvE '^(\\.github/.*\\.ya?ml|README\\.md)$'; then
+              echo "::set-output name=skip::false"
+            else
+              echo "::set-output name=skip::true"
+            fi
+
   analyze_test:
     name: Run flutter test and analyze
     runs-on: ubuntu-latest
+    needs: [ skip_ci_if_readme_changed ]
+    if: needs.skip_ci_if_readme_changed.outputs.skip != 'true'
     steps:
       # ref: https://github.com/marketplace/actions/flutter-action
       - name: checkout source code
