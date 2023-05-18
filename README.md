@@ -114,7 +114,7 @@ git clone https://github.com/mqkotoo/github_search_study.git
 flutter pub get
 ```
 
-・アプリを立ち上げる
+・ビルドラン
 
 ```
 flutter run
