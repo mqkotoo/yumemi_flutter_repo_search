@@ -24,7 +24,7 @@ jobs:
       - name: check changed files
         id: check_files
         run: |
-          if git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }} | grep -qvE '^README\\.md$'; then     
+          if git diff origin --name-only ${{ github.base_ref }}...${{ github.head_ref }} | grep -qvE '^README\\.md$'; then     
             echo "::set-output name=skip::false"
           else
             echo "::set-output name=skip::true"
