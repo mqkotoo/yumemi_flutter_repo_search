@@ -108,16 +108,28 @@ FutureProviderを使うことで、取得したデータのキャッシュ、loa
 git clone https://github.com/mqkotoo/github_search_study.git
 ```
 
+ ・fvm読み込み
+ 
+ ```
+ fvm use 使うバージョン（x.x.x）
+ ```
+
 ・依存関係を読み込む（多言語対応も読み込まれます）
 
 ```
-flutter pub get
+fvm flutter pub get
+```
+
+・freezed等のコード生成
+
+```
+fvm flutter pub run build_runner build -d
 ```
 
 ・ビルドラン
 
 ```
-flutter run
+fvm flutter run
 ```
 
 ## テスト
