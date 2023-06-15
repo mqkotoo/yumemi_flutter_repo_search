@@ -7,15 +7,19 @@ import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dar
 // SharedPreferences保存用キー
 const _isDarkThemeKey = 'selectedThemeKey';
 
+//テーマ着せ替えのプロバイダー定義
+final themeModeProvider = NotifierProvider<ThemeSelector, ThemeMode>(
+  ThemeSelector.new,
+);
+
 class ThemeSelector extends Notifier<ThemeMode> {
+  // prefインスタンス取得
+  late final prefs = ref.read(sharedPreferencesProvider);
+
   @override
   ThemeMode build() {
-    // prefインスタンス取得
-    final prefs = ref.read(sharedPreferencesProvider);
-
     // テーマが保存されていればテーマを反映、そうでなければ初期値のシステム依存
     final isDarkTheme = prefs.getBool(_isDarkThemeKey);
-
     if (isDarkTheme == null) {
       return ThemeMode.system;
     }
@@ -24,14 +28,7 @@ class ThemeSelector extends Notifier<ThemeMode> {
 
   // テーマの変更と保存
   Future<void> toggleThemeAndSave(bool isDarkTheme) async {
-    // prefインスタンス取得
-    final prefs = ref.read(sharedPreferencesProvider);
-
     await prefs.setBool(_isDarkThemeKey, isDarkTheme);
     state = isDarkTheme ? ThemeMode.dark : ThemeMode.light;
   }
 }
-
-final themeModeProvider = NotifierProvider<ThemeSelector, ThemeMode>(
-  ThemeSelector.new,
-);
