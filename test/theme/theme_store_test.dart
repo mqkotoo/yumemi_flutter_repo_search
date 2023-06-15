@@ -83,10 +83,6 @@ void main() {
         ),
       ]);
 
-      final themeNotifier = container.read(themeModeProvider.notifier);
-      //テーマ切り替えはしない
-      // await themeNotifier.toggleThemeAndSave(true);
-
       //テーマが初期状態であることのテスト
       final currentThemeMode = container.read(themeModeProvider);
       expect(currentThemeMode, ThemeMode.system);
