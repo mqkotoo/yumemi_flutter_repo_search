@@ -65,9 +65,9 @@ void main() {
       final themeNotifier = container.read(themeModeProvider.notifier);
       //toggle theme method →isDarkにtrueを入れてダークモードに変更
       await themeNotifier.toggleThemeAndSave(true);
-      //themeNotifier.debugState　→　container.read(themeModeProvider); と同義
       //テーマが切り替わっていることのテスト
-      expect(themeNotifier.debugState, ThemeMode.dark);
+      final currentThemeMode = container.read(themeModeProvider);
+      expect(currentThemeMode, ThemeMode.dark);
 
       //テーマを管理しているBOOLが保存されているかのテスト
       final prefs = container.read(sharedPreferencesProvider);
@@ -83,20 +83,15 @@ void main() {
         ),
       ]);
 
-      final themeNotifier = container.read(themeModeProvider.notifier);
-      //テーマ切り替えはしない
-      // await themeNotifier.toggleThemeAndSave(true);
-      //themeNotifier.debugState　→　container.read(themeModeProvider); と同義
-
       //テーマが初期状態であることのテスト
-      final themeModeState = themeNotifier.debugState;
-      expect(themeModeState, ThemeMode.system);
+      final currentThemeMode = container.read(themeModeProvider);
+      expect(currentThemeMode, ThemeMode.system);
 
       //システムのテーマと、スイッチの表示が一致しているか
       //systemのテーマモードをlightだとする↓
-      final bool initialSwitchBool = themeModeState == ThemeMode.system
+      final bool initialSwitchBool = currentThemeMode == ThemeMode.system
           ? ThemeMode.light == ThemeMode.dark
-          : themeModeState == ThemeMode.dark;
+          : currentThemeMode == ThemeMode.dark;
 
       //switchのフラグはisDarkなのでsystemがlightの場合switchはfalseが期待される
       expect(initialSwitchBool, false);

@@ -9,8 +9,9 @@ import '../../main.dart';
 final inputRepoNameProvider = StateProvider<String>((ref) => '');
 
 //検索フォームのコントローラ
-final textEditingControllerProvider =
-    Provider<TextEditingController>((ref) => TextEditingController());
+final textEditingControllerProvider = StateProvider.autoDispose((ref) {
+  return TextEditingController(text: '');
+});
 
 //検索フォームのクリアボタンの表示フラグ
 final isClearButtonVisibleProvider =
