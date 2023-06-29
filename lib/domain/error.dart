@@ -6,20 +6,21 @@ class NoInternetException {
   NoInternetException(this.title, this.message);
 }
 
-class NoServiceFoundException {
+class NoResultException {
   String title;
   String message;
 
-  NoServiceFoundException(this.title, this.message);
+  NoResultException(this.title, this.message);
 }
 
-class InvalidFormatException {
+class NoTextException {
   String title;
   String message;
 
-  InvalidFormatException(this.title, this.message);
+  NoTextException(this.title, this.message);
 }
 
+//その他のエラー（このアプリではリクエスト過多が基本）
 class UnknownException {
   String title;
   String message;
