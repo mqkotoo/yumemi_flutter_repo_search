@@ -1,19 +1,7 @@
 //以下はSAMPLEで入れているだけ
-class NoInternetException {
-  String message;
+class NoInternetException implements Exception {}
 
-  NoInternetException(this.message);
-}
-
-class NoTextException {
-  String message;
-
-  NoTextException(this.message);
-}
+class NoTextException implements Exception {}
 
 //その他のエラー（このアプリではリクエスト過多が基本）
-class UnknownException {
-  String message;
-
-  UnknownException(this.message);
-}
+class UnknownException implements Exception {}
