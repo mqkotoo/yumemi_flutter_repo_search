@@ -21,8 +21,6 @@ class DataRepository {
           'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20');
       http.Response response = await client.get(apiUri);
 
-      print(response.statusCode);
-
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         return RepoDataModel.fromJson(jsonData);
