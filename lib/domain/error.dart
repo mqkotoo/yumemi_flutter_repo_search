@@ -1,4 +1,3 @@
-//以下はSAMPLEで入れているだけ
 class NoInternetException implements Exception {}
 
 class NoTextException implements Exception {}

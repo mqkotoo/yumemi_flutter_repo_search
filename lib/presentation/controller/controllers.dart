@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yumemi_flutter_repo_search/domain/error.dart';
 
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import '../../domain/repo_data_model.dart';
 import '../../main.dart';
 

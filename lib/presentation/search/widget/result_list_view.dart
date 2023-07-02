@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:yumemi_flutter_repo_search/domain/error.dart';
 
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import '../../../constants/app_color.dart';
 import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
