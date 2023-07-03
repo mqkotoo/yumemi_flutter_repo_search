@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 
 import 'package:yumemi_flutter_repo_search/main.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
@@ -110,7 +111,8 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       //リクエストを投げると、ネットワークエラーの例外をスローする
       final mockClient = MockClient();
-      when(mockClient.get(any)).thenAnswer((_) async => throw 'Network Error');
+      when(mockClient.get(any))
+          .thenAnswer((_) async => throw NoInternetException());
 
       await tester.pumpWidget(
         ProviderScope(
