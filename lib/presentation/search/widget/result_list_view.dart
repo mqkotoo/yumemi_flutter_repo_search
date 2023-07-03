@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../../constants/app_color.dart';
+import '../../../constants/result_count_color.dart';
 import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
 import 'error/error_widget.dart';
@@ -85,23 +85,22 @@ class ResultListview extends ConsumerWidget {
 
   //結果のカウント表示
   Widget _resultCount(BuildContext context, AsyncValue<int> resultCount) {
+    //以下の部分でテストでエラーが出る（NULL系）
+    //ほかのTHEME EXTENSIONのところは適応場所がnullableじゃなくてrequiredだからエラーが出ない（今回の該当場所L97,L103）
+    final resultCountColor = Theme.of(context).extension<ResultCountColor>()!;
     //横画面の場合ノッチに隠れないようにする
     return Positioned(
       bottom: 30,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.light
-              ? AppColor.lightBgColor
-              : AppColor.darkBgColor,
+          color: resultCountColor.background,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
           '${NumberFormat('#,##0').format(resultCount.value)}${S.of(context).result}',
           style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light
-                ? AppColor.lightCountColor
-                : AppColor.darkCountColor,
+            color: resultCountColor.count,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
