@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/search_page.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
+import 'package:yumemi_flutter_repo_search/theme/theme.dart';
 
 void main() {
   group('多言語対応が適応されて表示されているか', () {
@@ -22,6 +23,7 @@ void main() {
         ],
         supportedLocales: S.delegate.supportedLocales,
         locale: locale,
+        theme: lightTheme,
         home: const SearchPage(),
       );
     }
