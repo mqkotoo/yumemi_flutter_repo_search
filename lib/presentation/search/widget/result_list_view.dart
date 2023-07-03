@@ -85,8 +85,6 @@ class ResultListview extends ConsumerWidget {
 
   //結果のカウント表示
   Widget _resultCount(BuildContext context, AsyncValue<int> resultCount) {
-    //以下の部分でテストでエラーが出る（NULL系）
-    //ほかのTHEME EXTENSIONのところは適応場所がnullableじゃなくてrequiredだからエラーが出ない（今回の該当場所L97,L103）
     final resultCountColor = Theme.of(context).extension<ResultCountColor>()!;
     //横画面の場合ノッチに隠れないようにする
     return Positioned(
