@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../domain/error.dart';
 import '../domain/repo_data_model.dart';
 
 class DataRepository {
@@ -24,10 +25,10 @@ class DataRepository {
         final jsonData = json.decode(response.body);
         return RepoDataModel.fromJson(jsonData);
       } else {
-        throw 'Error Occurred';
+        throw UnknownException();
       }
     } on SocketException catch (_) {
-      throw 'Network Error';
+      throw NoInternetException();
     }
   }
 }

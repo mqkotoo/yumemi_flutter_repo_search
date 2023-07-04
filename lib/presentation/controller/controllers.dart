@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import '../../domain/repo_data_model.dart';
 import '../../main.dart';
 
@@ -37,7 +38,7 @@ final paginatedResultProvider =
 
   //未入力だったらリクエスト投げる前にエラーを投げる
   if (inputText.isEmpty) {
-    throw 'No Keywords';
+    throw NoTextException();
   }
 
   final dataRepository = ref.watch(dataRepositoryProvider);

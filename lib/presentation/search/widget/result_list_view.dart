@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import '../../../constants/result_count_color.dart';
 import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
@@ -62,9 +63,9 @@ class ResultListview extends ConsumerWidget {
                     ),
                   ),
             error: (e, _) {
-              if (e == 'No Keywords') {
+              if (e is NoTextException) {
                 return const EnterTextView();
-              } else if (e == 'Network Error') {
+              } else if (e is NoInternetException) {
                 return const NetworkErrorView();
               } else {
                 return const ErrorView();
