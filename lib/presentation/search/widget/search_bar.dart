@@ -18,7 +18,6 @@ class SearchBar extends ConsumerWidget {
   @visibleForTesting
   static final sortButtonKey = UniqueKey();
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //テキストのコントローラ
@@ -51,21 +50,19 @@ class SearchBar extends ConsumerWidget {
                 },
                 //decoration
                 decoration: InputDecoration(
-                  hintText: S
-                      .of(context)
-                      .formHintText,
+                  hintText: S.of(context).formHintText,
                   prefixIcon: const Icon(Icons.search, size: 27),
                   suffixIcon: ref.watch(isClearButtonVisibleProvider)
                       ? IconButton(
-                    icon: const Icon(Icons.clear, size: 27),
-                    onPressed: () {
-                      textController.clear();
-                      ref
-                          .watch(isClearButtonVisibleProvider.notifier)
-                          .update((state) => false);
-                    },
-                    key: clearButtonKey,
-                  )
+                          icon: const Icon(Icons.clear, size: 27),
+                          onPressed: () {
+                            textController.clear();
+                            ref
+                                .watch(isClearButtonVisibleProvider.notifier)
+                                .update((state) => false);
+                          },
+                          key: clearButtonKey,
+                        )
                       : const SizedBox.shrink(),
                 ),
                 key: inputFormKey,
@@ -79,57 +76,42 @@ class SearchBar extends ConsumerWidget {
                 RadioMenuButton(
                   value: 'bestmatch',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) =>
-                      ref
-                          .read(sortStringProvider.notifier)
-                          .update((state) => value!),
-                  child: Text(S
-                      .of(context)
-                      .bestMatch),
+                  onChanged: (value) => ref
+                      .read(sortStringProvider.notifier)
+                      .update((state) => value!),
+                  child: Text(S.of(context).bestMatch),
                 ),
                 RadioMenuButton(
                   value: 'updated',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) =>
-                      ref
-                          .read(sortStringProvider.notifier)
-                          .update((state) => value!),
-                  child: Text(S
-                      .of(context)
-                      .updated),
+                  onChanged: (value) => ref
+                      .read(sortStringProvider.notifier)
+                      .update((state) => value!),
+                  child: Text(S.of(context).updated),
                 ),
                 RadioMenuButton(
                   value: 'stars',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) =>
-                      ref
-                          .read(sortStringProvider.notifier)
-                          .update((state) => value!),
-                  child: Text(S
-                      .of(context)
-                      .stars),
+                  onChanged: (value) => ref
+                      .read(sortStringProvider.notifier)
+                      .update((state) => value!),
+                  child: Text(S.of(context).stars),
                 ),
                 RadioMenuButton(
                   value: 'forks',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) =>
-                      ref
-                          .read(sortStringProvider.notifier)
-                          .update((state) => value!),
-                  child: Text(S
-                      .of(context)
-                      .forks),
+                  onChanged: (value) => ref
+                      .read(sortStringProvider.notifier)
+                      .update((state) => value!),
+                  child: Text(S.of(context).forks),
                 ),
                 RadioMenuButton(
                   value: 'help-wanted-issues',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) =>
-                      ref
-                          .read(sortStringProvider.notifier)
-                          .update((state) => value!),
-                  child: Text(S
-                      .of(context)
-                      .helpWantedIssue),
+                  onChanged: (value) => ref
+                      .read(sortStringProvider.notifier)
+                      .update((state) => value!),
+                  child: Text(S.of(context).helpWantedIssue),
                 ),
               ],
               builder: (BuildContext context, MenuController controller,

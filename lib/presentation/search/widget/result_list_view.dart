@@ -27,46 +27,44 @@ class ResultListview extends ConsumerWidget {
         alignment: Alignment.bottomCenter,
         children: [
           resultCount.when(
-            data: (totalCount) =>
-            totalCount == 0
-            //検索結果がない場合
+            data: (totalCount) => totalCount == 0
+                //検索結果がない場合
                 ? const NoResultView()
-            //検索結果がある場合
-            //スクロールを検知して、スクロール中は検索結果数を表示しないようにする
+                //検索結果がある場合
+                //スクロールを検知して、スクロール中は検索結果数を表示しないようにする
                 : NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                if (notification is ScrollStartNotification) {
-                  // スクロールが開始された場合の処理(非表示)
-                  ref
-                      .read(isResultCountVisibleProvider.notifier)
-                      .update((state) => false);
-                } else if (notification is ScrollEndNotification) {
-                  // スクロールが終了した場合の処理(表示)
-                  ref
-                      .read(isResultCountVisibleProvider.notifier)
-                      .update((state) => true);
-                }
-                return true;
-              },
-              child: ListView.separated(
-                //スクロールでキーボードを閉じるようにした
-                keyboardDismissBehavior:
-                ScrollViewKeyboardDismissBehavior.onDrag,
-                itemCount: totalCount,
-                itemBuilder: (context, index) {
-                  return ProviderScope(
-                    overrides: [
-                      listIndexProvider.overrideWithValue(index)
-                    ],
-                    child: const ListItem(),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                const Divider(
-                  color: Color(0xffBBBBBB),
-                ),
-              ),
-            ),
+                    onNotification: (notification) {
+                      if (notification is ScrollStartNotification) {
+                        // スクロールが開始された場合の処理(非表示)
+                        ref
+                            .read(isResultCountVisibleProvider.notifier)
+                            .update((state) => false);
+                      } else if (notification is ScrollEndNotification) {
+                        // スクロールが終了した場合の処理(表示)
+                        ref
+                            .read(isResultCountVisibleProvider.notifier)
+                            .update((state) => true);
+                      }
+                      return true;
+                    },
+                    child: ListView.separated(
+                      //スクロールでキーボードを閉じるようにした
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      itemCount: totalCount,
+                      itemBuilder: (context, index) {
+                        return ProviderScope(
+                          overrides: [
+                            listIndexProvider.overrideWithValue(index)
+                          ],
+                          child: const ListItem(),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(
+                        color: Color(0xffBBBBBB),
+                      ),
+                    ),
+                  ),
             error: (e, _) {
               if (e is NoTextException) {
                 return const EnterTextView();
@@ -102,9 +100,7 @@ class ResultListview extends ConsumerWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
-          '${NumberFormat('#,##0').format(resultCount.value)}${S
-              .of(context)
-              .result}',
+          '${NumberFormat('#,##0').format(resultCount.value)}${S.of(context).result}',
           style: TextStyle(
             color: resultCountColor.count,
             fontSize: 16,

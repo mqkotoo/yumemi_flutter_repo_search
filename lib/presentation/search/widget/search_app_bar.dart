@@ -19,11 +19,9 @@ class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //スイッチの初期値判定のためのシステムテーマモード取得
     final systemThemeMode =
-    MediaQuery
-        .of(context)
-        .platformBrightness == Brightness.dark
-        ? ThemeMode.dark
-        : ThemeMode.light;
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light;
     //現在のテーマモード取得
     final themeMode = ref.watch(themeModeProvider);
     //theme切り替えのプロバイダ
@@ -34,9 +32,7 @@ class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            S
-                .of(context)
-                .searchPageTitle,
+            S.of(context).searchPageTitle,
           ),
           ToggleThemeSwitch(
             //themeModeが初期（SYSTEM）状態だったらその情報を使って表示を処理する
