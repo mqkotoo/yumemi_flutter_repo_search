@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import '../repository/repository_mock_data.dart';
@@ -34,7 +36,7 @@ void main() {
       );
 
       //""と入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, '');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
@@ -42,7 +44,7 @@ void main() {
       await tester.pump();
 
       //エラーが返ってくる("テキストを入力してください")
-      expect(find.byKey(const Key('enterTextView')), findsOneWidget);
+      expect(find.byKey(EnterTextView.enterTextViewKey), findsOneWidget);
     });
 
     testWidgets('結果が0だった時に、想定の表示がされるか', (WidgetTester tester) async {
@@ -63,7 +65,7 @@ void main() {
       );
 
       //入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, 'kjsdf；ヵjdf；kぁjsdfj');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
@@ -73,7 +75,7 @@ void main() {
       await tester.pump();
 
       //エラーが返ってくる("検索結果が見つからない")
-      expect(find.byKey(const Key('noResultView')), findsOneWidget);
+      expect(find.byKey(NoResultView.noResultViewKey), findsOneWidget);
     });
 
     testWidgets('リクエストが200以外の場合エラーが返るか', (WidgetTester tester) async {
@@ -94,7 +96,7 @@ void main() {
       );
 
       //"flutter"と入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, 'flutter');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
@@ -104,7 +106,7 @@ void main() {
       await tester.pump();
 
       //エラーが返ってくる
-      expect(find.byKey(const Key('errorView')), findsOneWidget);
+      expect(find.byKey(ErrorView.errorViewKey), findsOneWidget);
     });
 
     testWidgets('通信状態じゃない時の検索でネットワークエラーが返るか', (WidgetTester tester) async {
@@ -127,7 +129,7 @@ void main() {
       );
 
       //"flutter"と入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, 'flutter');
       //検索ボタンを押す
       await tester.tap(formField);
@@ -141,7 +143,7 @@ void main() {
       expect(find.textContaining('flutter/flutter'), findsNothing);
 
       //想定エラー文
-      expect(find.byKey(const Key('networkErrorView')), findsOneWidget);
+      expect(find.byKey(NetworkErrorView.networkErrorViewKey), findsOneWidget);
     });
   });
 }

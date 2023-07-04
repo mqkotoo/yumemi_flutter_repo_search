@@ -9,6 +9,9 @@ import '../../../theme/theme_mode_provider.dart';
 class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const SearchAppBar({super.key});
 
+  @visibleForTesting
+  static final searchPageAppBarKey = UniqueKey();
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
@@ -16,20 +19,24 @@ class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //スイッチの初期値判定のためのシステムテーマモード取得
     final systemThemeMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark
-            ? ThemeMode.dark
-            : ThemeMode.light;
+    MediaQuery
+        .of(context)
+        .platformBrightness == Brightness.dark
+        ? ThemeMode.dark
+        : ThemeMode.light;
     //現在のテーマモード取得
     final themeMode = ref.watch(themeModeProvider);
     //theme切り替えのプロバイダ
     final themeSelector = ref.read(themeModeProvider.notifier);
     return AppBar(
-      key: const Key('searchPageAppBar'),
+      key: searchPageAppBarKey,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            S.of(context).searchPageTitle,
+            S
+                .of(context)
+                .searchPageTitle,
           ),
           ToggleThemeSwitch(
             //themeModeが初期（SYSTEM）状態だったらその情報を使って表示を処理する

@@ -1,10 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/detail_page.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/widget/detail_element.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/widget/ver_repo_header.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_list_view.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_app_bar.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 
@@ -35,9 +41,9 @@ void main() {
     );
 
     //検索ページのアップバーが表示されているか
-    expect(find.byKey(const Key('searchPageAppBar')), findsOneWidget);
+    expect(find.byKey(SearchAppBar.searchPageAppBarKey), findsOneWidget);
 
-    final formField = find.byKey(const Key('inputForm'));
+    final formField = find.byKey(SearchBar.inputFormKey);
 
     //flutterと入力して検索する
     await tester.enterText(formField, 'flutter');
@@ -46,39 +52,37 @@ void main() {
     await tester.testTextInput.receiveAction(TextInputAction.search);
 
     //リストが描画される
-    await tester.pump(const Duration(seconds: 3));
-    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
-    //"flutter/flutter" と言う文字が見つかるか
+    //"flutter/flutter" の文字が見つかるか
     final tapTarget = find.text('flutter/flutter');
     expect(tapTarget, findsOneWidget);
     //ユーザーアイコンが表示されるか
-    expect(find.byKey(const Key('userImageOnListView')), findsWidgets);
+    expect(find.byKey(ListItem.userImageOnListViewKey), findsWidgets);
     //検索結果数が表示されるか
-    expect(find.byKey(const Key('resultCount')), findsOneWidget);
+    expect(find.byKey(ResultListview.resultCountKey), findsOneWidget);
 
     //リストをタップ→詳細ページに遷移
     await tester.tap(tapTarget);
 
     //画面遷移するまで待つ
-    await tester.pump(const Duration(seconds: 2));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     //詳細ページのアップバーが表示されるか
-    expect(find.byKey(const Key('detailPageAppBar')), findsOneWidget);
+    expect(find.byKey(DetailPage.detailPageAppBarKey), findsOneWidget);
     //ユーザーのアイコンが表示されるか
-    expect(find.byKey(const Key('userImageOnDetailPage')), findsOneWidget);
+    expect(find.byKey(VerRepoHeader.userImageOnDetailPageKey), findsOneWidget);
     //詳細ページのレポジトリ名が表示される
-    expect(find.byKey(const Key('repoNameOnDetailPage')), findsOneWidget);
-    //詳細ページのレポジトリ詳細が表示される
-    expect(find.byKey(const Key('repoDetailOnDetailPage')), findsOneWidget);
+    expect(find.byKey(VerRepoHeader.repoNameOnDetailPageKey), findsOneWidget);
+    // //詳細ページのレポジトリ詳細が表示される
+    expect(find.byKey(VerRepoHeader.repoDetailOnDetailPageKey), findsOneWidget);
 
     //その他の情報が表示されるか
-    expect(find.byKey(const Key('language')), findsOneWidget);
-    expect(find.byKey(const Key('star')), findsOneWidget);
-    expect(find.byKey(const Key('watch')), findsOneWidget);
-    expect(find.byKey(const Key('fork')), findsOneWidget);
-    expect(find.byKey(const Key('issue')), findsOneWidget);
-    expect(find.byKey(const Key('viewOnGithub')), findsOneWidget);
+    expect(find.byKey(DetailElement.languageKey), findsOneWidget);
+    expect(find.byKey(DetailElement.starKey), findsOneWidget);
+    expect(find.byKey(DetailElement.watchKey), findsOneWidget);
+    expect(find.byKey(DetailElement.forkKey), findsOneWidget);
+    expect(find.byKey(DetailElement.issueKey), findsOneWidget);
+    expect(find.byKey(DetailPage.viewOnGithubKey), findsOneWidget);
   });
 }

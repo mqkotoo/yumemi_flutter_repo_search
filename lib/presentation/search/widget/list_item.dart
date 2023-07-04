@@ -12,6 +12,9 @@ import 'error/error_widget.dart';
 class ListItem extends ConsumerWidget {
   const ListItem({Key? key}) : super(key: key);
 
+  @visibleForTesting
+  static final userImageOnListViewKey = UniqueKey();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.read(listIndexProvider);
@@ -21,56 +24,57 @@ class ListItem extends ConsumerWidget {
       top: false,
       bottom: false,
       child: repoData.when(
-        data: (data) => GestureDetector(
-          //画像部分もタップできるように全体をGestureDetectorで囲む
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailPage(repoData: data),
-              ),
-            );
-          },
-          child: Row(
-            children: [
-              const SizedBox(width: 16), //16はListTileの横paddingと一緒の値
-              //ListTileのleadingで画像を表示すると、縦が真ん中にならなかったのでこの方法で表示するようにする
-              Hero(
-                tag: data,
-                //user image icon
-                child: ClipOval(
-                  child: CachedNetworkImage(
-                    width: 60,
-                    height: 60,
-                    imageUrl: data.owner.avatarUrl,
-                    placeholder: (_, __) => const UserIconShimmer(),
-                    errorWidget: (_, __, ___) =>
-                        const Icon(Icons.error, size: 50),
-                    key: const Key('userImageOnListView'),
+        data: (data) =>
+            GestureDetector(
+              //画像部分もタップできるように全体をGestureDetectorで囲む
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailPage(repoData: data),
                   ),
-                ),
-              ),
-              // list tile
-              Expanded(
-                child: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 5),
-                    child: Text(
-                      data.fullName,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                );
+              },
+              child: Row(
+                children: [
+                  const SizedBox(width: 16), //16はListTileの横paddingと一緒の値
+                  //ListTileのleadingで画像を表示すると、縦が真ん中にならなかったのでこの方法で表示するようにする
+                  Hero(
+                    tag: data,
+                    //user image icon
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        width: 60,
+                        height: 60,
+                        imageUrl: data.owner.avatarUrl,
+                        placeholder: (_, __) => const UserIconShimmer(),
+                        errorWidget: (_, __, ___) =>
+                        const Icon(Icons.error, size: 50),
+                        key: userImageOnListViewKey,
+                      ),
                     ),
                   ),
-                  subtitle: Text(
-                    data.description ?? 'No Description',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
+                  // list tile
+                  Expanded(
+                    child: ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          data.fullName,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      subtitle: Text(
+                        data.description ?? 'No Description',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
         loading: () => const ListItemShimmer(),
         error: (e, _) {
           if (e == 'No Keywords') {

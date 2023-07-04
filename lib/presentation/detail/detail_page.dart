@@ -14,6 +14,12 @@ class DetailPage extends StatelessWidget {
 
   final RepoDataItems repoData;
 
+  //テスト用のKEY
+  @visibleForTesting
+  static final detailPageAppBarKey = UniqueKey();
+  @visibleForTesting
+  static final viewOnGithubKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     // データの数をカンマ区切りで表示
@@ -25,16 +31,18 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(S.of(context).detailPageTitle),
-        key: const Key('detailPageAppBar'),
+        title: Text(S
+            .of(context)
+            .detailPageTitle),
+        key: detailPageAppBarKey,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return constraints.maxWidth < constraints.maxHeight
               ? verBody(
-                  context, starsCount, watchersCount, forksCount, issuesCount)
+              context, starsCount, watchersCount, forksCount, issuesCount)
               : horiBody(
-                  context, starsCount, watchersCount, forksCount, issuesCount);
+              context, starsCount, watchersCount, forksCount, issuesCount);
         },
       ),
     );
@@ -43,7 +51,10 @@ class DetailPage extends StatelessWidget {
   Widget verBody(BuildContext context, String starsCount, String watchersCount,
       String forksCount, String issuesCount) {
     //画面サイズ取得
-    final widthSize = MediaQuery.of(context).size.width;
+    final widthSize = MediaQuery
+        .of(context)
+        .size
+        .width;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -77,7 +88,10 @@ class DetailPage extends StatelessWidget {
   Widget horiBody(BuildContext context, String starsCount, String watchersCount,
       String forksCount, String issuesCount) {
     //画面サイズ取得
-    final widthSize = MediaQuery.of(context).size.width;
+    final widthSize = MediaQuery
+        .of(context)
+        .size
+        .width;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -87,7 +101,7 @@ class DetailPage extends StatelessWidget {
           //リポジトリのスター数などの要素
           Container(
             padding:
-                EdgeInsets.symmetric(vertical: 16, horizontal: widthSize * 0.1),
+            EdgeInsets.symmetric(vertical: 16, horizontal: widthSize * 0.1),
             child: Column(
               children: [
                 DetailElement(
@@ -115,7 +129,9 @@ class DetailPage extends StatelessWidget {
       child: GestureDetector(
         onTap: () => _openGitHubUrl(Uri.parse(repoData.htmlUrl)),
         child: Text(
-          S.of(context).viewOnGitHub,
+          S
+              .of(context)
+              .viewOnGitHub,
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -123,7 +139,7 @@ class DetailPage extends StatelessWidget {
             decoration: TextDecoration.underline,
             decorationColor: Colors.blueAccent,
           ),
-          key: const Key('viewOnGithub'),
+          key: viewOnGithubKey,
         ),
       ),
     );

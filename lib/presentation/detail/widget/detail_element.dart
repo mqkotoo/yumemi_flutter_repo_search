@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/widget/hori_repo_header.dart';
 
 import '../../../generated/l10n.dart';
 
@@ -18,6 +19,18 @@ class DetailElement extends StatelessWidget {
   final String fork;
   final String issue;
 
+  //テスト用KEY
+  @visibleForTesting
+  static final languageKey = UniqueKey();
+  @visibleForTesting
+  static final starKey = UniqueKey();
+  @visibleForTesting
+  static final watchKey = UniqueKey();
+  @visibleForTesting
+  static final forkKey = UniqueKey();
+  @visibleForTesting
+  static final issueKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +41,7 @@ class DetailElement extends StatelessWidget {
           elementData: language ?? 'No Language',
           iconBackgroundColor: Colors.blueAccent,
           iconColor: Colors.white,
-          key: const Key('language'),
+          key: languageKey,
         ),
         detailElement(
           icon: Icons.star_outline,
@@ -36,7 +49,7 @@ class DetailElement extends StatelessWidget {
           elementData: star,
           iconBackgroundColor: Colors.yellowAccent,
           iconColor: Colors.black87,
-          key: const Key('star'),
+          key: starKey,
         ),
         detailElement(
           icon: Icons.remove_red_eye_outlined,
@@ -44,7 +57,7 @@ class DetailElement extends StatelessWidget {
           elementData: watch,
           iconBackgroundColor: Colors.brown,
           iconColor: Colors.white,
-          key: const Key('watch'),
+          key: watchKey,
         ),
         detailElement(
           icon: Icons.fork_right_sharp,
@@ -52,7 +65,7 @@ class DetailElement extends StatelessWidget {
           elementData: fork,
           iconBackgroundColor: Colors.purpleAccent,
           iconColor: Colors.white,
-          key: const Key('fork'),
+          key: forkKey,
         ),
         detailElement(
           icon: Icons.info_outline,
@@ -60,7 +73,7 @@ class DetailElement extends StatelessWidget {
           elementData: issue,
           iconBackgroundColor: Colors.green,
           iconColor: Colors.white,
-          key: const Key('issue'),
+          key: issueKey,
         ),
       ],
     );

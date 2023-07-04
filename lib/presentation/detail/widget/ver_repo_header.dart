@@ -10,6 +10,14 @@ class VerRepoHeader extends StatelessWidget {
 
   final RepoDataItems repoData;
 
+  //テスト用KEY
+  @visibleForTesting
+  static final userImageOnDetailPageKey = UniqueKey();
+  @visibleForTesting
+  static final repoDetailOnDetailPageKey = UniqueKey();
+  @visibleForTesting
+  static final repoNameOnDetailPageKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     final widthSize = MediaQuery.of(context).size.width;
@@ -26,7 +34,7 @@ class VerRepoHeader extends StatelessWidget {
                 height: 120,
                 placeholder: (_, __) => const UserIconShimmer(),
                 errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
-                key: const Key('userImageOnDetailPage'),
+                key: userImageOnDetailPageKey,
               ),
             ),
           ),
@@ -35,13 +43,13 @@ class VerRepoHeader extends StatelessWidget {
             child: Text(
               repoData.fullName,
               style: Theme.of(context).textTheme.titleLarge,
-              key: const Key('repoNameOnDetailPage'),
+              key: repoNameOnDetailPageKey,
             ),
           ),
           Text(
             repoData.description ?? 'No Description',
             style: Theme.of(context).textTheme.titleSmall,
-            key: const Key('repoDetailOnDetailPage'),
+            key: repoDetailOnDetailPageKey,
           ),
         ],
       ),
