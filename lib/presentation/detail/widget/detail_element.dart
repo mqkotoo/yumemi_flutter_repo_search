@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:yumemi_flutter_repo_search/presentation/detail/widget/hori_repo_header.dart';
 import '../../../generated/l10n.dart';
 
 class DetailElement extends StatelessWidget {
