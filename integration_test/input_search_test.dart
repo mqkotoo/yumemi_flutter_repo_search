@@ -41,7 +41,7 @@ void main() {
     );
 
     //検索ページのアップバーが表示されているか
-    expect(find.byKey(SearchAppBar.searchPageAppBarKey), findsOneWidget);
+    expect(find.byKey(SearchAppBar.appBarKey), findsOneWidget);
 
     final formField = find.byKey(SearchBar.inputFormKey);
 
@@ -58,7 +58,7 @@ void main() {
     final tapTarget = find.text('flutter/flutter');
     expect(tapTarget, findsOneWidget);
     //ユーザーアイコンが表示されるか
-    expect(find.byKey(ListItem.userImageOnListViewKey), findsWidgets);
+    expect(find.byKey(ListItem.userImageKey), findsWidgets);
     //検索結果数が表示されるか
     expect(find.byKey(ResultListview.resultCountKey), findsOneWidget);
 
@@ -69,13 +69,13 @@ void main() {
     await tester.pumpAndSettle();
 
     //詳細ページのアップバーが表示されるか
-    expect(find.byKey(DetailPage.detailPageAppBarKey), findsOneWidget);
+    expect(find.byKey(DetailPage.appBarKey), findsOneWidget);
     //ユーザーのアイコンが表示されるか
-    expect(find.byKey(VerRepoHeader.userImageOnDetailPageKey), findsOneWidget);
+    expect(find.byKey(VerRepoHeader.userImageKey), findsOneWidget);
     //詳細ページのレポジトリ名が表示される
-    expect(find.byKey(VerRepoHeader.repoNameOnDetailPageKey), findsOneWidget);
+    expect(find.byKey(VerRepoHeader.repoNameKey), findsOneWidget);
     // //詳細ページのレポジトリ詳細が表示される
-    expect(find.byKey(VerRepoHeader.repoDetailOnDetailPageKey), findsOneWidget);
+    expect(find.byKey(VerRepoHeader.repoDetailKey), findsOneWidget);
 
     //その他の情報が表示されるか
     expect(find.byKey(DetailElement.languageKey), findsOneWidget);

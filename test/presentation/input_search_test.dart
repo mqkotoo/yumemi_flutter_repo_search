@@ -102,14 +102,14 @@ void main() {
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //リストが描画される
-      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(seconds: 2));
       await tester.pump();
 
       //"flutter/flutter" と言う文字が見つかるか
       final tapTarget = find.text('flutter/flutter');
       expect(tapTarget, findsOneWidget);
       //ユーザーアイコンが表示されるか
-      expect(find.byKey(ListItem.userImageOnListViewKey), findsWidgets);
+      expect(find.byKey(ListItem.userImageKey), findsWidgets);
       //検索結果数が表示されるか
       expect(find.byKey(ResultListview.resultCountKey), findsOneWidget);
     });
@@ -154,23 +154,21 @@ void main() {
       await tester.pump();
 
       //詳細ページのアップバーが表示されるか
-      expect(find.byKey(DetailPage.detailPageAppBarKey), findsOneWidget);
+      expect(find.byKey(DetailPage.appBarKey), findsOneWidget);
       //ユーザーのアイコンが表示されるか
-      expect(
-          find.byKey(VerRepoHeader.userImageOnDetailPageKey), findsOneWidget);
+      expect(find.byKey(VerRepoHeader.userImageKey), findsOneWidget);
       //横画面用テスト
       // expect(
       //     find.byKey(HoriRepoHeader.userImageOnDetailPageKey), findsOneWidget);
 
       //詳細ページのレポジトリ名が表示される
-      expect(find.byKey(VerRepoHeader.repoNameOnDetailPageKey), findsOneWidget);
+      expect(find.byKey(VerRepoHeader.repoNameKey), findsOneWidget);
       //横画面用テスト
       // expect(
       //     find.byKey(HoriRepoHeader.repoNameOnDetailPageKey), findsOneWidget);
 
       //詳細ページのレポジトリ詳細が表示される
-      expect(
-          find.byKey(VerRepoHeader.repoDetailOnDetailPageKey), findsOneWidget);
+      expect(find.byKey(VerRepoHeader.repoDetailKey), findsOneWidget);
       //横画面用テスト
       // expect(
       //     find.byKey(HoriRepoHeader.repoDetailOnDetailPageKey), findsOneWidget);

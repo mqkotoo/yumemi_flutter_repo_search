@@ -14,7 +14,7 @@ class ListItem extends ConsumerWidget {
   const ListItem({Key? key}) : super(key: key);
 
   @visibleForTesting
-  static final userImageOnListViewKey = UniqueKey();
+  static final userImageKey = UniqueKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,7 +50,7 @@ class ListItem extends ConsumerWidget {
                     placeholder: (_, __) => const UserIconShimmer(),
                     errorWidget: (_, __, ___) =>
                         const Icon(Icons.error, size: 50),
-                    key: userImageOnListViewKey,
+                    key: userImageKey,
                   ),
                 ),
               ),

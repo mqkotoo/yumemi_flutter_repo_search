@@ -10,7 +10,7 @@ class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const SearchAppBar({super.key});
 
   @visibleForTesting
-  static final searchPageAppBarKey = UniqueKey();
+  static final appBarKey = UniqueKey();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -27,7 +27,7 @@ class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
     //theme切り替えのプロバイダ
     final themeSelector = ref.read(themeModeProvider.notifier);
     return AppBar(
-      key: searchPageAppBarKey,
+      key: appBarKey,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

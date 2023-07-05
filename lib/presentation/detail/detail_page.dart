@@ -16,7 +16,7 @@ class DetailPage extends StatelessWidget {
 
   //テスト用のKEY
   @visibleForTesting
-  static final detailPageAppBarKey = UniqueKey();
+  static final appBarKey = UniqueKey();
   @visibleForTesting
   static final viewOnGithubKey = UniqueKey();
 
@@ -32,7 +32,7 @@ class DetailPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(S.of(context).detailPageTitle),
-        key: detailPageAppBarKey,
+        key: appBarKey,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

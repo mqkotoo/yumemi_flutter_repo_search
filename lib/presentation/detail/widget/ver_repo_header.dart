@@ -12,11 +12,11 @@ class VerRepoHeader extends StatelessWidget {
 
   //テスト用KEY
   @visibleForTesting
-  static final userImageOnDetailPageKey = UniqueKey();
+  static final userImageKey = UniqueKey();
   @visibleForTesting
-  static final repoDetailOnDetailPageKey = UniqueKey();
+  static final repoDetailKey = UniqueKey();
   @visibleForTesting
-  static final repoNameOnDetailPageKey = UniqueKey();
+  static final repoNameKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class VerRepoHeader extends StatelessWidget {
                 height: 120,
                 placeholder: (_, __) => const UserIconShimmer(),
                 errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
-                key: userImageOnDetailPageKey,
+                key: userImageKey,
               ),
             ),
           ),
@@ -43,13 +43,13 @@ class VerRepoHeader extends StatelessWidget {
             child: Text(
               repoData.fullName,
               style: Theme.of(context).textTheme.titleLarge,
-              key: repoNameOnDetailPageKey,
+              key: repoNameKey,
             ),
           ),
           Text(
             repoData.description ?? 'No Description',
             style: Theme.of(context).textTheme.titleSmall,
-            key: repoDetailOnDetailPageKey,
+            key: repoDetailKey,
           ),
         ],
       ),
