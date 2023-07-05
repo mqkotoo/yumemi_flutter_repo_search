@@ -46,13 +46,15 @@ void main() {
     final formField = find.byKey(SearchBar.inputFormKey);
 
     //flutterと入力して検索する
-    await tester.enterText(formField, 'flutter');
     await tester.tap(formField);
+    await tester.enterText(formField, 'flutter');
     //検索ボタンを押す
     await tester.testTextInput.receiveAction(TextInputAction.search);
 
-    //リストが描画される
-    await tester.pump(const Duration(seconds: 2));
+    //shimmerが描画される
+    await tester.pump();
+    //リストの描画
+    await tester.pump();
 
     //"flutter/flutter" の文字が見つかるか
     final tapTarget = find.text('flutter/flutter');

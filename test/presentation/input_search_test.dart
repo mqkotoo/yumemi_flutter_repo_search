@@ -136,13 +136,14 @@ void main() {
       //検索フォーム
       final formField = find.byKey(SearchBar.inputFormKey);
       //flutterと入力して検索する
-      await tester.enterText(formField, 'flutter');
       await tester.tap(formField);
+      await tester.enterText(formField, 'flutter');
       //検索ボタンを押す
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
+      //shimmerが描画される
+      await tester.pump();
       //リストが描画される
-      await tester.pump(const Duration(seconds: 3));
       await tester.pump();
 
       //リストをタップ→詳細ページに遷移
@@ -150,7 +151,7 @@ void main() {
       await tester.tap(tapTarget);
 
       //画面遷移するまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //詳細ページのアップバーが表示されるか
