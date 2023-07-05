@@ -15,18 +15,12 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_lis
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
+import '../helper/helper_test.dart';
 import '../repository/repository_mock_data.dart';
 import '../repository/repository_mock_test.mocks.dart';
 
 void main() {
-  //初期状態は横画面判定になっているので縦画面に設定する
-  void setDisplayVertical({Size size = const Size(390, 844)}) {
-    final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.window.physicalSizeTestValue = size;
-    binding.window.devicePixelRatioTestValue = 1;
-  }
-
-  setDisplayVertical();
+  Helper.setDisplayVertical();
 
   group('入力フォームのテスト', () {
     testWidgets('検索フォームのテスト', (WidgetTester tester) async {
@@ -158,21 +152,12 @@ void main() {
       expect(find.byKey(DetailPage.appBarKey), findsOneWidget);
       //ユーザーのアイコンが表示されるか
       expect(find.byKey(VerRepoHeader.userImageKey), findsOneWidget);
-      //横画面用テスト
-      // expect(
-      //     find.byKey(HoriRepoHeader.userImageOnDetailPageKey), findsOneWidget);
 
       //詳細ページのレポジトリ名が表示される
       expect(find.byKey(VerRepoHeader.repoNameKey), findsOneWidget);
-      //横画面用テスト
-      // expect(
-      //     find.byKey(HoriRepoHeader.repoNameOnDetailPageKey), findsOneWidget);
 
       //詳細ページのレポジトリ詳細が表示される
       expect(find.byKey(VerRepoHeader.repoDetailKey), findsOneWidget);
-      //横画面用テスト
-      // expect(
-      //     find.byKey(HoriRepoHeader.repoDetailOnDetailPageKey), findsOneWidget);
 
       //その他の情報が表示されるか
       expect(find.byKey(DetailElement.languageKey), findsOneWidget);
