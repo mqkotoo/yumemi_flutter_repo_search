@@ -17,9 +17,12 @@ class DataRepository {
       // //エラーテスト用URL
       // final apiUri = Uri.parse('https://httpstat.us/403');
 
-      final apiUri = Uri.parse(
-          'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20');
-      http.Response response = await client.get(apiUri);
+      final resUrl =
+          'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20';
+
+      final apiUrl = Uri.parse(Uri.encodeFull(resUrl));
+
+      http.Response response = await client.get(apiUrl);
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
