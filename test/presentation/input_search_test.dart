@@ -15,12 +15,12 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_lis
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
-import '../helper/helper_test.dart';
+import '../helper/test_helper.dart';
 import '../repository/repository_mock_data.dart';
 import '../repository/repository_mock_test.mocks.dart';
 
 void main() {
-  Helper.setDisplayVertical();
+  TestHelper.setDisplayVertical();
 
   group('入力フォームのテスト', () {
     testWidgets('検索フォームのテスト', (WidgetTester tester) async {
