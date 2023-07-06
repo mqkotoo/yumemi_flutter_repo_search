@@ -10,6 +10,14 @@ class HoriRepoHeader extends StatelessWidget {
 
   final RepoDataItems repoData;
 
+  //テスト用KEY
+  @visibleForTesting
+  static final userImageKey = UniqueKey();
+  @visibleForTesting
+  static final repoDetailKey = UniqueKey();
+  @visibleForTesting
+  static final repoNameKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     final widthSize = MediaQuery.of(context).size.width;
@@ -27,7 +35,7 @@ class HoriRepoHeader extends StatelessWidget {
                 height: 120,
                 placeholder: (_, __) => const UserIconShimmer(),
                 errorWidget: (_, __, ___) => const Icon(Icons.error, size: 50),
-                key: const Key('userImageOnDetailPage'),
+                key: userImageKey,
               ),
             ),
           ),
@@ -39,13 +47,13 @@ class HoriRepoHeader extends StatelessWidget {
                 Text(
                   repoData.fullName,
                   style: Theme.of(context).textTheme.titleLarge,
-                  key: const Key('repoNameOnDetailPage'),
+                  key: repoNameKey,
                 ),
                 const SizedBox(height: 10),
                 Text(
                   repoData.description ?? 'No Description',
                   style: Theme.of(context).textTheme.titleSmall,
-                  key: const Key('repoDetailOnDetailPage'),
+                  key: repoDetailKey,
                 ),
               ],
             ),

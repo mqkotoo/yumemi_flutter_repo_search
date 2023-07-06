@@ -14,6 +14,9 @@ import 'list_item_shimmer.dart';
 class ResultListview extends ConsumerWidget {
   const ResultListview({Key? key}) : super(key: key);
 
+  @visibleForTesting
+  static final resultCountKey = UniqueKey();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //検索数
@@ -103,7 +106,7 @@ class ResultListview extends ConsumerWidget {
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
-          key: const Key('resultCount'),
+          key: resultCountKey,
         ),
       ),
     );

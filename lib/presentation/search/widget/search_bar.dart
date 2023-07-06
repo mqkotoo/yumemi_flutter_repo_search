@@ -8,6 +8,16 @@ import '../../controller/controllers.dart';
 class SearchBar extends ConsumerWidget {
   const SearchBar({Key? key}) : super(key: key);
 
+  //テスト用のKEY
+  @visibleForTesting
+  static final inputFormKey = UniqueKey();
+  @visibleForTesting
+  static final clearButtonKey = UniqueKey();
+  @visibleForTesting
+  static final sortRadioKey = UniqueKey();
+  @visibleForTesting
+  static final sortButtonKey = UniqueKey();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //テキストのコントローラ
@@ -51,16 +61,16 @@ class SearchBar extends ConsumerWidget {
                                 .watch(isClearButtonVisibleProvider.notifier)
                                 .update((state) => false);
                           },
-                          key: const Key('clearButton'),
+                          key: clearButtonKey,
                         )
                       : const SizedBox.shrink(),
                 ),
-                key: const Key('inputForm'),
+                key: inputFormKey,
               ),
             ),
             //ソートボタン
             MenuAnchor(
-              key: const Key('sortRadio'),
+              key: sortRadioKey,
               alignmentOffset: const Offset(-120, 0),
               menuChildren: [
                 RadioMenuButton(
@@ -115,7 +125,7 @@ class SearchBar extends ConsumerWidget {
                     }
                   },
                   icon: const Icon(Icons.sort, size: 32),
-                  key: const Key('sortButton'),
+                  key: sortButtonKey,
                 );
               },
             ),

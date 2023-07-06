@@ -4,7 +4,7 @@ include: package:flutter_lints/flutter.yaml
 linter:
 
   rules:
-     prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
 analyzer:
   exclude:
@@ -14,3 +14,4 @@ analyzer:
   
   errors:
     invalid_annotation_target: ignore
+    invalid_use_of_visible_for_testing_member: error

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
 import '../../controller/controllers.dart';
@@ -11,6 +12,9 @@ import 'error/error_widget.dart';
 
 class ListItem extends ConsumerWidget {
   const ListItem({Key? key}) : super(key: key);
+
+  @visibleForTesting
+  static final userImageKey = UniqueKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,7 +50,7 @@ class ListItem extends ConsumerWidget {
                     placeholder: (_, __) => const UserIconShimmer(),
                     errorWidget: (_, __, ___) =>
                         const Icon(Icons.error, size: 50),
-                    key: const Key('userImageOnListView'),
+                    key: userImageKey,
                   ),
                 ),
               ),
@@ -73,9 +77,9 @@ class ListItem extends ConsumerWidget {
         ),
         loading: () => const ListItemShimmer(),
         error: (e, _) {
-          if (e == 'No Keywords') {
+          if (e is NoTextException) {
             return const EnterTextView();
-          } else if (e == 'Network Error') {
+          } else if (e is NoInternetException) {
             return const NetworkErrorView();
           } else {
             return const ErrorView();

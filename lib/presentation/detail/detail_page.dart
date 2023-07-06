@@ -14,6 +14,12 @@ class DetailPage extends StatelessWidget {
 
   final RepoDataItems repoData;
 
+  //テスト用のKEY
+  @visibleForTesting
+  static final appBarKey = UniqueKey();
+  @visibleForTesting
+  static final viewOnGithubKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     // データの数をカンマ区切りで表示
@@ -26,7 +32,7 @@ class DetailPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(S.of(context).detailPageTitle),
-        key: const Key('detailPageAppBar'),
+        key: appBarKey,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -123,7 +129,7 @@ class DetailPage extends StatelessWidget {
             decoration: TextDecoration.underline,
             decorationColor: Colors.blueAccent,
           ),
-          key: const Key('viewOnGithub'),
+          key: viewOnGithubKey,
         ),
       ),
     );

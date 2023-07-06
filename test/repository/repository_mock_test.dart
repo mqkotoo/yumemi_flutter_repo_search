@@ -23,23 +23,18 @@ void main() {
 
     late ProviderContainer container;
 
-    setUp(() => () {
-          //mockのhttpクライアントでDIする
-          container = ProviderContainer(
-            overrides: [httpClientProvider.overrideWithValue(mockClient)],
-          );
-        });
-
-    tearDown(() => () {
-          container.dispose();
-        });
-
-    test('getメソッドのテスト', () async {
+    setUp(() {
       //mockのhttpクライアントでDIする
       container = ProviderContainer(
         overrides: [httpClientProvider.overrideWithValue(mockClient)],
       );
+    });
 
+    tearDown(() {
+      container.dispose();
+    });
+
+    test('getメソッドのテスト', () async {
       //上でオーバーライドされたmockのHTTPクライアントのインスタンスをみれてる
       final result = await container
           .read(dataRepositoryProvider)
