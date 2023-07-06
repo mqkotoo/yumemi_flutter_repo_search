@@ -96,7 +96,7 @@ void main() {
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //リストが描画される
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //"flutter/flutter" と言う文字が見つかるか

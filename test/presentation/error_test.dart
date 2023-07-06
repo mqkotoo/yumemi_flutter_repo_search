@@ -69,7 +69,7 @@ void main() {
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //結果表示されるまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //エラーが返ってくる("検索結果が見つからない")
@@ -100,7 +100,7 @@ void main() {
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //エラー表示されるまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //エラーが返ってくる
@@ -134,7 +134,7 @@ void main() {
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //エラーが表示されるまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //トップの結果は表示されない
