@@ -22,11 +22,14 @@ final isClearButtonVisibleProvider =
 final isResultCountVisibleProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 
+//エラー時のリロードボタンを表示するかのフラグ
+final isReloadButtonVisibleProvider = StateProvider<bool>((ref) => false);
+
 //sortの文字列を格納
 final sortStringProvider = StateProvider<String>((ref) => 'bestmatch');
 
 //以下のページネーション参考
-//https://itnext.io/seamless-infinite-list-with-riverpod-in-flutter-15369f3c9cd2
+// https://itnext.io/seamless-infinite-list-with-riverpod-in-flutter-15369f3c9cd2
 
 //ページごとのデータ取得
 final paginatedResultProvider =
