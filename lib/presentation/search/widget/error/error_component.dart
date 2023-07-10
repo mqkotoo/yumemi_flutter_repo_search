@@ -27,36 +27,53 @@ class ErrorComponent extends ConsumerWidget {
 
     return ref.watch(totalCountProvider).isLoading
         ? const ListItemShimmer()
-        : Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Lottie.asset(
-                    lottieFile,
-                    width: deviceHeight * 0.3,
-                    height: deviceHeight * 0.3,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    errorTitle,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+        : Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              //エラーコンポネント
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Lottie.asset(
+                      lottieFile,
+                      width: deviceHeight * 0.3,
+                      height: deviceHeight * 0.3,
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  if (errorDetail != null) Text(errorDetail!),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      errorTitle,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    if (errorDetail != null) Text(errorDetail!),
+                  ],
+                ),
               ),
-            ),
-            floatingActionButton: isNeedReloadButton
-                ? FloatingActionButton(
-                    child: const Icon(Icons.refresh),
-                    onPressed: () {
-                      ref.invalidate(paginatedResultProvider);
-                    },
-                  )
-                : const SizedBox.shrink());
+              //リロードボタン
+              isNeedReloadButton
+                  ? Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          ref.invalidate(paginatedResultProvider);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(15),
+                        ),
+                        child: const Icon(
+                          Icons.refresh,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ],
+          );
   }
 }
