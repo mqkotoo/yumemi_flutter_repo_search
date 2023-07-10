@@ -53,12 +53,7 @@ class ResultListview extends ConsumerWidget {
                           ScrollViewKeyboardDismissBehavior.onDrag,
                       itemCount: totalCount,
                       itemBuilder: (context, index) {
-                        return ProviderScope(
-                          overrides: [
-                            listIndexProvider.overrideWithValue(index)
-                          ],
-                          child: const ListItem(),
-                        );
+                        return ListItem(index: index);
                       },
                       separatorBuilder: (context, index) => const Divider(
                         color: Color(0xffBBBBBB),

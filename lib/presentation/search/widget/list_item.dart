@@ -11,14 +11,15 @@ import '../../detail/detail_page.dart';
 import 'error/error_widget.dart';
 
 class ListItem extends ConsumerWidget {
-  const ListItem({Key? key}) : super(key: key);
+  const ListItem({Key? key, required this.index}) : super(key: key);
+
+  final int index;
 
   @visibleForTesting
   static final userImageKey = UniqueKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.read(listIndexProvider);
     final repoData = ref.watch(repoAtIndexProvider(index));
     //画像部分もタップできるように全体をGestureDetectorで囲む
     return SafeArea(

@@ -55,12 +55,6 @@ final totalCountProvider = Provider<AsyncValue<int>>(
   dependencies: [paginatedResultProvider],
 );
 
-//インデックスを管理する
-//上書きするまで使わない
-final listIndexProvider = Provider<int>((_) {
-  throw UnimplementedError();
-});
-
 //上で取得したindexを使ってページ、要素の判定
 final repoAtIndexProvider = Provider.family<AsyncValue<RepoDataItems>, int>(
   (ref, index) {
