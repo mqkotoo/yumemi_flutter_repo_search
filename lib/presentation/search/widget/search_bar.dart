@@ -46,7 +46,11 @@ class SearchBar extends ConsumerWidget {
                 textInputAction: TextInputAction.search,
                 //search押したらデータ取得 データ渡す
                 onFieldSubmitted: (text) {
-                  searchStateNotifier.searchRepositories(text);
+                  searchStateNotifier.searchRepositories(text.trim());
+                  //再検索用に文字列を持っておく
+                  ref
+                      .read(inputRepoNameProvider.notifier)
+                      .update((state) => text.trim());
                 },
                 //decoration
                 decoration: InputDecoration(

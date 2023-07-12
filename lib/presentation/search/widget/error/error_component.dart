@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 
+import '../../search_state_notifier.dart';
+
 ///エラーや入力を促す際の表示のフォーマット
 class ErrorComponent extends ConsumerWidget {
   const ErrorComponent(
@@ -24,6 +26,8 @@ class ErrorComponent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //デバイスの高さ取得
     final deviceHeight = MediaQuery.of(context).size.height;
+
+    final searchStateNotifier = ref.watch(searchStateNotifierProvider.notifier);
 
     return ref.watch(totalCountProvider).isLoading
         ? const ListItemShimmer()
@@ -59,7 +63,8 @@ class ErrorComponent extends ConsumerWidget {
                       padding: const EdgeInsets.all(15),
                       child: ElevatedButton(
                         onPressed: () {
-                          ref.invalidate(paginatedResultProvider);
+                          searchStateNotifier.searchRepositories(
+                              ref.watch(inputRepoNameProvider));
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
