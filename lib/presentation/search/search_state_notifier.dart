@@ -10,7 +10,7 @@ import '../../repository/data_repository.dart';
 import '../provider/providers.dart';
 
 final searchStateNotifierProvider =
-    StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
+StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
         (ref) => SearchStateNotifier(ref));
 
 class SearchStateNotifier extends StateNotifier<SearchState> {
@@ -107,8 +107,12 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
 extension Pagination on RepoDataModel {
   bool get hasNext => totalCount > items.length;
 
-  List<RepoDataItems> get repositories => items
-      .map((repo) => RepoDataItems(
+  int get resultCount => totalCount;
+
+  List<RepoDataItems> get repositories =>
+      items
+          .map((repo) =>
+          RepoDataItems(
             fullName: repo.fullName,
             description: repo.description,
             language: repo.language,
@@ -119,5 +123,5 @@ extension Pagination on RepoDataModel {
             htmlUrl: repo.htmlUrl,
             owner: repo.owner,
           ))
-      .toList();
+          .toList();
 }
