@@ -10,7 +10,7 @@ class SearchState with _$SearchState {
   const factory SearchState.searching() = SearchStateSearching;
 
   const factory SearchState.success({
-    required List<RepoDataModel> repoData,
+    required List<RepoDataItems> repoData,
     required String query,
     required int page,
     required bool hasNext,
@@ -21,8 +21,10 @@ class SearchState with _$SearchState {
   }) = SearchStateFail;
 
   const factory SearchState.fetchingNext({
-    required List<RepoDataModel> repoData,
+    required List<RepoDataItems> repoData,
     required String query,
     required int page,
   }) = SearchStateFetchingNext;
+
+  const factory SearchState.empty() = SearchStateEmpty;
 }
