@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
+import '../search_state_notifier.dart';
 
 class SearchBar extends ConsumerWidget {
   const SearchBar({Key? key}) : super(key: key);
@@ -22,6 +23,8 @@ class SearchBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //テキストのコントローラ
     final textController = ref.watch(textEditingControllerProvider);
+
+    final searchStateNotifier = ref.watch(searchStateNotifierProvider.notifier);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       //search field
@@ -43,10 +46,7 @@ class SearchBar extends ConsumerWidget {
                 textInputAction: TextInputAction.search,
                 //search押したらデータ取得 データ渡す
                 onFieldSubmitted: (text) {
-                  //無駄な余白をカットしてプロバイダーに渡す
-                  ref
-                      .read(inputRepoNameProvider.notifier)
-                      .update((state) => text.trim());
+                  searchStateNotifier.searchRepositories(text);
                 },
                 //decoration
                 decoration: InputDecoration(

@@ -4,81 +4,100 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_list_view.dart';
 import '../../../constants/result_count_color.dart';
+import '../../../domain/repo_data_model.dart';
 import '../../../generated/l10n.dart';
 import '../../controller/controllers.dart';
+import '../search_state_notifier.dart';
 import 'error/error_widget.dart';
 import 'list_item.dart';
 import 'list_item_shimmer.dart';
 
-class ResultListview extends ConsumerWidget {
-  const ResultListview({Key? key}) : super(key: key);
+class ResultListView extends ConsumerWidget {
+  const ResultListView({
+    Key? key,
+    required this.repoItems,
+    required this.hasNext,
+  }) : super(key: key);
 
   @visibleForTesting
   static final resultCountKey = UniqueKey();
 
+  final List<RepoDataItems> repoItems;
+  final bool hasNext;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //検索数
-    final resultCount = ref.watch(totalCountProvider);
-    return Expanded(
-      flex: 8,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          resultCount.when(
-            data: (totalCount) => totalCount == 0
-                //検索結果がない場合
-                ? const NoResultView()
-                //検索結果がある場合
-                //スクロールを検知して、スクロール中は検索結果数を表示しないようにする
-                : NotificationListener<ScrollNotification>(
-                    onNotification: (notification) {
-                      if (notification is ScrollStartNotification) {
-                        // スクロールが開始された場合の処理(非表示)
-                        ref
-                            .read(isResultCountVisibleProvider.notifier)
-                            .update((state) => false);
-                      } else if (notification is ScrollEndNotification) {
-                        // スクロールが終了した場合の処理(表示)
-                        ref
-                            .read(isResultCountVisibleProvider.notifier)
-                            .update((state) => true);
-                      }
-                      return true;
-                    },
-                    child: ListView.separated(
-                      //スクロールでキーボードを閉じるようにした
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
-                      itemCount: totalCount,
-                      itemBuilder: (context, index) {
-                        return ListItem(index: index);
-                      },
-                      separatorBuilder: (context, index) => const Divider(
-                        color: Color(0xffBBBBBB),
-                      ),
-                    ),
-                  ),
-            error: (e, _) {
-              if (e is NoTextException) {
-                return const EnterTextView();
-              } else if (e is NoInternetException) {
-                return const NetworkErrorView();
-              } else {
-                return const ErrorView();
-              }
-            },
-            loading: () => const ListItemShimmer(),
-          ),
-          // 検索結果がある場合は件数を表示する
-          if (ref.watch(isResultCountVisibleProvider))
-            if (!resultCount.hasError &&
-                !resultCount.isLoading &&
-                resultCount.value != 0)
-              _resultCount(context, resultCount),
-        ],
-      ),
+    // final resultCount = ref.watch(totalCountProvider);
+
+    final notifier = ref.watch(searchStateNotifierProvider.notifier);
+
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        PaginationListView(
+          itemCount: repoItems.length,
+          hasNext: hasNext,
+          fetchNext: notifier.fetchNext,
+          itemBuilder: (context, index) {
+            return ListItem(repoItems: repoItems[index]);
+          },
+        ),
+        // resultCount.when(
+        //   data: (totalCount) => totalCount == 0
+        //       //検索結果がない場合
+        //       ? const NoResultView()
+        //       //検索結果がある場合
+        //       //スクロールを検知して、スクロール中は検索結果数を表示しないようにする
+        //       : NotificationListener<ScrollNotification>(
+        //           onNotification: (notification) {
+        //             if (notification is ScrollStartNotification) {
+        //               // スクロールが開始された場合の処理(非表示)
+        //               ref
+        //                   .read(isResultCountVisibleProvider.notifier)
+        //                   .update((state) => false);
+        //             } else if (notification is ScrollEndNotification) {
+        //               // スクロールが終了した場合の処理(表示)
+        //               ref
+        //                   .read(isResultCountVisibleProvider.notifier)
+        //                   .update((state) => true);
+        //             }
+        //             return true;
+        //           },
+        //           child: ListView.separated(
+        //             //スクロールでキーボードを閉じるようにした
+        //             keyboardDismissBehavior:
+        //                 ScrollViewKeyboardDismissBehavior.onDrag,
+        //             itemCount: totalCount,
+        //             itemBuilder: (context, index) {
+        //               return ListItem(index: index);
+        //             },
+        //             separatorBuilder: (context, index) => const Divider(
+        //               color: Color(0xffBBBBBB),
+        //             ),
+        //           ),
+        //         ),
+        //   error: (e, _) {
+        //     if (e is NoTextException) {
+        //       return const EnterTextView();
+        //     } else if (e is NoInternetException) {
+        //       return const NetworkErrorView();
+        //     } else {
+        //       return const ErrorView();
+        //     }
+        //   },
+        //   loading: () => const ListItemShimmer(),
+        // ),
+        // 検索結果がある場合は件数を表示する
+
+        // if (ref.watch(isResultCountVisibleProvider))
+        //   if (!resultCount.hasError &&
+        //       !resultCount.isLoading &&
+        //       resultCount.value != 0)
+        //     _resultCount(context, resultCount),
+      ],
     );
   }
 

@@ -105,7 +105,7 @@ void main() {
       //ユーザーアイコンが表示されるか
       expect(find.byKey(ListItem.userImageKey), findsWidgets);
       //検索結果数が表示されるか
-      expect(find.byKey(ResultListview.resultCountKey), findsOneWidget);
+      expect(find.byKey(ResultListView.resultCountKey), findsOneWidget);
     });
   });
 

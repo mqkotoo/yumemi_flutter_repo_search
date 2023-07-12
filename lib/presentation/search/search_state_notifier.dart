@@ -29,6 +29,12 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
       return;
     }
 
+    //検索ワードがなかったらエラーを返す
+    if (query.isEmpty) {
+      state = SearchState.failure(exception: NoTextException());
+      return;
+    }
+
     state = const SearchState.searching();
 
     const page = 1;
@@ -80,8 +86,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
     try {
       result = await _searchApi.getData(
           repoName: query, sort: _sortString, page: page);
-    } on Exception catch (e) {
-      debugPrint('$e');
+    } on Exception catch (_) {
       state = SearchState.success(
         repoData: currentState.repoData,
         query: query,
@@ -107,7 +112,7 @@ extension Pagination on RepoDataModel {
       .map((repo) => RepoDataItems(
             fullName: repo.fullName,
             description: repo.description,
-            language: repo.description,
+            language: repo.language,
             stargazersCount: repo.stargazersCount,
             watchersCount: repo.watchersCount,
             forksCount: repo.forksCount,
