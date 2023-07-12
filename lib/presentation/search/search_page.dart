@@ -29,12 +29,11 @@ class SearchPage extends ConsumerWidget {
             const SearchBar(),
             const Divider(),
             //検索結果のリスト表示部分
-            // ResultListview(),
             Expanded(
               flex: 8,
               child: searchState.when(
                 uninitialized: () => const EnterTextView(),
-                searching: () => const ListItemShimmer(),
+                loading: () => const ListItemShimmer(),
                 success: (repositories, query, page, hasNext) => ResultListView(
                   repoItems: repositories,
                   hasNext: hasNext,

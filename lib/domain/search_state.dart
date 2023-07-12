@@ -7,7 +7,7 @@ part 'search_state.freezed.dart';
 class SearchState with _$SearchState {
   const factory SearchState.uninitialized() = SearchStateUninitialized;
 
-  const factory SearchState.searching() = SearchStateSearching;
+  const factory SearchState.loading() = SearchStateLoading;
 
   const factory SearchState.success({
     required List<RepoDataItems> repoData,

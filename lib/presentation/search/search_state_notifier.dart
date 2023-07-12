@@ -10,7 +10,7 @@ import '../../repository/data_repository.dart';
 import '../provider/providers.dart';
 
 final searchStateNotifierProvider =
-StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
+    StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
         (ref) => SearchStateNotifier(ref));
 
 class SearchStateNotifier extends StateNotifier<SearchState> {
@@ -24,7 +24,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
   String get _sortString => _ref.watch(sortStringProvider);
 
   Future<void> searchRepositories(String query) async {
-    if (state is SearchStateSearching) {
+    if (state is SearchStateLoading) {
       return;
     }
 
@@ -34,7 +34,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
       return;
     }
 
-    state = const SearchState.searching();
+    state = const SearchState.loading();
 
     const page = 1;
     final RepoDataModel result;
@@ -62,7 +62,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
   }
 
   Future<void> fetchNext() async {
-    if (state is SearchStateSearching || state is SearchStateFetchingNext) {
+    if (state is SearchStateLoading || state is SearchStateFetchingNext) {
       return;
     }
 
@@ -86,6 +86,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
       result = await _searchApi.getData(
           repoName: query, sort: _sortString, page: page);
     } on Exception catch (_) {
+      //ここでは失敗しているけど、次のデータのリクエストをしないだけという処理になっている
       state = SearchState.success(
         repoData: currentState.repoData,
         query: query,
@@ -107,12 +108,8 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
 extension Pagination on RepoDataModel {
   bool get hasNext => totalCount > items.length;
 
-  int get resultCount => totalCount;
-
-  List<RepoDataItems> get repositories =>
-      items
-          .map((repo) =>
-          RepoDataItems(
+  List<RepoDataItems> get repositories => items
+      .map((repo) => RepoDataItems(
             fullName: repo.fullName,
             description: repo.description,
             language: repo.language,
@@ -123,5 +120,5 @@ extension Pagination on RepoDataModel {
             htmlUrl: repo.htmlUrl,
             owner: repo.owner,
           ))
-          .toList();
+      .toList();
 }
