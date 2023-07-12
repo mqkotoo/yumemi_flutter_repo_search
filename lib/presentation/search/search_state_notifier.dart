@@ -1,14 +1,13 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
-import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
 
 import '../../domain/repo_data_model.dart';
 import '../../domain/search_state.dart';
 import '../../repository/data_repository.dart';
+import '../provider/providers.dart';
 
 final searchStateNotifierProvider =
     StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(

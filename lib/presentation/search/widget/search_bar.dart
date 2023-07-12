@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../generated/l10n.dart';
-import '../../controller/controllers.dart';
+import '../../provider/providers.dart';
 import '../search_state_notifier.dart';
 
 class SearchBar extends ConsumerWidget {

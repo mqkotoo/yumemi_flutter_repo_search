@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_list_view.dart';
 import '../../../constants/result_count_color.dart';
 import '../../../domain/repo_data_model.dart';
 import '../../../generated/l10n.dart';
-import '../../controller/controllers.dart';
 import '../search_state_notifier.dart';
-import 'error/error_widget.dart';
 import 'list_item.dart';
-import 'list_item_shimmer.dart';
 
 class ResultListView extends ConsumerWidget {
   const ResultListView({

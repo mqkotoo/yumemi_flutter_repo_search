@@ -3,13 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
-import '../../controller/controllers.dart';
 import '../../detail/detail_page.dart';
-import 'error/error_widget.dart';
 
 class ListItem extends ConsumerWidget {
   const ListItem({Key? key, required this.repoItems}) : super(key: key);
