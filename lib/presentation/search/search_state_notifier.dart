@@ -66,32 +66,83 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
       return;
     }
 
-    final currentState = state.maybeMap(
-      success: (value) => value,
-      orElse: () {
-        AssertionError();
-      },
-    )!;
+    late final String query;
+    late final int page;
+    late final currentState;
 
-    final query = currentState.query;
-    final page = currentState.page + 1;
-    state = SearchState.fetchingNext(
-      repoData: currentState.repoData,
-      query: query,
-      page: page,
-    );
+    if (state is SearchStateSuccess) {
+      currentState = state.maybeMap(
+        success: (SearchStateSuccess value) => value,
+        orElse: () {
+          AssertionError();
+        },
+      )!;
+
+      print(currentState);
+
+      query = currentState.query;
+      page = currentState.page + 1;
+      state = SearchState.fetchingNext(
+        repoData: currentState.repoData,
+        query: query,
+        page: page,
+      );
+    }
+
+    if (state is SearchStateNextFetchFailure) {
+      currentState = state.maybeMap(
+        nextFetchFailure: (SearchStateNextFetchFailure value) => value,
+        orElse: () {
+          AssertionError();
+        },
+      )!;
+
+      print(currentState);
+
+      query = currentState.query;
+      page = currentState.page;
+      state = SearchState.fetchingNext(
+        repoData: currentState.repoData,
+        query: query,
+        page: page,
+      );
+    }
+
+    // print(state);
+    //
+    // print(currentState);
+    //
+    // final query = currentState.query;
+    // final page = currentState.page + 1;
+    // state = SearchState.fetchingNext(
+    //   repoData: currentState.repoData,
+    //   query: query,
+    //   page: page,
+    // );
 
     final RepoDataModel result;
     try {
+      print(page);
       result = await _searchApi.getData(
           repoName: query, sort: _sortString, page: page);
-    } on Exception catch (_) {
-      //ここでは失敗しているけど、次のデータのリクエストをしないだけという処理になっている
-      state = SearchState.success(
+    } on SocketException {
+      state = SearchState.nextFetchFailure(
         repoData: currentState.repoData,
         query: query,
         page: page,
         hasNext: false,
+        hasNextFetchError: true,
+        exception: NoInternetException(),
+      );
+      return;
+    } catch (_) {
+      state = SearchState.nextFetchFailure(
+        repoData: currentState.repoData,
+        query: query,
+        page: page,
+        hasNext: false,
+        hasNextFetchError: true,
+        exception: UnknownException(),
       );
       return;
     }

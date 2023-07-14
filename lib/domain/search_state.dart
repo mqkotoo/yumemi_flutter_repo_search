@@ -27,4 +27,13 @@ class SearchState with _$SearchState {
   }) = SearchStateFetchingNext;
 
   const factory SearchState.empty() = SearchStateEmpty;
+
+  const factory SearchState.nextFetchFailure({
+    required List<RepoDataItems> repoData,
+    required String query,
+    required int page,
+    required bool hasNext,
+    required bool hasNextFetchError,
+    required Exception exception,
+  }) = SearchStateNextFetchFailure;
 }

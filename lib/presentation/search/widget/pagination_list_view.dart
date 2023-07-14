@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_loading.dart';
 
+import '../../../domain/error.dart';
+import 'error/error_widget.dart';
+
 class PaginationListView extends StatelessWidget {
   const PaginationListView({
     Key? key,
@@ -8,12 +11,17 @@ class PaginationListView extends StatelessWidget {
     required this.hasNext,
     required this.fetchNext,
     required this.itemBuilder,
+    required this.hasNextFetchError,
+    // required this.exception,
   }) : super(key: key);
 
   final int itemCount;
   final bool hasNext;
   final void Function() fetchNext;
   final Widget Function(BuildContext, int) itemBuilder;
+  final bool hasNextFetchError;
+
+  // final Exception exception;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +32,24 @@ class PaginationListView extends StatelessWidget {
           itemBuilder: (context, index) {
             if (!hasNext || index < itemCount) {
               return itemBuilder(context, index);
+            } else if (hasNextFetchError) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40.0),
+                  // child: Text('エラーが発生しました！'),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      fetchNext();
+                    },
+                    child: const Text('再読み込み'),
+                  ),
+                ),
+              );
             }
             return const PaginationLoading();
           },
@@ -32,6 +58,9 @@ class PaginationListView extends StatelessWidget {
         onNotification: (notification) {
           if (notification.metrics.atEdge &&
               notification.metrics.extentAfter == 0) {
+            if (hasNextFetchError) {
+              return false;
+            }
             fetchNext();
           }
           return false;

@@ -52,6 +52,14 @@ class SearchPage extends ConsumerWidget {
                   hasNext: true,
                 ),
                 empty: () => const NoResultView(),
+                nextFetchFailure: (repositories, query, page, hasNextFetchError,
+                        hasNext, exception) =>
+                    ResultListView(
+                  repoItems: repositories,
+                  hasNext: hasNext,
+                  hasNextFetchError: true,
+                  // exception: exception,
+                ),
               ),
             )
           ],
