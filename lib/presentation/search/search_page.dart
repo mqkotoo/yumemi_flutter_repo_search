@@ -46,11 +46,11 @@ class SearchPage extends ConsumerWidget {
                     return const ErrorView();
                   }
                 },
+                empty: () => const NoResultView(),
                 fetchMoreLoading: (repositories, query, page) => ResultListView(
                   repoItems: repositories,
                   hasNext: true,
                 ),
-                empty: () => const NoResultView(),
                 fetchMoreFailure: (repositories, query, page, exception) =>
                     ResultListView(
                   repoItems: repositories,

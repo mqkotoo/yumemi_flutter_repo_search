@@ -31,16 +31,22 @@ class PaginationListView extends StatelessWidget {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Icon(Icons.wifi_off),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          fetchNext();
+                        },
+                        child: const Text('再読み込み'),
                       ),
-                    ),
-                    onPressed: () {
-                      fetchNext();
-                    },
-                    child: const Text('再読み込み'),
+                    ],
                   ),
                 ),
               );
