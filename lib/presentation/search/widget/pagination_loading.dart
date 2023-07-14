@@ -7,7 +7,7 @@ class PaginationLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 50.0),
+        padding: EdgeInsets.symmetric(vertical: 30.0),
         child: CircularProgressIndicator(),
       ),
     );

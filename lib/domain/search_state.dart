@@ -32,8 +32,6 @@ class SearchState with _$SearchState {
     required List<RepoDataItems> repoData,
     required String query,
     required int page,
-    required bool hasNext,
-    required bool hasNextFetchError,
     required Exception exception,
   }) = SearchStateNextFetchFailure;
 }

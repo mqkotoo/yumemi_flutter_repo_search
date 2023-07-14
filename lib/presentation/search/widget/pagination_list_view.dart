@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_loading.dart';
 
-import '../../../domain/error.dart';
-import 'error/error_widget.dart';
-
 class PaginationListView extends StatelessWidget {
   const PaginationListView({
     Key? key,
@@ -12,7 +9,6 @@ class PaginationListView extends StatelessWidget {
     required this.fetchNext,
     required this.itemBuilder,
     required this.hasNextFetchError,
-    // required this.exception,
   }) : super(key: key);
 
   final int itemCount;
@@ -20,8 +16,6 @@ class PaginationListView extends StatelessWidget {
   final void Function() fetchNext;
   final Widget Function(BuildContext, int) itemBuilder;
   final bool hasNextFetchError;
-
-  // final Exception exception;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +30,6 @@ class PaginationListView extends StatelessWidget {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40.0),
-                  // child: Text('エラーが発生しました！'),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

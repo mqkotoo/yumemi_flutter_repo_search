@@ -13,7 +13,6 @@ class ResultListView extends ConsumerWidget {
     required this.repoItems,
     required this.hasNext,
     this.hasNextFetchError,
-    // this.exception,
   }) : super(key: key);
 
   @visibleForTesting
@@ -23,11 +22,9 @@ class ResultListView extends ConsumerWidget {
   final bool hasNext;
   final bool? hasNextFetchError;
 
-  // final Exception? exception;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(searchStateNotifierProvider.notifier);
+    final notifier = ref.read(searchStateNotifierProvider.notifier);
 
     return Stack(
       alignment: Alignment.bottomCenter,

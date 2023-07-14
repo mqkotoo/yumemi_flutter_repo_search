@@ -108,18 +108,6 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
       );
     }
 
-    // print(state);
-    //
-    // print(currentState);
-    //
-    // final query = currentState.query;
-    // final page = currentState.page + 1;
-    // state = SearchState.fetchingNext(
-    //   repoData: currentState.repoData,
-    //   query: query,
-    //   page: page,
-    // );
-
     final RepoDataModel result;
     try {
       print(page);
@@ -130,8 +118,6 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
         repoData: currentState.repoData,
         query: query,
         page: page,
-        hasNext: false,
-        hasNextFetchError: true,
         exception: NoInternetException(),
       );
       return;
@@ -140,8 +126,6 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
         repoData: currentState.repoData,
         query: query,
         page: page,
-        hasNext: false,
-        hasNextFetchError: true,
         exception: UnknownException(),
       );
       return;
