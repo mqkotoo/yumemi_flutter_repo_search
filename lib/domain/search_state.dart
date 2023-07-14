@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 
 part 'search_state.freezed.dart';
@@ -20,18 +21,18 @@ class SearchState with _$SearchState {
     required Exception exception,
   }) = SearchStateFail;
 
-  const factory SearchState.fetchingNext({
+  const factory SearchState.fetchMoreLoading({
     required List<RepoDataItems> repoData,
     required String query,
     required int page,
-  }) = SearchStateFetchingNext;
+  }) = SearchStateFetchMoreLoading;
 
   const factory SearchState.empty() = SearchStateEmpty;
 
-  const factory SearchState.nextFetchFailure({
+  const factory SearchState.fetchMoreFailure({
     required List<RepoDataItems> repoData,
     required String query,
     required int page,
     required Exception exception,
-  }) = SearchStateNextFetchFailure;
+  }) = SearchStateFetchMoreFailure;
 }

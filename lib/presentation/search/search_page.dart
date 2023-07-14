@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
-
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_list_view.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_app_bar.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
-
 import '../../domain/error.dart';
 
 class SearchPage extends ConsumerWidget {
@@ -47,12 +46,12 @@ class SearchPage extends ConsumerWidget {
                     return const ErrorView();
                   }
                 },
-                fetchingNext: (repositories, query, page) => ResultListView(
+                fetchMoreLoading: (repositories, query, page) => ResultListView(
                   repoItems: repositories,
                   hasNext: true,
                 ),
                 empty: () => const NoResultView(),
-                nextFetchFailure: (repositories, query, page, exception) =>
+                fetchMoreFailure: (repositories, query, page, exception) =>
                     ResultListView(
                   repoItems: repositories,
                   hasNext: true,

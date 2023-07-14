@@ -32,7 +32,7 @@ class ResultListView extends ConsumerWidget {
         PaginationListView(
           itemCount: repoItems.length,
           hasNext: hasNext,
-          fetchNext: notifier.fetchNext,
+          fetchNext: notifier.fetchMore,
           itemBuilder: (context, index) {
             return ListItem(repoItems: repoItems[index]);
           },

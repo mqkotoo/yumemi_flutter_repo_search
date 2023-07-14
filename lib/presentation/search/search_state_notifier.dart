@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
-
 import '../../domain/repo_data_model.dart';
 import '../../domain/search_state.dart';
 import '../../repository/data_repository.dart';
@@ -61,82 +61,48 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
     );
   }
 
-  Future<void> fetchNext() async {
-    if (state is SearchStateLoading || state is SearchStateFetchingNext) {
-      return;
-    }
+  Future<void> fetchMore() async {
+    state.maybeWhen(
+      success: (repoData, query, page, hasNext) =>
+          _fetchMore(repoData, query, page + 1),
+      fetchMoreFailure: (repoData, query, page, _) =>
+          _fetchMore(repoData, query, page),
+      orElse: () {
+        throw AssertionError();
+      },
+    );
+  }
 
-    late final String query;
-    late final int page;
-    late final currentState;
-
-    if (state is SearchStateSuccess) {
-      currentState = state.maybeMap(
-        success: (SearchStateSuccess value) => value,
-        orElse: () {
-          AssertionError();
-        },
-      )!;
-
-      print(currentState);
-
-      query = currentState.query;
-      page = currentState.page + 1;
-      state = SearchState.fetchingNext(
-        repoData: currentState.repoData,
-        query: query,
-        page: page,
-      );
-    }
-
-    if (state is SearchStateNextFetchFailure) {
-      currentState = state.maybeMap(
-        nextFetchFailure: (SearchStateNextFetchFailure value) => value,
-        orElse: () {
-          AssertionError();
-        },
-      )!;
-
-      print(currentState);
-
-      query = currentState.query;
-      page = currentState.page;
-      state = SearchState.fetchingNext(
-        repoData: currentState.repoData,
-        query: query,
-        page: page,
-      );
-    }
-
-    final RepoDataModel result;
+  Future<void> _fetchMore(
+      List<RepoDataItems> repoData, String query, int page) async {
     try {
-      print(page);
-      result = await _searchApi.getData(
+      state = SearchState.fetchMoreLoading(
+          repoData: repoData, query: query, page: page);
+
+      final result = await _searchApi.getData(
           repoName: query, sort: _sortString, page: page);
+
+      state = SearchState.success(
+        repoData: repoData + result.repositories,
+        query: query,
+        page: page,
+        hasNext: result.hasNext,
+      );
     } on SocketException {
-      state = SearchState.nextFetchFailure(
-        repoData: currentState.repoData,
+      state = SearchState.fetchMoreFailure(
+        repoData: repoData,
         query: query,
         page: page,
         exception: NoInternetException(),
       );
-      return;
     } catch (_) {
-      state = SearchState.nextFetchFailure(
-        repoData: currentState.repoData,
+      state = SearchState.fetchMoreFailure(
+        repoData: repoData,
         query: query,
         page: page,
         exception: UnknownException(),
       );
-      return;
     }
-
-    state = SearchState.success(
-      repoData: currentState.repoData + result.repositories,
-      query: query,
-      page: page,
-      hasNext: result.hasNext,
-    );
   }
 }
 
