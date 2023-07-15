@@ -23,8 +23,7 @@ class SearchBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //テキストのコントローラ
     final textController = ref.watch(textEditingControllerProvider);
-
-    final searchStateNotifier = ref.watch(searchStateNotifierProvider.notifier);
+    final searchStateNotifier = ref.read(searchStateNotifierProvider.notifier);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       //search field
@@ -40,17 +39,18 @@ class SearchBar extends ConsumerWidget {
                 onChanged: (text) {
                   ref
                       .read(isClearButtonVisibleProvider.notifier)
-                      .update((state) => text.isNotEmpty);
+                      .update((_) => text.isNotEmpty);
                 },
                 //入力キーボードのdone→searchに変更
                 textInputAction: TextInputAction.search,
                 //search押したらデータ取得 データ渡す
                 onFieldSubmitted: (text) {
-                  searchStateNotifier.searchRepositories(text.trim());
+                  searchStateNotifier.searchRepositories(
+                      text.trim(), ref.watch(sortStringProvider));
                   //再検索用に文字列を持っておく
                   ref
                       .read(inputRepoNameProvider.notifier)
-                      .update((state) => text.trim());
+                      .update((_) => text.trim());
                 },
                 //decoration
                 decoration: InputDecoration(
@@ -63,7 +63,7 @@ class SearchBar extends ConsumerWidget {
                             textController.clear();
                             ref
                                 .watch(isClearButtonVisibleProvider.notifier)
-                                .update((state) => false);
+                                .update((_) => false);
                           },
                           key: clearButtonKey,
                         )
@@ -80,41 +80,66 @@ class SearchBar extends ConsumerWidget {
                 RadioMenuButton(
                   value: 'bestmatch',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) => ref
-                      .read(sortStringProvider.notifier)
-                      .update((state) => value!),
+                  onChanged: (value) {
+                    changeSortStringAndSearch(
+                      ref: ref,
+                      sortString: value,
+                      searchStateNotifier: searchStateNotifier,
+                      searchQuery: textController.text.trim(),
+                    );
+                  },
                   child: Text(S.of(context).bestMatch),
                 ),
                 RadioMenuButton(
                   value: 'updated',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) => ref
-                      .read(sortStringProvider.notifier)
-                      .update((state) => value!),
+                  onChanged: (value) {
+                    changeSortStringAndSearch(
+                      ref: ref,
+                      sortString: value,
+                      searchStateNotifier: searchStateNotifier,
+                      searchQuery: textController.text.trim(),
+                    );
+                  },
                   child: Text(S.of(context).updated),
                 ),
                 RadioMenuButton(
                   value: 'stars',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) => ref
-                      .read(sortStringProvider.notifier)
-                      .update((state) => value!),
+                  onChanged: (value) {
+                    changeSortStringAndSearch(
+                      ref: ref,
+                      sortString: value,
+                      searchStateNotifier: searchStateNotifier,
+                      searchQuery: textController.text.trim(),
+                    );
+                  },
                   child: Text(S.of(context).stars),
                 ),
                 RadioMenuButton(
                   value: 'forks',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) => ref
-                      .read(sortStringProvider.notifier)
-                      .update((state) => value!),
+                  onChanged: (value) {
+                    changeSortStringAndSearch(
+                      ref: ref,
+                      sortString: value,
+                      searchStateNotifier: searchStateNotifier,
+                      searchQuery: textController.text.trim(),
+                    );
+                  },
                   child: Text(S.of(context).forks),
                 ),
                 RadioMenuButton(
                   value: 'help-wanted-issues',
                   groupValue: ref.watch(sortStringProvider),
-                  onChanged: (value) => ref
-                      .read(sortStringProvider.notifier)
-                      .update((state) => value!),
+                  onChanged: (value) {
+                    changeSortStringAndSearch(
+                      ref: ref,
+                      sortString: value,
+                      searchStateNotifier: searchStateNotifier,
+                      searchQuery: textController.text.trim(),
+                    );
+                  },
                   child: Text(S.of(context).helpWantedIssue),
                 ),
               ],
@@ -137,5 +162,14 @@ class SearchBar extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void changeSortStringAndSearch(
+      {required WidgetRef ref,
+      required String? sortString,
+      required SearchStateNotifier searchStateNotifier,
+      required String searchQuery}) {
+    searchStateNotifier.searchRepositories(searchQuery.trim(), sortString!);
+    ref.read(sortStringProvider.notifier).update((_) => sortString);
   }
 }

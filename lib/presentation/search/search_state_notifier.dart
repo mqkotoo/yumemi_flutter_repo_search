@@ -18,12 +18,12 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
 
   final Ref _ref;
 
-  DataRepository get _searchApi => _ref.watch(dataRepositoryProvider);
+  DataRepository get _searchApi => _ref.read(dataRepositoryProvider);
 
   //sort
   String get _sortString => _ref.watch(sortStringProvider);
 
-  Future<void> searchRepositories(String query) async {
+  Future<void> searchRepositories(String query, String sortString) async {
     if (state is SearchStateLoading) {
       return;
     }
@@ -39,7 +39,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
     const page = 1;
     final RepoDataModel result;
     try {
-      result = await _searchApi.getData(repoName: query, sort: _sortString);
+      result = await _searchApi.getData(repoName: query, sort: sortString);
     } on SocketException {
       state = SearchState.failure(exception: NoInternetException());
       return;

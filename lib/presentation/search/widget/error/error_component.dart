@@ -26,7 +26,7 @@ class ErrorComponent extends ConsumerWidget {
     //デバイスの高さ取得
     final deviceHeight = MediaQuery.of(context).size.height;
 
-    final searchStateNotifier = ref.watch(searchStateNotifierProvider.notifier);
+    final searchStateNotifier = ref.read(searchStateNotifierProvider.notifier);
 
     return Stack(
       alignment: Alignment.bottomRight,
@@ -60,8 +60,9 @@ class ErrorComponent extends ConsumerWidget {
                 padding: const EdgeInsets.all(15),
                 child: ElevatedButton(
                   onPressed: () {
-                    searchStateNotifier
-                        .searchRepositories(ref.watch(inputRepoNameProvider));
+                    searchStateNotifier.searchRepositories(
+                        ref.watch(inputRepoNameProvider),
+                        ref.watch(sortStringProvider));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
