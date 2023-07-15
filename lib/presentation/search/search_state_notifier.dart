@@ -62,6 +62,10 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
   }
 
   Future<void> fetchMore() async {
+    if (state is SearchStateLoading || state is SearchStateFetchMoreLoading) {
+      return;
+    }
+
     state.maybeWhen(
       success: (repoData, query, page, hasNext) =>
           _fetchMore(repoData, query, page + 1),
