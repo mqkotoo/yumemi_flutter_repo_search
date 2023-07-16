@@ -18,7 +18,8 @@ class DataRepository {
         'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20';
 
     final apiUrl = Uri.parse(Uri.encodeFull(resUrl));
-    http.Response response = await client.get(apiUrl);
+    http.Response response =
+        await client.get(apiUrl).timeout(const Duration(seconds: 10));
 
     final jsonData = json.decode(response.body);
     return RepoDataModel.fromJson(jsonData);

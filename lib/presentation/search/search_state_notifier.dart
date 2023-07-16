@@ -99,7 +99,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
         page: page,
         exception: NoInternetException(),
       );
-    } catch (_) {
+    } catch (e) {
       state = SearchState.fetchMoreFailure(
         repoData: repoData,
         query: query,
