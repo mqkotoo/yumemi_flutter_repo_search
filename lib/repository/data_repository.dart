@@ -19,7 +19,7 @@ class DataRepository {
 
     final apiUrl = Uri.parse(Uri.encodeFull(resUrl));
     http.Response response =
-        await client.get(apiUrl).timeout(const Duration(seconds: 10));
+        await client.get(apiUrl).timeout(const Duration(seconds: 30));
 
     final jsonData = json.decode(response.body);
     return RepoDataModel.fromJson(jsonData);

@@ -21,7 +21,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
   DataRepository get _searchApi => _ref.read(dataRepositoryProvider);
 
   //sort
-  String get _sortString => _ref.watch(sortStringProvider);
+  String get _sortString => _ref.read(sortStringProvider);
 
   Future<void> searchRepositories(String query, String sortString) async {
     if (state is SearchStateLoading) {
@@ -90,7 +90,8 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
         repoData: repoData + result.repositories,
         query: query,
         page: page,
-        hasNext: result.hasNext,
+        // hasNext: result.hasNext,
+        hasNext: result.items.isEmpty ? false : true,
       );
     } on SocketException {
       state = SearchState.fetchMoreFailure(

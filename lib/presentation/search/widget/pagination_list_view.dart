@@ -21,50 +21,49 @@ class PaginationListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
-      child: NotificationListener<ScrollNotification>(
-        child: ListView.separated(
-          itemCount: itemCount + (hasNext ? 1 : 0),
-          itemBuilder: (context, index) {
-            if (!hasNext || index < itemCount) {
-              return itemBuilder(context, index);
-            } else if (hasNextFetchError) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Icon(Icons.wifi_off),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () {
-                          fetchNext();
-                        },
-                        child: const Text('再読み込み'),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-            return const PaginationLoading();
-          },
-          separatorBuilder: (context, index) => const Divider(),
-        ),
-        onNotification: (notification) {
-          if (notification.metrics.atEdge &&
-              notification.metrics.extentAfter == 0) {
-            if (hasNextFetchError) {
-              return false;
-            }
-            fetchNext();
+      child: ListView.separated(
+        itemCount: itemCount + (hasNext ? 1 : 0),
+        itemBuilder: (context, index) {
+          if (!hasNext || index < itemCount) {
+            return itemBuilder(context, index);
+          } else if (hasNextFetchError) {
+            return _errorComponent();
           }
-          return false;
+          // if (index == itemCount && hasNext) {
+          // return PaginationLoading(() {
+          //   fetchNext();
+          // });
+          // }
+          return PaginationLoading(() {
+            fetchNext();
+          });
         },
+        separatorBuilder: (context, index) => const Divider(),
+      ),
+    );
+  }
+
+  Widget _errorComponent() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Icon(Icons.wifi_off),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                fetchNext();
+              },
+              child: const Text('再読み込み'),
+            ),
+          ],
+        ),
       ),
     );
   }

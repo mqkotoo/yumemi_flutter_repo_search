@@ -23,7 +23,6 @@ class SearchBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //テキストのコントローラ
     final textController = ref.watch(textEditingControllerProvider);
-    final searchStateNotifier = ref.read(searchStateNotifierProvider.notifier);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       //search field
@@ -45,8 +44,10 @@ class SearchBar extends ConsumerWidget {
                 textInputAction: TextInputAction.search,
                 //search押したらデータ取得 データ渡す
                 onFieldSubmitted: (text) {
-                  searchStateNotifier.searchRepositories(
-                      text.trim(), ref.watch(sortStringProvider));
+                  ref
+                      .read(searchStateNotifierProvider.notifier)
+                      .searchRepositories(
+                          text.trim(), ref.watch(sortStringProvider));
                   //再検索用に文字列を持っておく
                   ref
                       .read(inputRepoNameProvider.notifier)
@@ -84,7 +85,6 @@ class SearchBar extends ConsumerWidget {
                     changeSortStringAndSearch(
                       ref: ref,
                       sortString: value,
-                      searchStateNotifier: searchStateNotifier,
                       searchQuery: textController.text.trim(),
                     );
                   },
@@ -97,7 +97,6 @@ class SearchBar extends ConsumerWidget {
                     changeSortStringAndSearch(
                       ref: ref,
                       sortString: value,
-                      searchStateNotifier: searchStateNotifier,
                       searchQuery: textController.text.trim(),
                     );
                   },
@@ -110,7 +109,6 @@ class SearchBar extends ConsumerWidget {
                     changeSortStringAndSearch(
                       ref: ref,
                       sortString: value,
-                      searchStateNotifier: searchStateNotifier,
                       searchQuery: textController.text.trim(),
                     );
                   },
@@ -123,7 +121,6 @@ class SearchBar extends ConsumerWidget {
                     changeSortStringAndSearch(
                       ref: ref,
                       sortString: value,
-                      searchStateNotifier: searchStateNotifier,
                       searchQuery: textController.text.trim(),
                     );
                   },
@@ -136,7 +133,6 @@ class SearchBar extends ConsumerWidget {
                     changeSortStringAndSearch(
                       ref: ref,
                       sortString: value,
-                      searchStateNotifier: searchStateNotifier,
                       searchQuery: textController.text.trim(),
                     );
                   },
@@ -167,9 +163,10 @@ class SearchBar extends ConsumerWidget {
   void changeSortStringAndSearch(
       {required WidgetRef ref,
       required String? sortString,
-      required SearchStateNotifier searchStateNotifier,
       required String searchQuery}) {
-    searchStateNotifier.searchRepositories(searchQuery.trim(), sortString!);
-    ref.read(sortStringProvider.notifier).update((_) => sortString);
+    ref
+        .read(searchStateNotifierProvider.notifier)
+        .searchRepositories(searchQuery.trim(), sortString!);
+    ref.read(sortStringProvider.notifier).state = sortString;
   }
 }

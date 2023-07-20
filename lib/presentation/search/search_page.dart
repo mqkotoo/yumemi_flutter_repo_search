@@ -33,10 +33,12 @@ class SearchPage extends ConsumerWidget {
               child: searchState.when(
                 uninitialized: () => const EnterTextView(),
                 loading: () => const ListItemShimmer(),
-                success: (repositories, query, page, hasNext) => ResultListView(
-                  repoItems: repositories,
-                  hasNext: hasNext,
-                ),
+                success: (repositories, query, page, hasNext) {
+                  return ResultListView(
+                    repoItems: repositories,
+                    hasNext: hasNext,
+                  );
+                },
                 failure: (exception) {
                   if (exception is NoTextException) {
                     return const EnterTextView();
