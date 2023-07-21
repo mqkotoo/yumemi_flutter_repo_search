@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_loading.dart';
 
-class PaginationListView extends StatelessWidget {
+class PaginationListView extends ConsumerWidget {
   const PaginationListView({
     Key? key,
     required this.itemCount,
@@ -19,7 +22,7 @@ class PaginationListView extends StatelessWidget {
   final bool hasNextFetchError;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scrollbar(
       child: ListView.separated(
         itemCount: itemCount + (hasNext ? 1 : 0),
@@ -27,7 +30,7 @@ class PaginationListView extends StatelessWidget {
           if (!hasNext || index < itemCount) {
             return itemBuilder(context, index);
           } else if (hasNextFetchError) {
-            return _errorComponent();
+            return _errorComponent(ref);
           }
           return PaginationLoading(fetchMore: fetchNext);
         },
@@ -36,14 +39,23 @@ class PaginationListView extends StatelessWidget {
     );
   }
 
-  Widget _errorComponent() {
+  Widget _errorComponent(WidgetRef ref) {
+    final currentError = ref.read(searchStateNotifierProvider).maybeMap(
+          fetchMoreFailure: (value) => value,
+          orElse: () {
+            throw AssertionError();
+          },
+        );
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Icon(Icons.wifi_off),
+            currentError.exception is NoInternetException
+                ? Text('internet error')
+                : Text('too many request'),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
