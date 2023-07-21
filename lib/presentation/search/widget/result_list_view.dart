@@ -24,15 +24,13 @@ class ResultListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(searchStateNotifierProvider.notifier);
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         PaginationListView(
           itemCount: repoItems.length,
           hasNext: hasNext,
-          fetchNext: notifier.fetchMore,
+          fetchNext: ref.read(searchStateNotifierProvider.notifier).fetchMore,
           itemBuilder: (context, index) {
             return ListItem(repoItems: repoItems[index]);
           },

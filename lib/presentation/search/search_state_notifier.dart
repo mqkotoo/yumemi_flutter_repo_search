@@ -10,7 +10,7 @@ import '../../repository/data_repository.dart';
 import '../provider/providers.dart';
 
 final searchStateNotifierProvider =
-    StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
+StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
         (ref) => SearchStateNotifier(ref));
 
 class SearchStateNotifier extends StateNotifier<SearchState> {
@@ -20,8 +20,6 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
 
   DataRepository get _searchApi => _ref.read(dataRepositoryProvider);
 
-  //sort
-  String get _sortString => _ref.read(sortStringProvider);
 
   Future<void> searchRepositories(String query, String sortString) async {
     if (state is SearchStateLoading) {
@@ -77,30 +75,30 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
     );
   }
 
-  Future<void> _fetchMore(
-      List<RepoDataItems> repoData, String query, int page) async {
+  Future<void> _fetchMore(List<RepoDataItems> repoData, String query,
+      int page) async {
     try {
       state = SearchState.fetchMoreLoading(
           repoData: repoData, query: query, page: page);
 
       final result = await _searchApi.getData(
-          repoName: query, sort: _sortString, page: page);
+          repoName: query, sort: _ref.watch(sortStringProvider), page: page);
 
       state = SearchState.success(
         repoData: repoData + result.repositories,
         query: query,
         page: page,
-        // hasNext: result.hasNext,
         hasNext: result.items.isEmpty ? false : true,
       );
-    } on SocketException {
+    } on SocketException catch (e) {
+      print(e);
       state = SearchState.fetchMoreFailure(
         repoData: repoData,
         query: query,
         page: page,
         exception: NoInternetException(),
       );
-    } catch (e) {
+    } catch (_) {
       state = SearchState.fetchMoreFailure(
         repoData: repoData,
         query: query,
@@ -114,8 +112,10 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
 extension Pagination on RepoDataModel {
   bool get hasNext => totalCount > items.length;
 
-  List<RepoDataItems> get repositories => items
-      .map((repo) => RepoDataItems(
+  List<RepoDataItems> get repositories =>
+      items
+          .map((repo) =>
+          RepoDataItems(
             fullName: repo.fullName,
             description: repo.description,
             language: repo.language,
@@ -126,5 +126,5 @@ extension Pagination on RepoDataModel {
             htmlUrl: repo.htmlUrl,
             owner: repo.owner,
           ))
-      .toList();
+          .toList();
 }

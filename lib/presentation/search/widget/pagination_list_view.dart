@@ -29,14 +29,7 @@ class PaginationListView extends StatelessWidget {
           } else if (hasNextFetchError) {
             return _errorComponent();
           }
-          // if (index == itemCount && hasNext) {
-          // return PaginationLoading(() {
-          //   fetchNext();
-          // });
-          // }
-          return PaginationLoading(() {
-            fetchNext();
-          });
+          return PaginationLoading(fetchMore: fetchNext);
         },
         separatorBuilder: (context, index) => const Divider(),
       ),
