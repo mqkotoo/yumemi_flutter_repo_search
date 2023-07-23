@@ -23,6 +23,7 @@ class PaginationListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final searchState = ref.watch(searchStateNotifierProvider);
     return Scrollbar(
       child: ListView.separated(
         itemCount: itemCount + (hasNext ? 1 : 0),
@@ -49,24 +50,27 @@ class PaginationListView extends ConsumerWidget {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             currentError.exception is NoInternetException
-                ? Text('internet error')
-                : Text('too many request'),
+                ? const Text('internet error')
+                : const Text('too many request'),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
               onPressed: () {
                 fetchNext();
               },
-              child: const Text('再読み込み'),
-            ),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(10),
+              ),
+              child: const Icon(
+                Icons.refresh,
+                color: Colors.white,
+                size: 30,
+              ),
+            )
           ],
         ),
       ),
