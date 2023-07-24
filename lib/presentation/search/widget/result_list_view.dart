@@ -15,9 +15,6 @@ class ResultListView extends ConsumerWidget {
     this.hasNextFetchError,
   }) : super(key: key);
 
-  @visibleForTesting
-  static final resultCountKey = UniqueKey();
-
   final List<RepoDataItems> repoItems;
   final bool hasNext;
   final bool? hasNextFetchError;

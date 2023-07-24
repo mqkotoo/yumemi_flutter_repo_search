@@ -24,7 +24,6 @@ class PaginationListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchState = ref.watch(searchStateNotifierProvider);
     return Scrollbar(
       child: ListView.separated(
         itemCount: itemCount + (hasNext ? 1 : 0),

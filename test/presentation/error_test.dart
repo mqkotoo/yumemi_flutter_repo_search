@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -111,8 +113,7 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       //リクエストを投げると、ネットワークエラーの例外をスローする
       final mockClient = MockClient();
-      when(mockClient.get(any))
-          .thenAnswer((_) async => throw NoInternetException());
+      when(mockClient.get(any)).thenAnswer((_) async => throw SocketException);
 
       await tester.pumpWidget(
         ProviderScope(

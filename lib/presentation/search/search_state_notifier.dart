@@ -91,8 +91,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
         page: page,
         hasNext: result.items.isEmpty ? false : true,
       );
-    } on SocketException catch (e) {
-      print(e);
+    } on SocketException {
       state = SearchState.fetchMoreFailure(
         repoData: repoData,
         query: query,
