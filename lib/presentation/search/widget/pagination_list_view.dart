@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
-
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_loading.dart';
 
 class PaginationListView extends ConsumerWidget {
@@ -55,8 +56,8 @@ class PaginationListView extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             currentError.exception is NoInternetException
-                ? const Text('internet error')
-                : const Text('too many request'),
+                ? const Icon(Icons.wifi_off)
+                : const Icon(Icons.error_outline),
             ElevatedButton(
               onPressed: () {
                 fetchNext();
