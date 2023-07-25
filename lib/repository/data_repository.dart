@@ -12,7 +12,7 @@ class DataRepository {
   Future<RepoDataModel> getData(
       {required String repoName, required String sort, int page = 1}) async {
     // //エラーテスト用URL
-    // final apiUri = Uri.parse('https://httpstat.us/403');
+    // final apiUri = Uri.parse('https://httpstat.us/429');
 
     final resUrl =
         'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20';

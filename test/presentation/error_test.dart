@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
@@ -80,11 +79,10 @@ void main() {
 
     testWidgets('リクエストが200以外の場合エラーが返るか', (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
-      const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       //リクエストが200以外（失敗）する想定
       when(mockClient.get(any))
-          .thenAnswer((_) async => http.Response(data, 403));
+          .thenAnswer((_) async => http.Response('Too many requests', 429));
 
       await tester.pumpWidget(
         ProviderScope(overrides: [
@@ -113,8 +111,8 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       //リクエストを投げると、ネットワークエラーの例外をスローする
       final mockClient = MockClient();
-      when(mockClient.get(any)).thenAnswer((_) async => throw SocketException);
-
+      when(mockClient.get(any)).thenThrow(
+          const SocketException('Failed host lookup: api.github.com'));
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
