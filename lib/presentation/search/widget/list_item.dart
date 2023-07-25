@@ -10,7 +10,6 @@ import '../../detail/detail_page.dart';
 class ListItem extends ConsumerWidget {
   const ListItem({Key? key, required this.repoItems}) : super(key: key);
 
-  // final int index;
   final RepoDataItems repoItems;
 
   @visibleForTesting
@@ -18,7 +17,6 @@ class ListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final repoData = ref.watch(repoAtIndexProvider(index));
     //画像部分もタップできるように全体をGestureDetectorで囲む
     return SafeArea(
       top: false,

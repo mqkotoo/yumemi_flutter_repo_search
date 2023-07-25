@@ -58,7 +58,6 @@ class SearchPage extends ConsumerWidget {
                   repoItems: repositories,
                   hasNext: true,
                   hasNextFetchError: true,
-                  // exception: exception,
                 ),
               ),
             )
