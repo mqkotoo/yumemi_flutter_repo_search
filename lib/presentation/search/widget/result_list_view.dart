@@ -21,20 +21,15 @@ class ResultListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        PaginationListView(
-          itemCount: repoItems.length,
-          hasNext: hasNext,
-          fetchNext: ref.read(searchStateNotifierProvider.notifier).fetchMore,
-          itemBuilder: (context, index) {
-            return ListItem(repoItems: repoItems[index]);
-          },
-          hasNextFetchError: hasNextFetchError ?? false,
-          // exception: exception!,
-        ),
-      ],
+    return PaginationListView(
+      itemCount: repoItems.length,
+      hasNext: hasNext,
+      fetchNext: ref.read(searchStateNotifierProvider.notifier).fetchMore,
+      itemBuilder: (context, index) {
+        return ListItem(repoItems: repoItems[index]);
+      },
+      hasNextFetchError: hasNextFetchError ?? false,
+      // exception: exception!,
     );
   }
 }
