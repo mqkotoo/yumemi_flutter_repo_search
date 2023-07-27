@@ -28,11 +28,8 @@ class PaginationListView extends ConsumerWidget {
       child: ListView.separated(
         itemCount: itemCount + (hasNext ? 1 : 0),
         itemBuilder: (context, index) {
-          if (!hasNext || index < itemCount) {
-            return itemBuilder(context, index);
-          } else if (hasNextFetchError) {
-            return _errorComponent(ref);
-          }
+          if (index < itemCount) return itemBuilder(context, index);
+          if (hasNextFetchError) return _errorComponent(ref);
           return PaginationLoading(fetchMore: fetchNext);
         },
         separatorBuilder: (context, index) => const Divider(),
