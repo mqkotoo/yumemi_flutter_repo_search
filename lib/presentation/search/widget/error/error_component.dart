@@ -55,7 +55,7 @@ class ErrorComponent extends ConsumerWidget {
         //リロードボタン
         isNeedReloadButton
             ? Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(30),
                 child: ElevatedButton(
                   onPressed: () {
                     ref
@@ -65,7 +65,7 @@ class ErrorComponent extends ConsumerWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(20),
                   ),
                   child: const Icon(
                     Icons.refresh,
