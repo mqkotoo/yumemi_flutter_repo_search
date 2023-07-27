@@ -31,14 +31,16 @@ class SearchPage extends ConsumerWidget {
             Expanded(
               flex: 8,
               child: searchState.when(
+                //初期状態
                 uninitialized: () => const EnterTextView(),
+                //ローディング中
                 loading: () => const ListItemShimmer(),
-                success: (repositories, query, page, hasNext) {
-                  return ResultListView(
-                    repoItems: repositories,
-                    hasNext: hasNext,
-                  );
-                },
+                //成功
+                success: (repositories, query, page, hasNext) => ResultListView(
+                  repoItems: repositories,
+                  hasNext: hasNext,
+                ),
+                //初期リクエスト失敗
                 failure: (exception) {
                   if (exception is NoTextException) {
                     return const EnterTextView();
@@ -48,11 +50,14 @@ class SearchPage extends ConsumerWidget {
                     return const ErrorView();
                   }
                 },
+                //結果が空
                 empty: () => const NoResultView(),
+                //追加ローディング
                 fetchMoreLoading: (repositories, query, page) => ResultListView(
                   repoItems: repositories,
                   hasNext: true,
                 ),
+                //追加ローディングが失敗した
                 fetchMoreFailure: (repositories, query, page, exception) =>
                     ResultListView(
                   repoItems: repositories,
