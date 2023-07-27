@@ -24,7 +24,8 @@ class ResultListView extends ConsumerWidget {
     return PaginationListView(
       itemCount: repoItems.length,
       hasNext: hasNext,
-      fetchNext: ref.read(searchStateNotifierProvider.notifier).fetchMore,
+      fetchNext: () =>
+          ref.read(searchStateNotifierProvider.notifier).fetchMore(),
       itemBuilder: (context, index) {
         return ListItem(repoItems: repoItems[index]);
       },
