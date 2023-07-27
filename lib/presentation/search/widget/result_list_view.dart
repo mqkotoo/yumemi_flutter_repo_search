@@ -12,12 +12,12 @@ class ResultListView extends ConsumerWidget {
     Key? key,
     required this.repoItems,
     required this.hasNext,
-    this.hasNextFetchError,
+    this.hasNextFetchError = false,
   }) : super(key: key);
 
   final List<RepoDataItems> repoItems;
   final bool hasNext;
-  final bool? hasNextFetchError;
+  final bool hasNextFetchError;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,8 +28,7 @@ class ResultListView extends ConsumerWidget {
       itemBuilder: (context, index) {
         return ListItem(repoItems: repoItems[index]);
       },
-      hasNextFetchError: hasNextFetchError ?? false,
-      // exception: exception!,
+      hasNextFetchError: hasNextFetchError,
     );
   }
 }
