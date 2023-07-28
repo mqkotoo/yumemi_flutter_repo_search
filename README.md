@@ -4,35 +4,37 @@
 
 | 結果一覧(light)                                                                                                                                                       | 結果一覧(dark)                                                                                                                                                        |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img width="392" alt="スクリーンショット 2023-04-06 14 36 37" src="https://user-images.githubusercontent.com/87256037/230281471-c4608662-bb6e-40d7-a011-e6518ca3c195.png"> | <img width="406" alt="スクリーンショット 2023-04-06 14 36 53" src="https://user-images.githubusercontent.com/87256037/230281649-0cdbbdd4-d4e6-4ed3-81e9-33b4a675e772.png"> |
+| <img width="390" alt="スクリーンショット 2023-07-27 9 29 34" src="https://github.com/mqkotoo/yumemi_flutter_repo_search/assets/87256037/6b62df68-1924-4c7f-a804-33964fbd2928"> | <img width="390" alt="スクリーンショット 2023-07-27 9 29 51" src="https://github.com/mqkotoo/yumemi_flutter_repo_search/assets/87256037/3f9f5468-1ef8-4153-b54d-26c29e1228f6"> |
 
 | 詳細(light)                                                                                                                                                         | 詳細(dark)                                                                                                                                                          |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img width="389" alt="スクリーンショット 2023-04-06 14 37 20" src="https://user-images.githubusercontent.com/87256037/230281754-9ba55dff-5d9a-4852-ba63-0b7f5fa14087.png"> | <img width="395" alt="スクリーンショット 2023-04-06 14 37 10" src="https://user-images.githubusercontent.com/87256037/230281761-958b9482-07f3-4d18-be6f-be261cc8fb59.png"> |
+| <img width="390" alt="スクリーンショット 2023-04-06 14 37 20" src="https://user-images.githubusercontent.com/87256037/230281754-9ba55dff-5d9a-4852-ba63-0b7f5fa14087.png"> | <img width="390" alt="スクリーンショット 2023-04-06 14 37 10" src="https://user-images.githubusercontent.com/87256037/230281761-958b9482-07f3-4d18-be6f-be261cc8fb59.png"> |
 
 | 結果なし                                                                                                                                                              | エラー                                                                                                                                                               | 通信エラー                                                                                                                                                             |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img width="398" alt="スクリーンショット 2023-04-06 14 41 36" src="https://user-images.githubusercontent.com/87256037/230282678-aca243e1-7ffb-42a1-b37c-4abb983a21d5.png"> | <img width="395" alt="スクリーンショット 2023-04-06 14 44 13" src="https://user-images.githubusercontent.com/87256037/230282692-99f4ad34-755b-43a1-84d6-2bddc1286687.png"> | <img width="394" alt="スクリーンショット 2023-04-06 14 45 10" src="https://user-images.githubusercontent.com/87256037/230282722-c04f8af4-2d8a-445c-9b34-b9525c4a8714.png"> |
+| <img width="350" alt="スクリーンショット 2023-04-06 14 41 36" src="https://user-images.githubusercontent.com/87256037/230282678-aca243e1-7ffb-42a1-b37c-4abb983a21d5.png"> | <img width="350" alt="スクリーンショット 2023-07-27 11 34 32" src="https://github.com/mqkotoo/yumemi_flutter_repo_search/assets/87256037/60a59a44-42d2-4ec4-b9bf-aea6b6dd66ab"> | <img width="350" alt="スクリーンショット 2023-07-27 11 34 54" src="https://github.com/mqkotoo/yumemi_flutter_repo_search/assets/87256037/17bf8dc0-066c-4d82-a325-8472ad1906b2"> |
 
 デモ
 
-https://user-images.githubusercontent.com/87256037/230283897-e4477ed9-c9e9-41e5-80d4-69d04112702a.mov
+https://github.com/mqkotoo/yumemi_flutter_repo_search/assets/87256037/52950ebb-4793-4f4b-8af6-b26018902bb2
+
+
 
 ### 動作
 
-* ~何かしらのキーワードを入力できる~
-* ~入力したキーワードで GitHub のリポジトリを検索できる~
-* ~GitHub のリポジトリを検索する際、GitHub API（search/repositories）を利用する
-  github | Dart Package のようなパッケージは利用せず、API を呼ぶ処理を自分で実装すること~
-* ~検索結果は一覧で概要（リポジトリ名）を表示する~
-* ~検索結果のアイテムをタップしたら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue 数）を表示する~
+* 何かしらのキーワードを入力できる
+* 入力したキーワードで GitHub のリポジトリを検索できる
+* 検索結果は一覧で概要（リポジトリ名）を表示する
+* 検索結果のアイテムをタップしたら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue
+  数）を表示する
 
 ### UI/UX
 
-* ~エラー発生時の処理~
-* ~画面回転・様々な画面サイズ対応~
-* ~Theme の適切な利用・ダークモードの対応~
-* ~多言語対応 (英語、日本語)~
+* エラー発生時の処理
+* 画面回転・様々な画面サイズ対応
+* Theme の適切な利用・ダークモードの対応
+* 多言語対応 (英語、日本語)
+* 検索結果の並び替え
 
 ## 環境
 
@@ -46,9 +48,6 @@ https://user-images.githubusercontent.com/87256037/230283897-e4477ed9-c9e9-41e5-
 
 flutter_riverpod: ^2.3.2
 
-取得するデータを扱うプロバイダーは今回FutureProviderを使用しました。
-FutureProviderを使うことで、取得したデータのキャッシュ、loadingなどの操作が簡単、値が変化する時だけ再描画されるなどのメリットがあると考えました。
-
 ## 使用技術、パッケージ
 
 * GitHub ActionsによるCI
@@ -59,9 +58,10 @@ FutureProviderを使うことで、取得したデータのキャッシュ、loa
 * json_annotation -jsonの変換
 * shimmer -ロード画面の実装
 * shared_preferences -テーマの保存
-* flutter_localizations - 多言語対応
+* flutter_localizations -多言語対応
 * device_preview -各サイズの画面でUIの確認
 * flutter_launcher_icons -アプリアイコン
+* visibility_detector -レンダリングを感知、ページングに使用
 
 ----dev----
 
@@ -94,10 +94,11 @@ FutureProviderを使うことで、取得したデータのキャッシュ、loa
 │   ├── generated               # 多言語ファイル生成用のディレクトリ
 │   ├── l10n                    # 多言語対応
 │   ├── theme                   # テーマの提供、永続化
-│   └── presentation            # 見た目
-│       ├── controller          # domainとpresentationの橋渡し
+│   ├── provider                # 状態を管理
+│   ├── presentation            # 見た目
 │       ├── detail              # 詳細ページ（widgetも含む）
-│       └── search              # 検索ページ（widgetも含む）　　　　 
+│       └── search              # 検索ページ（widgetも含む）
+
 ```
 
 ## ビルド手順
@@ -108,10 +109,10 @@ FutureProviderを使うことで、取得したデータのキャッシュ、loa
 git clone https://github.com/mqkotoo/github_search_study.git
 ```
 
- ・fvm読み込み
- 
+・fvm読み込み
+
  ```
- fvm use 使うバージョン（x.x.x）
+ fvm install
  ```
 
 ・依存関係を読み込む（多言語対応も読み込まれます）
@@ -145,7 +146,7 @@ fvm flutter run
 * 多言語対応のテスト
 * 通信がない状態で適切にエラーハンドリングされているかのテスト
 * 空文字でエラーが返るかテスト
-* 通信、空文字以外のエラーがUIで正常に処理されているか（200以外のとき）
+* 通信、空文字以外のエラーがUIで正常に処理されているか（今回の場合はリクエスト過多が基本）
 * ワード検索したら、想定の内容が表示されるか
 * 画面遷移後に想定の内容が表示されるか
 * ソート機能のテスト
@@ -205,3 +206,14 @@ fvm flutter run
 * CIをつかってテストを初めてやってみたが、便利さが感じられて、品質を保証しやすいなと思った
 * テストコードを初めてちゃんと書いたので、コードの書き方で不備や無駄、どこをどれくらいの粒度でテストするかなどは、まだ勉強していく必要がある
 * 1機能に1テストできるだけ書くことを意識したんですが、コードが変わってもアプリが動くことをテストできて安全に開発を進めることができることを感じたので、これからも続けていきたいとおもった
+
+## 帰属表示
+
+アニメーションには[LottieFiles](https://lottiefiles.com/)を使用しました。
+
+使用させていただいた、アニメーションは以下です。
+
+* https://lottiefiles.com/animations/guy-typing-gQBdgWO7Yp
+* https://lottiefiles.com/animations/error-IIYA1ND2nr
+* https://lottiefiles.com/animations/shake-a-empty-box-LbpTzQkY00
+* https://lottiefiles.com/animations/no-internet-Ozj1wsbKIw
