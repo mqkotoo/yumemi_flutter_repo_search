@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../color/shimmer_color.dart';
+import 'package:yumemi_flutter_repo_search/color/shimmer_color.dart';
 
 //light theme ----------------------------------
 ThemeData lightTheme = ThemeData.light().copyWith(

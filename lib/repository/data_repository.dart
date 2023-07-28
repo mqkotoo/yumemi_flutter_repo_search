@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../domain/repo_data_model.dart';
+import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 
 class DataRepository {
   DataRepository({required this.client});

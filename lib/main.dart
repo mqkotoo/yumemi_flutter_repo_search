@@ -13,7 +13,7 @@ import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import 'package:yumemi_flutter_repo_search/theme/theme.dart';
 import 'package:yumemi_flutter_repo_search/theme/theme_mode_provider.dart';
-import 'generated/l10n.dart';
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 
 final dataRepositoryProvider = Provider<DataRepository>((ref) {
   return DataRepository(client: ref.watch(httpClientProvider));

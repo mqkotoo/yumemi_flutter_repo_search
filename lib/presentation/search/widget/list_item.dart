@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
-import '../../detail/detail_page.dart';
+import 'package:yumemi_flutter_repo_search/presentation/detail/detail_page.dart';
 
 class ListItem extends ConsumerWidget {
   const ListItem({Key? key, required this.repoItems}) : super(key: key);

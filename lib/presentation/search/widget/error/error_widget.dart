@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../generated/l10n.dart';
-import 'error_component.dart';
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_component.dart';
 
 class EnterTextView extends StatelessWidget {
   const EnterTextView({Key? key}) : super(key: key);

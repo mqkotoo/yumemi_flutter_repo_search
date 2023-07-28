@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_list_view.dart';
-import '../../../domain/repo_data_model.dart';
-import '../search_state_notifier.dart';
-import 'list_item.dart';
+import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 
 class ResultListView extends ConsumerWidget {
   const ResultListView({

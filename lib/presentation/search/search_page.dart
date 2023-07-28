@@ -8,7 +8,7 @@ import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_list_view.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_app_bar.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
-import '../../domain/error.dart';
+import 'package:yumemi_flutter_repo_search/domain/error.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);

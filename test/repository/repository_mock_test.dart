@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 import 'package:yumemi_flutter_repo_search/main.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
-import '../repository/repository_mock_data.dart';
+import 'repository_mock_data.dart';
 import 'repository_mock_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<http.Client>()])
