@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_list_view.dart';
-
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item_shimmer.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_list_view.dart';
 
 class ResultView extends ConsumerWidget {
   const ResultView({Key? key}) : super(key: key);
@@ -51,9 +50,9 @@ class ResultView extends ConsumerWidget {
           PaginationListView(
         repoItems: repositories,
         hasNext: true,
+        nextFetchError: exception,
         fetchNext: () =>
             ref.read(searchStateNotifierProvider.notifier).fetchMore(),
-        hasNextFetchError: true,
       ),
     );
   }

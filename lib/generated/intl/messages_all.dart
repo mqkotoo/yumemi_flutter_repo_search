@@ -17,8 +17,10 @@ import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 import 'package:intl/src/intl_helpers.dart';
 
-import 'package:yumemi_flutter_repo_search/generated/intl/messages_en.dart' as messages_en;
-import 'package:yumemi_flutter_repo_search/generated/intl/messages_ja.dart' as messages_ja;
+import 'package:yumemi_flutter_repo_search/generated/intl/messages_en.dart'
+    as messages_en;
+import 'package:yumemi_flutter_repo_search/generated/intl/messages_ja.dart'
+    as messages_ja;
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {

@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
+import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_loading.dart';
 
-import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
-
-class PaginationListView extends ConsumerWidget {
+class PaginationListView extends StatelessWidget {
   const PaginationListView({
     Key? key,
     required this.repoItems,
     required this.hasNext,
     required this.fetchNext,
-    this.hasNextFetchError = false,
+    this.nextFetchError,
   }) : super(key: key);
 
   final List<RepoDataItems> repoItems;
   final bool hasNext;
   final void Function() fetchNext;
-  final bool hasNextFetchError;
+  final Exception? nextFetchError;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scrollbar(
       child: ListView.separated(
         itemCount: repoItems.length + (hasNext ? 1 : 0),
@@ -32,7 +28,7 @@ class PaginationListView extends ConsumerWidget {
           if (index < repoItems.length) {
             return ListItem(repoItems: repoItems[index]);
           }
-          if (hasNextFetchError) return _errorComponent(ref);
+          if (nextFetchError != null) return _errorComponent();
           return PaginationLoading(fetchMore: fetchNext);
         },
         separatorBuilder: (context, index) => const Divider(),
@@ -40,21 +36,14 @@ class PaginationListView extends ConsumerWidget {
     );
   }
 
-  Widget _errorComponent(WidgetRef ref) {
-    final currentError = ref.read(searchStateNotifierProvider).maybeMap(
-          fetchMoreFailure: (value) => value,
-          orElse: () {
-            throw AssertionError();
-          },
-        );
-
+  Widget _errorComponent() {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            currentError.exception is NoInternetException
+            nextFetchError is NoInternetException
                 ? const Icon(Icons.wifi_off)
                 : const Icon(Icons.error_outline),
             ElevatedButton(
