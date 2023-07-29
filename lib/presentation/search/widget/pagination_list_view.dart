@@ -4,31 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/domain/error.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/pagination_loading.dart';
+
+import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 
 class PaginationListView extends ConsumerWidget {
   const PaginationListView({
     Key? key,
-    required this.itemCount,
+    required this.repoItems,
     required this.hasNext,
     required this.fetchNext,
-    required this.itemBuilder,
-    required this.hasNextFetchError,
+    this.hasNextFetchError = false,
   }) : super(key: key);
 
-  final int itemCount;
+  final List<RepoDataItems> repoItems;
   final bool hasNext;
   final void Function() fetchNext;
-  final Widget Function(BuildContext, int) itemBuilder;
   final bool hasNextFetchError;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scrollbar(
       child: ListView.separated(
-        itemCount: itemCount + (hasNext ? 1 : 0),
+        itemCount: repoItems.length + (hasNext ? 1 : 0),
         itemBuilder: (context, index) {
-          if (index < itemCount) return itemBuilder(context, index);
+          if (index < repoItems.length) {
+            return ListItem(repoItems: repoItems[index]);
+          }
           if (hasNextFetchError) return _errorComponent(ref);
           return PaginationLoading(fetchMore: fetchNext);
         },
