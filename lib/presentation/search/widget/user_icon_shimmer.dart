@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shimmer/shimmer.dart';
 
-import '../../../constants/shimmer_color.dart';
+import 'package:yumemi_flutter_repo_search/color/shimmer_color.dart';
 
 class UserIconShimmer extends StatelessWidget {
   const UserIconShimmer({Key? key}) : super(key: key);

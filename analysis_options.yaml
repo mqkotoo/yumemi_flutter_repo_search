@@ -5,6 +5,7 @@ linter:
 
   rules:
     prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    always_use_package_imports: true
 
 analyzer:
   exclude:

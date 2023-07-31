@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/toggle_theme_switch.dart';
-import '../../../generated/l10n.dart';
-import '../../../theme/theme_mode_provider.dart';
+import 'package:yumemi_flutter_repo_search/theme/theme_mode_provider.dart';
 
 class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const SearchAppBar({super.key});

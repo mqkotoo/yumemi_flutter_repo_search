@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../generated/l10n.dart';
-import 'error_component.dart';
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_component.dart';
 
 class EnterTextView extends StatelessWidget {
   const EnterTextView({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class EnterTextView extends StatelessWidget {
     return ErrorComponent(
       lottieFile: 'assets/lottie_animation/20180-guy-typing.json',
       errorTitle: S.of(context).enterText,
+      isNeedReloadButton: false,
       key: enterTextViewKey,
     );
   }
@@ -31,6 +32,7 @@ class NetworkErrorView extends StatelessWidget {
       lottieFile: 'assets/lottie_animation/118789-no-internet.json',
       errorTitle: S.of(context).networkError,
       errorDetail: S.of(context).networkErrorDetail,
+      isNeedReloadButton: true,
       key: networkErrorViewKey,
     );
   }
@@ -49,6 +51,7 @@ class ErrorView extends StatelessWidget {
       lottieFile: 'assets/lottie_animation/99345-error.json',
       errorTitle: S.of(context).errorOccurred,
       errorDetail: S.of(context).errorOccurredDetail,
+      isNeedReloadButton: true,
       key: errorViewKey,
     );
   }
@@ -66,6 +69,7 @@ class NoResultView extends StatelessWidget {
       lottieFile: 'assets/lottie_animation/106964-shake-a-empty-box.json',
       errorTitle: S.of(context).noResult,
       errorDetail: S.of(context).noResultDetail,
+      isNeedReloadButton: false,
       key: noResultViewKey,
     );
   }

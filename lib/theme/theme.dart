@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/result_count_color.dart';
-import '../constants/shimmer_color.dart';
+import 'package:yumemi_flutter_repo_search/color/shimmer_color.dart';
 
 //light theme ----------------------------------
 ThemeData lightTheme = ThemeData.light().copyWith(
@@ -56,7 +55,6 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   //shimmer,result countのテーマ
   extensions: <ThemeExtension<dynamic>>[
     ShimmerColor.light,
-    ResultCountColor.light,
   ],
 );
 
@@ -112,6 +110,5 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   // shimmer,result countのテーマ
   extensions: <ThemeExtension<dynamic>>[
     ShimmerColor.dark,
-    ResultCountColor.dark,
   ],
 );

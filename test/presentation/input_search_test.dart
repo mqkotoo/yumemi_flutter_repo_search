@@ -11,7 +11,6 @@ import 'package:yumemi_flutter_repo_search/presentation/detail/detail_page.dart'
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/detail_element.dart';
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/ver_repo_header.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/list_item.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_list_view.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
@@ -104,8 +103,6 @@ void main() {
       expect(tapTarget, findsOneWidget);
       //ユーザーアイコンが表示されるか
       expect(find.byKey(ListItem.userImageKey), findsWidgets);
-      //検索結果数が表示されるか
-      expect(find.byKey(ResultListview.resultCountKey), findsOneWidget);
     });
   });
 

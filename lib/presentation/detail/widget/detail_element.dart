@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../generated/l10n.dart';
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 
 class DetailElement extends StatelessWidget {
   const DetailElement(

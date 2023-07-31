@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/detail_element.dart';
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/hori_repo_header.dart';
 import 'package:yumemi_flutter_repo_search/presentation/detail/widget/ver_repo_header.dart';
-import '../../domain/repo_data_model.dart';
-import '../../generated/l10n.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({required this.repoData, Key? key}) : super(key: key);
