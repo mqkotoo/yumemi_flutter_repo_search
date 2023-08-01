@@ -15,14 +15,10 @@ final searchStateNotifierProvider =
 );
 
 class SearchStateNotifier extends AutoDisposeNotifier<SearchState> {
-  late DataRepository _searchApi;
+  DataRepository get _searchApi => ref.read(dataRepositoryProvider);
 
   @override
-  SearchState build() {
-    //プロバイダーの取得と初期状態を返す
-    _searchApi = ref.read(dataRepositoryProvider);
-    return const SearchState.uninitialized();
-  }
+  SearchState build() => const SearchState.uninitialized();
 
   Future<void> searchRepositories(String query, String sortString) async {
     if (state is SearchStateLoading) {
