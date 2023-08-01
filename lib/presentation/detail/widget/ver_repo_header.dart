@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/user_icon_shimmer.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/loading/user_icon_shimmer.dart';
 
 class VerRepoHeader extends StatelessWidget {
   const VerRepoHeader({Key? key, required this.repoData}) : super(key: key);

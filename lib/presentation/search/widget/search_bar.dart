@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 import 'package:yumemi_flutter_repo_search/presentation/provider/providers.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/notifier/search_state_notifier.dart';
 
 class SearchBar extends ConsumerWidget {
   const SearchBar({Key? key}) : super(key: key);
