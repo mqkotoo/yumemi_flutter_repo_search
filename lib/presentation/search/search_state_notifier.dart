@@ -10,17 +10,19 @@ import 'package:yumemi_flutter_repo_search/presentation/provider/providers.dart'
 import 'package:yumemi_flutter_repo_search/repository/data_repository.dart';
 
 final searchStateNotifierProvider =
-    StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
-        (ref) => SearchStateNotifier(ref));
+    NotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
+  SearchStateNotifier.new,
+);
 
-class SearchStateNotifier extends StateNotifier<SearchState> {
-  SearchStateNotifier(this._ref) : super(const SearchState.uninitialized());
+class SearchStateNotifier extends AutoDisposeNotifier<SearchState> {
+  late DataRepository _searchApi;
 
-  final Ref _ref;
-
-  DataRepository get _searchApi => _ref.read(dataRepositoryProvider);
-
-  String get _sortString => _ref.read(sortStringProvider);
+  @override
+  SearchState build() {
+    //プロバイダーの取得と初期状態を返す
+    _searchApi = ref.watch(dataRepositoryProvider);
+    return const SearchState.uninitialized();
+  }
 
   Future<void> searchRepositories(String query, String sortString) async {
     if (state is SearchStateLoading) {
@@ -83,7 +85,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
           repoData: repoData, query: query, page: page);
 
       final result = await _searchApi.getData(
-          repoName: query, sort: _sortString, page: page);
+          repoName: query, sort: ref.watch(sortStringProvider), page: page);
 
       state = SearchState.success(
         repoData: repoData + result.repositories,
