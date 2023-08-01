@@ -60,8 +60,9 @@ class ErrorComponent extends ConsumerWidget {
                   onPressed: () {
                     ref
                         .read(searchStateNotifierProvider.notifier)
-                        .searchRepositories(ref.watch(inputRepoNameProvider),
-                            ref.watch(sortStringProvider));
+                        .searchRepositories(
+                            ref.read(textEditingControllerProvider).text.trim(),
+                            ref.read(sortStringProvider));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),

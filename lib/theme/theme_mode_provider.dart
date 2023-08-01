@@ -13,14 +13,11 @@ final themeModeProvider = NotifierProvider<ThemeSelector, ThemeMode>(
 );
 
 class ThemeSelector extends Notifier<ThemeMode> {
-  late dynamic _prefs;
-
   @override
   ThemeMode build() {
-    //現在のテーマを取得
-    _prefs = ref.read(sharedPreferencesProvider);
     // テーマが保存されていればテーマを反映、そうでなければ初期値のシステム依存
-    final isDarkTheme = _prefs.getBool(_isDarkThemeKey);
+    final isDarkTheme =
+        ref.watch(sharedPreferencesProvider).getBool(_isDarkThemeKey);
     if (isDarkTheme == null) {
       return ThemeMode.system;
     }
@@ -29,7 +26,9 @@ class ThemeSelector extends Notifier<ThemeMode> {
 
   // テーマの変更と保存
   Future<void> toggleThemeAndSave(bool isDarkTheme) async {
-    await _prefs.setBool(_isDarkThemeKey, isDarkTheme);
+    await ref
+        .read(sharedPreferencesProvider)
+        .setBool(_isDarkThemeKey, isDarkTheme);
     state = isDarkTheme ? ThemeMode.dark : ThemeMode.light;
   }
 }

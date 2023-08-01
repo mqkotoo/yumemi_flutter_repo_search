@@ -47,11 +47,7 @@ class SearchBar extends ConsumerWidget {
                   ref
                       .read(searchStateNotifierProvider.notifier)
                       .searchRepositories(
-                          text.trim(), ref.watch(sortStringProvider));
-                  //再検索用に文字列を持っておく
-                  ref
-                      .read(inputRepoNameProvider.notifier)
-                      .update((_) => text.trim());
+                          text.trim(), ref.read(sortStringProvider));
                 },
                 //decoration
                 decoration: InputDecoration(

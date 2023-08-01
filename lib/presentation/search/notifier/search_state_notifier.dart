@@ -20,7 +20,7 @@ class SearchStateNotifier extends AutoDisposeNotifier<SearchState> {
   @override
   SearchState build() {
     //プロバイダーの取得と初期状態を返す
-    _searchApi = ref.watch(dataRepositoryProvider);
+    _searchApi = ref.read(dataRepositoryProvider);
     return const SearchState.uninitialized();
   }
 
@@ -85,7 +85,7 @@ class SearchStateNotifier extends AutoDisposeNotifier<SearchState> {
           repoData: repoData, query: query, page: page);
 
       final result = await _searchApi.getData(
-          repoName: query, sort: ref.watch(sortStringProvider), page: page);
+          repoName: query, sort: ref.read(sortStringProvider), page: page);
 
       state = SearchState.success(
         repoData: repoData + result.repositories,
