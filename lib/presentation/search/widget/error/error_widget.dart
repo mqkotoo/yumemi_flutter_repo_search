@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../../../generated/l10n.dart';
-import 'error_component.dart';
+import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_component.dart';
 
 class EnterTextView extends StatelessWidget {
   const EnterTextView({Key? key}) : super(key: key);
+
+  @visibleForTesting
+  static final enterTextViewKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
     return ErrorComponent(
       lottieFile: 'assets/lottie_animation/20180-guy-typing.json',
       errorTitle: S.of(context).enterText,
-      key: const Key('enterTextView'),
+      isNeedReloadButton: false,
+      key: enterTextViewKey,
     );
   }
 }
@@ -19,13 +23,17 @@ class EnterTextView extends StatelessWidget {
 class NetworkErrorView extends StatelessWidget {
   const NetworkErrorView({Key? key}) : super(key: key);
 
+  @visibleForTesting
+  static final networkErrorViewKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return ErrorComponent(
       lottieFile: 'assets/lottie_animation/118789-no-internet.json',
       errorTitle: S.of(context).networkError,
       errorDetail: S.of(context).networkErrorDetail,
-      key: const Key('networkErrorView'),
+      isNeedReloadButton: true,
+      key: networkErrorViewKey,
     );
   }
 }
@@ -34,13 +42,17 @@ class NetworkErrorView extends StatelessWidget {
 class ErrorView extends StatelessWidget {
   const ErrorView({Key? key}) : super(key: key);
 
+  @visibleForTesting
+  static final errorViewKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return ErrorComponent(
       lottieFile: 'assets/lottie_animation/99345-error.json',
       errorTitle: S.of(context).errorOccurred,
       errorDetail: S.of(context).errorOccurredDetail,
-      key: const Key('errorView'),
+      isNeedReloadButton: true,
+      key: errorViewKey,
     );
   }
 }
@@ -48,13 +60,17 @@ class ErrorView extends StatelessWidget {
 class NoResultView extends StatelessWidget {
   const NoResultView({Key? key}) : super(key: key);
 
+  @visibleForTesting
+  static final noResultViewKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return ErrorComponent(
       lottieFile: 'assets/lottie_animation/106964-shake-a-empty-box.json',
       errorTitle: S.of(context).noResult,
       errorDetail: S.of(context).noResultDetail,
-      key: const Key('noResultView'),
+      isNeedReloadButton: false,
+      key: noResultViewKey,
     );
   }
 }

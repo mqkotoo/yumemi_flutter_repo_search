@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../domain/repo_data_model.dart';
+import 'package:yumemi_flutter_repo_search/domain/repo_data_model.dart';
 
 class DataRepository {
   DataRepository({required this.client});
@@ -12,22 +11,17 @@ class DataRepository {
 
   Future<RepoDataModel> getData(
       {required String repoName, required String sort, int page = 1}) async {
-    try {
-      // //エラーテスト用URL
-      // final apiUri = Uri.parse('https://httpstat.us/403');
+    // //エラーテスト用URL
+    // final apiUri = Uri.parse('https://httpstat.us/429');
 
-      final apiUri = Uri.parse(
-          'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20');
-      http.Response response = await client.get(apiUri);
+    final resUrl =
+        'https://api.github.com/search/repositories?q=$repoName&sort=$sort&page=$page&per_page=20';
 
-      if (response.statusCode == 200) {
-        final jsonData = json.decode(response.body);
-        return RepoDataModel.fromJson(jsonData);
-      } else {
-        throw 'Error Occurred';
-      }
-    } on SocketException catch (_) {
-      throw 'Network Error';
-    }
+    final apiUrl = Uri.parse(Uri.encodeFull(resUrl));
+    http.Response response =
+        await client.get(apiUrl).timeout(const Duration(seconds: 30));
+
+    final jsonData = json.decode(response.body);
+    return RepoDataModel.fromJson(jsonData);
   }
 }

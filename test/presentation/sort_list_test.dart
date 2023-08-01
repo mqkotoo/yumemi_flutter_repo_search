@@ -5,7 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:yumemi_flutter_repo_search/main.dart';
-import 'package:yumemi_flutter_repo_search/presentation/controller/controllers.dart';
+import 'package:yumemi_flutter_repo_search/presentation/provider/providers.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 
 void main() {
@@ -21,7 +22,7 @@ void main() {
     );
 
     //sortボタンがあるか
-    final sortButton = find.byKey(const Key('sortButton'));
+    final sortButton = find.byKey(SearchBar.sortButtonKey);
     expect(sortButton, findsOneWidget);
 
     //ソートボタンをタップする

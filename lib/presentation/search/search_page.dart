@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_list_view.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/result_view.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_app_bar.dart';
 import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 
-class SearchPage extends ConsumerWidget {
+class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.opaque,
@@ -22,8 +20,8 @@ class SearchPage extends ConsumerWidget {
             //検索フォーム
             SearchBar(),
             Divider(),
-            //結果のリストビュー
-            ResultListview(),
+            //検索結果のリスト表示部分
+            Expanded(flex: 8, child: ResultView())
           ],
         ),
       ),

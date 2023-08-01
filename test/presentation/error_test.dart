@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,6 +7,8 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:yumemi_flutter_repo_search/main.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/error/error_widget.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/widget/search_bar.dart';
 import 'package:yumemi_flutter_repo_search/repository/http_client.dart';
 import 'package:yumemi_flutter_repo_search/theme/shared_preferences_provider.dart';
 import '../repository/repository_mock_data.dart';
@@ -33,7 +35,7 @@ void main() {
       );
 
       //""と入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, '');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
@@ -41,7 +43,7 @@ void main() {
       await tester.pump();
 
       //エラーが返ってくる("テキストを入力してください")
-      expect(find.byKey(const Key('enterTextView')), findsOneWidget);
+      expect(find.byKey(EnterTextView.enterTextViewKey), findsOneWidget);
     });
 
     testWidgets('結果が0だった時に、想定の表示がされるか', (WidgetTester tester) async {
@@ -62,26 +64,25 @@ void main() {
       );
 
       //入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, 'kjsdf；ヵjdf；kぁjsdfj');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //結果表示されるまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //エラーが返ってくる("検索結果が見つからない")
-      expect(find.byKey(const Key('noResultView')), findsOneWidget);
+      expect(find.byKey(NoResultView.noResultViewKey), findsOneWidget);
     });
 
     testWidgets('リクエストが200以外の場合エラーが返るか', (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
-      const data = RepositoryMockData.jsonData;
       final mockClient = MockClient();
       //リクエストが200以外（失敗）する想定
       when(mockClient.get(any))
-          .thenAnswer((_) async => http.Response(data, 403));
+          .thenAnswer((_) async => http.Response('Too many requests', 429));
 
       await tester.pumpWidget(
         ProviderScope(overrides: [
@@ -93,25 +94,25 @@ void main() {
       );
 
       //"flutter"と入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, 'flutter');
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //エラー表示されるまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //エラーが返ってくる
-      expect(find.byKey(const Key('errorView')), findsOneWidget);
+      expect(find.byKey(ErrorView.errorViewKey), findsOneWidget);
     });
 
     testWidgets('通信状態じゃない時の検索でネットワークエラーが返るか', (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
       //リクエストを投げると、ネットワークエラーの例外をスローする
       final mockClient = MockClient();
-      when(mockClient.get(any)).thenAnswer((_) async => throw 'Network Error');
-
+      when(mockClient.get(any)).thenThrow(
+          const SocketException('Failed host lookup: api.github.com'));
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -125,21 +126,21 @@ void main() {
       );
 
       //"flutter"と入力して検索する
-      final formField = find.byKey(const Key('inputForm'));
+      final formField = find.byKey(SearchBar.inputFormKey);
       await tester.enterText(formField, 'flutter');
       //検索ボタンを押す
       await tester.tap(formField);
       await tester.testTextInput.receiveAction(TextInputAction.search);
 
       //エラーが表示されるまで待つ
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
       await tester.pump();
 
       //トップの結果は表示されない
       expect(find.textContaining('flutter/flutter'), findsNothing);
 
       //想定エラー文
-      expect(find.byKey(const Key('networkErrorView')), findsOneWidget);
+      expect(find.byKey(NetworkErrorView.networkErrorViewKey), findsOneWidget);
     });
   });
 }
