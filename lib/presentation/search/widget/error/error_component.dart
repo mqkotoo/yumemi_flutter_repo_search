@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:yumemi_flutter_repo_search/presentation/provider/providers.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/notifier/search_state_notifier.dart';
 
 ///エラーや入力を促す際の表示のフォーマット
 class ErrorComponent extends ConsumerWidget {
@@ -60,8 +60,9 @@ class ErrorComponent extends ConsumerWidget {
                   onPressed: () {
                     ref
                         .read(searchStateNotifierProvider.notifier)
-                        .searchRepositories(ref.watch(inputRepoNameProvider),
-                            ref.watch(sortStringProvider));
+                        .searchRepositories(
+                            ref.read(textEditingControllerProvider).text.trim(),
+                            ref.read(sortStringProvider));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),

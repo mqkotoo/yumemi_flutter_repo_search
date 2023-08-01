@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:yumemi_flutter_repo_search/generated/l10n.dart';
 import 'package:yumemi_flutter_repo_search/presentation/provider/providers.dart';
-import 'package:yumemi_flutter_repo_search/presentation/search/search_state_notifier.dart';
+import 'package:yumemi_flutter_repo_search/presentation/search/notifier/search_state_notifier.dart';
 
 class SearchBar extends ConsumerWidget {
   const SearchBar({Key? key}) : super(key: key);
@@ -47,11 +47,7 @@ class SearchBar extends ConsumerWidget {
                   ref
                       .read(searchStateNotifierProvider.notifier)
                       .searchRepositories(
-                          text.trim(), ref.watch(sortStringProvider));
-                  //再検索用に文字列を持っておく
-                  ref
-                      .read(inputRepoNameProvider.notifier)
-                      .update((_) => text.trim());
+                          text.trim(), ref.read(sortStringProvider));
                 },
                 //decoration
                 decoration: InputDecoration(
